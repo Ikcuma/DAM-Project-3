@@ -17,6 +17,8 @@ public class Main {
 
         String filePath = "C:\\Users\\dunkl\\IdeaProjects\\DAM-Project-3\\src\\src\\football_manager\\resources\\market_files.txt";
         ArrayList<String> brutePersondata = new ArrayList<>();
+        ArrayList<Player> players = new ArrayList<>();
+        ArrayList<Coach> coaches = new ArrayList<>();
         try {
             BufferedReader reader = new BufferedReader(new FileReader(filePath));
             String line;
@@ -32,12 +34,12 @@ public class Main {
             String[] personData = brutePersondata.get(i).split(";");
             if (personData[0].equals("J")){
                 Player player = new Player(personData[1], personData[2], personData[3], Integer.parseInt(personData[4]), Integer.parseInt(personData[5]), Integer.parseInt(personData[6]), personData[7], Integer.parseInt(personData[8]));
+                players.add(player);
             }else{
                 Coach coach = new Coach(personData[1], personData[2], personData[3], Integer.parseInt(personData[4]), Integer.parseInt(personData[5]), Integer.parseInt(personData[6]), Boolean.parseBoolean(personData[7]));
+                coaches.add(coach);
             }
         }
-        System.out.println();
-
     }
 
     private static void chooseOptionMenu1() {
