@@ -5,10 +5,10 @@ public class Person {
     private final String surName;
     private final String birthDay;
     private int motivation; //(1-10)
-    private String anualSalary;
+    private int anualSalary;
 
     //Contructors
-    public Person(String name, String surName, String birthDay, int motivation, String anualSalary) {
+    public Person(String name, String surName, String birthDay, int motivation, int anualSalary) {
         this.name = name;
         this.surName = surName;
         this.birthDay = birthDay;
@@ -32,7 +32,7 @@ public class Person {
         return motivation;
     }
 
-    public String getAnualSalary() {
+    public int getAnualSalary() {
         return anualSalary;
     }
     //Setters
@@ -40,7 +40,7 @@ public class Person {
         this.motivation = motivation;
     }
 
-    public void setAnualSalary(String anualSalary) {
+    public void setAnualSalary(int anualSalary) {
         this.anualSalary = anualSalary;
     }
 

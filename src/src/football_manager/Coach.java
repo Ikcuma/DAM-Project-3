@@ -1,15 +1,17 @@
 package football_manager;
 
-public class Coach extends P
+public class Coach extends Person
 {
     private int victories;
     private boolean nacional;
 
     //Contructors
-    public Coach(int victories, boolean nacional) {
+    public Coach(String name, String surName, String birthDay, int motivation, int anualSalary, int victories, boolean nacional) {
+        super(name, surName, birthDay, motivation, anualSalary);
         this.victories = victories;
         this.nacional = nacional;
     }
+
 
     //Getters
     public int getVictories() {
