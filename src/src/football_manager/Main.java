@@ -15,21 +15,27 @@ public class Main {
         ArrayList<Player> players = new ArrayList<>();
         ArrayList<Coach> coaches = new ArrayList<>();
         ArrayList<Person> owners = new ArrayList<>();
+        ArrayList<Team> teams = new ArrayList<>();
 
         HashMap<String, Player> hashMapPlayers = new HashMap<>();
         HashMap<String, Coach> hashMapCoaches = new HashMap<>();
-        HashMap<String, Person> hashMapowners = new HashMap<>();
+        HashMap<String, Person> hashMapOwners = new HashMap<>();
 
 
         Person.loadPersons(brutePersonData, players, coaches, owners);
-        Person.loadHashmaps(hashMapPlayers,hashMapCoaches,hashMapowners,players,coaches,owners);
-        Team.loadTeams(bruteTeamData);
+        Person.loadHashmaps(hashMapPlayers,hashMapCoaches,hashMapOwners,players,coaches,owners);
+        Team.loadTeams(bruteTeamData,teams,hashMapPlayers,hashMapCoaches,hashMapOwners);
+        /*for (Team team : teams) {
+            team.printTeam();
+        }*/
         printWelcome();
-        chooseOptionMenu1();
+        chooseOptionMenu1(teams);
+
+
     }
 
 
-    private static void chooseOptionMenu1() {
+    private static void chooseOptionMenu1(ArrayList<Team> teams) {
         Scanner scanner = new Scanner(System.in);
         int option = scanner.nextInt();
         switch (option) {
@@ -50,6 +56,11 @@ public class Main {
                 System.out.println("Register a new player or coach ��");
                 break;
             case 5:
+                System.out.println("View team data");
+                for (Team team : teams) {
+                    team.printTeam();
+                }
+                break;
 
 
 
@@ -62,7 +73,7 @@ public class Main {
         int option = scanner.nextInt();
         switch (option) {
             case 0:
-                chooseOptionMenu1();
+                chooseOptionMenu1(new ArrayList<>());
                 break;
             case 1:
                 System.out.println("Deregister team");
