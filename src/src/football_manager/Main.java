@@ -4,43 +4,30 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args)  {
-        loadPlayers();
+        ArrayList<String> brutePersonData = new ArrayList<>();
+        ArrayList<String> bruteTeamData = new ArrayList<>();
+        ArrayList<Player> players = new ArrayList<>();
+        ArrayList<Coach> coaches = new ArrayList<>();
+        ArrayList<Person> owners = new ArrayList<>();
+
+        HashMap<String, Player> hashMapPlayers = new HashMap<>();
+        HashMap<String, Coach> hashMapCoaches = new HashMap<>();
+        HashMap<String, Person> hashMapowners = new HashMap<>();
+
+
+        Person.loadPersons(brutePersonData, players, coaches, owners);
+        Person.loadHashmaps(hashMapPlayers,hashMapCoaches,hashMapowners,players,coaches,owners);
+        Team.loadTeams(bruteTeamData);
         printWelcome();
         chooseOptionMenu1();
     }
 
-    private static void loadPlayers()  {
-
-        String filePath = "C:\\Users\\dunkl\\IdeaProjects\\DAM-Project-3\\src\\src\\football_manager\\resources\\market_files.txt";
-        ArrayList<String> brutePersondata = new ArrayList<>();
-        ArrayList<Player> players = new ArrayList<>();
-        ArrayList<Coach> coaches = new ArrayList<>();
-        try {
-            BufferedReader reader = new BufferedReader(new FileReader(filePath));
-            String line;
-            while ((line = reader.readLine())!= null) {
-                brutePersondata.add(line);
-            }
-        }catch (FileNotFoundException e) {
-            System.out.println("file not found...");
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        for (int i = 0; i < brutePersondata.size(); i++){
-            String[] personData = brutePersondata.get(i).split(";");
-            if (personData[0].equals("J")){
-                Player player = new Player(personData[1], personData[2], personData[3], Integer.parseInt(personData[4]), Integer.parseInt(personData[5]), Integer.parseInt(personData[6]), personData[7], Integer.parseInt(personData[8]));
-                players.add(player);
-            }else{
-                Coach coach = new Coach(personData[1], personData[2], personData[3], Integer.parseInt(personData[4]), Integer.parseInt(personData[5]), Integer.parseInt(personData[6]), Boolean.parseBoolean(personData[7]));
-                coaches.add(coach);
-            }
-        }
-    }
 
     private static void chooseOptionMenu1() {
         Scanner scanner = new Scanner(System.in);
