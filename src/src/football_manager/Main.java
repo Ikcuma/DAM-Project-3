@@ -25,9 +25,7 @@ public class Main {
         Person.loadPersons(brutePersonData, players, coaches, owners);
         Person.loadHashmaps(hashMapPlayers,hashMapCoaches,hashMapOwners,players,coaches,owners);
         Team.loadTeams(bruteTeamData,teams,hashMapPlayers,hashMapCoaches,hashMapOwners);
-        /*for (Team team : teams) {
-            team.printTeam();
-        }*/
+
         printWelcome();
         chooseOptionMenu1(teams);
 
@@ -61,7 +59,17 @@ public class Main {
                     team.printTeam();
                 }
                 break;
-
+            case 6:
+                System.out.println("View player or coach data");
+                break;
+            case 7:
+                System.out.println("View player or coach statistics");
+                break;
+            case 8:
+                printTraining();
+                chooseOptionMenu3();
+                break;
+            default:
 
 
 
@@ -92,6 +100,21 @@ public class Main {
                 chooseOptionMenu2();
         }
     }
+    private static void chooseOptionMenu3( {
+        Scanner scanner = new Scanner(System.in);
+        int option = scanner.nextInt();
+        switch (option) {
+            case 0:
+                chooseOptionMenu2();
+                break;
+            case 1:
+                System.out.println("Transfer player or coach");
+                break;
+            case 2:
+                System.out.println("Change player or coach position");
+                break;
+        }
+    })
 
     private static void printManageTeam() {
         System.out.println("**************************************************");
@@ -124,6 +147,18 @@ public class Main {
         System.out.println(" 9️⃣ - Transfer player 🔄");
         System.out.println(" 🔟 - Save team data 💾");
         System.out.println(" 0️⃣ - Exit 🚪");
+        System.out.println();
+        System.out.println("**************************************************");
+        System.out.print("  Choose an option: ");
+    }
+    private static void printTraining(){
+        System.out.println("**************************************************");
+        System.out.println("            Welcome to Transfer Market 💹️");
+        System.out.println("**************************************************");
+        System.out.println();
+        System.out.println(" 1️1️⃣ - Conduct training session (transfer market) 📑");
+        System.out.println(" 2️2️⃣ - Transfer player ⛓️‍💥");
+        System.out.println(" 0️0️⃣⃣- Exit 🚪");
         System.out.println();
         System.out.println("**************************************************");
         System.out.print("  Choose an option: ");

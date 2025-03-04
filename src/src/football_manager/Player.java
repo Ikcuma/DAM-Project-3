@@ -42,7 +42,9 @@ public class Player extends Person {
     }
 
     //Methods
+    public void changePosition(){
 
+    }
 
     @Override
     public String toString() {
