@@ -100,7 +100,7 @@ public class Main {
                 chooseOptionMenu2();
         }
     }
-    private static void chooseOptionMenu3( {
+    private static void chooseOptionMenu3() {
         Scanner scanner = new Scanner(System.in);
         int option = scanner.nextInt();
         switch (option) {
@@ -111,10 +111,22 @@ public class Main {
                 System.out.println("Transfer player or coach");
                 break;
             case 2:
-                System.out.println("Change player or coach position");
+                System.out.println("what player would you like to change position?");
+                scanner.nextLine();
+                String playerName= scanner.nextLine();
+                System.out.println("To what position would you like to change? (DAV,POR,DEF,MIG)");
+                String position = scanner.nextLine();
+                playerName.substring(0,1).toUpperCase();
+                position.toUpperCase();
+                Player.changePlayerPosition(playerName,position);
                 break;
+            case 3:
+                System.out.println("what couch would you like to choose to increase salary?");
+                String coachName = scanner.nextLine();
+                coachName.substring(0,1).toUpperCase();
+                //Coach.increaseSalary(coachName);
         }
-    })
+    }
 
     private static void printManageTeam() {
         System.out.println("**************************************************");
@@ -137,13 +149,13 @@ public class Main {
         System.out.println("**************************************************");
         System.out.println();
         System.out.println(" 1️⃣ - View current league standings 🏆");
-        System.out.println(" 2️⃣ - Manage team ⚽");
+        System.out.println(" 2️⃣ - Manage team ⚽...");
         System.out.println(" 3️⃣ - Register a new team 🆕");
         System.out.println(" 4️⃣ - Register a new player or coach 👥");
         System.out.println(" 5️⃣ - View team data 📊");
         System.out.println(" 6️⃣ - View player data of team 👤");
         System.out.println(" 7️⃣ - Start a new league 🏅");
-        System.out.println(" 8️⃣ - Conduct training session (transfer market) ⚡");
+        System.out.println(" 8️⃣ - Manage market ⚡...");
         System.out.println(" 9️⃣ - Transfer player 🔄");
         System.out.println(" 🔟 - Save team data 💾");
         System.out.println(" 0️⃣ - Exit 🚪");
@@ -156,9 +168,10 @@ public class Main {
         System.out.println("            Welcome to Transfer Market 💹️");
         System.out.println("**************************************************");
         System.out.println();
-        System.out.println(" 1️1️⃣ - Conduct training session (transfer market) 📑");
-        System.out.println(" 2️2️⃣ - Transfer player ⛓️‍💥");
-        System.out.println(" 0️0️⃣⃣- Exit 🚪");
+        System.out.println(" 1️⃣ - Conduct training session (transfer market) 📑");
+        System.out.println(" 2️⃣ - Change player position ⛓️‍💥");
+        System.out.println(" 3️⃣ - increase couch salary 💸");
+        System.out.println(" 0️⃣ - Exit 🚪");
         System.out.println();
         System.out.println("**************************************************");
         System.out.print("  Choose an option: ");
