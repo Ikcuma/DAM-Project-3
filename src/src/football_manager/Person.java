@@ -107,7 +107,7 @@ public class Person {
             String filePath = "C:\\Users\\dunkl\\IdeaProjects\\DAM-Project-3\\src\\src\\football_manager\\resources\\market_files.txt";
             RandomAccessFile raf = new RandomAccessFile(filePath, "rw");
             Random random = new Random();
-            int motivation = random.nextInt(10)+1;
+            int motivation = 5;
 
             System.out.println("Name:");
             String personName = scanner.nextLine();
@@ -123,7 +123,7 @@ public class Person {
                 System.out.println("position(DAV,POR,DEF,MIG):");
                 scanner.nextLine();
                 String position = scanner.nextLine();
-                int quality = random.nextInt(100)+30;
+                int quality = random.nextInt(71) + 30;
                 Player p = new Player(personName, personSurName,birthday,motivation,salary,back,position,quality);
                 String playerData =
                         "J"+";"+
