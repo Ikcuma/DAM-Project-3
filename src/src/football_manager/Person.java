@@ -1,11 +1,9 @@
 package football_manager;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Random;
 import java.util.Scanner;
 
 public class Person {
@@ -25,6 +23,8 @@ public class Person {
     }
 
     // Getters
+
+
     public String getName() {
         return name;
     }
@@ -102,10 +102,54 @@ public class Person {
     }
 
     public static void CreateNewPerson(String option) {
-        Scanner sc = new Scanner(System.in);
-        switch(option){
-            case "Player":
-        }
+        try{
+            Scanner scanner = new Scanner(System.in);
+            String filePath = "C:\\Users\\dunkl\\IdeaProjects\\DAM-Project-3\\src\\src\\football_manager\\resources\\market_files.txt";
+            RandomAccessFile raf = new RandomAccessFile(filePath, "rw");
+            Random random = new Random();
+            int motivation = random.nextInt(10)+1;
+
+            System.out.println("Name:");
+            String personName = scanner.nextLine();
+            System.out.println("surName");
+            String personSurName = scanner.nextLine();
+            System.out.println("birthday:");
+            String birthday = scanner.nextLine();
+            System.out.println("salary:");
+            int salary = scanner.nextInt();
+            if (option.equals("Player")) {
+                System.out.println("back:");
+                int back = scanner.nextInt();
+                System.out.println("position(DAV,POR,DEF,MIG):");
+                scanner.nextLine();
+                String position = scanner.nextLine();
+                int quality = random.nextInt(100)+30;
+                Player p = new Player(personName, personSurName,birthday,motivation,salary,back,position,quality);
+                String playerData =
+                        "J"+";"+
+                        p.getName() + ";" +
+                        p.getSurName() + ";" +
+                        p.getBirthDay() + ";" +
+                        p.getMotivation() + ";" +
+                        p.getAnualSalary() + ";" +
+                        p.getBack() + ";" +
+                        p.getPosition() + ";" +
+                        p.getCualityPoints() ;
+                raf.writeBytes(playerData);
+                raf.close();
+
+                System.out.println("✅" +option+ "added");
+
+
+            } else if (option.equals("Coach")) {
+                System.out.println("victories:");
+                int victories = scanner.nextInt();
+            }
+        } catch (IOException e) {
+        System.out.println("❌ Error");
+        e.printStackTrace();
+    }
+
 
     }
 

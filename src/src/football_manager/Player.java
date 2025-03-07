@@ -11,13 +11,13 @@ public class Player extends Person {
     private int cualityPoints; //(30-100)
 
     //Constructor
+
     public Player(String name, String surName, String birthDay, int motivation, int anualSalary, int back, String position, int cualityPoints) {
         super(name, surName, birthDay, motivation, anualSalary);
         this.back = back;
         this.position = position;
         this.cualityPoints = cualityPoints;
     }
-
 
 
     //Getters
@@ -33,6 +33,7 @@ public class Player extends Person {
     public int getCualityPoints() {
         return cualityPoints;
     }
+
 
     //Setters
 

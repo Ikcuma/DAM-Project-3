@@ -58,19 +58,6 @@ public class Main {
                 scanner.nextLine();
                 String optionPCO = scanner.nextLine();
                 optionPCO = capitalizeFirstLetterNames(optionPCO);
-                switch (optionPCO) {
-                    case "Player":
-                        System.out.println("Name:");
-                        String personName = scanner.nextLine();
-                        System.out.println("surName");
-                        String personSurName = scanner.nextLine();
-                        System.out.println();
-
-                }
-
-
-
-
                 Person.CreateNewPerson(optionPCO);
 
                 break;
@@ -200,7 +187,7 @@ public class Main {
         System.out.println(" 1️⃣ - View current league standings 🏆");
         System.out.println(" 2️⃣ - Manage team ⚽...");
         System.out.println(" 3️⃣ - Register a new team 🆕");
-        System.out.println(" 4️⃣ - Register a new player or coach 👥");
+        System.out.println(" 4️⃣ - Register a new player, coach or Owner 👥");
         System.out.println(" 5️⃣ - View team data 📊");
         System.out.println(" 6️⃣ - View player data of team 👤");
         System.out.println(" 7️⃣ - Start a new league 🏅");
