@@ -33,7 +33,21 @@ public class Team {
     }
 
 
+
     //Getters
+
+
+    public String getName() {
+        return name;
+    }
+
+    public int getBirthDate() {
+        return birthDate;
+    }
+
+    public String getCity() {
+        return city;
+    }
 
     public List<Player> getPlayers() {
         return players;
@@ -48,6 +62,31 @@ public class Team {
     }
 
     //Setters
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setBirthDate(int birthDate) {
+        this.birthDate = birthDate;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public void setPlayers(List<Player> players) {
+        this.players = players;
+    }
+
+    public void setCoach(Coach coach) {
+        this.coach = coach;
+    }
+
+    public void setOwner(Person owner) {
+        this.owner = owner;
+    }
+
     //Methods
     public static void loadTeams(ArrayList<String> bruteTeamData, ArrayList<Team> teams,
                                  HashMap<String, Player> hashMapPlayers,
@@ -96,7 +135,7 @@ public class Team {
         }
     }
 
-    public void printTeam() {
+    /*public void printTeamData(String teamName) {
         System.out.println("Team: " + name);
         System.out.println("President: " + owner.getName() + " " + owner.getSurName());
         System.out.println("Players:");
@@ -104,7 +143,7 @@ public class Team {
             System.out.println(player.getName() + " " + player.getSurName() + " - Motivation: " + player.getMotivation());
         }
         System.out.println("Coach: " + coach.getName() + " " + coach.getSurName() + " - Motivation: " + coach.getMotivation());
-    }
+    }*/
 
 
 
@@ -121,5 +160,7 @@ public class Team {
                 ", owner=" + owner +
                 '}';
     }
+
+
 }
 

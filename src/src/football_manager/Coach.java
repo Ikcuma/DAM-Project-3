@@ -1,9 +1,6 @@
 package football_manager;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 
 public class Coach extends Person
@@ -37,35 +34,52 @@ public class Coach extends Person
     }
 
     //Methods
-    /*public static void increaseSalary(String coachName) {
+    public static void increaseSalary(String coachName) {
         String filePath = "C:\\Users\\dunkl\\IdeaProjects\\DAM-Project-3\\src\\src\\football_manager\\resources\\market_files.txt";
 
-        char firstLetter = 'E';
-
-        ArrayList<String[]> localPlayerData = new ArrayList<>();
         try {
-            BufferedReader reader = new BufferedReader(new FileReader(filePath));
+            RandomAccessFile raf = new RandomAccessFile(filePath, "rw");
             String line;
-            while ((line = reader.readLine()) != null) {
-                if (line.charAt(0) == firstLetter){
-                    String[] split = line.split(";");
-                    localPlayerData.add(split);
+            long position = 0;
+            boolean found = false;
+
+            while ((line = raf.readLine()) != null) {
+                long currentPos = raf.getFilePointer();
+                String[] parts = line.split(";");
+
+                if (parts.length > 7 && parts[1].equals(coachName)) {
+                    int value = Integer.parseInt(parts[5]);
+                    value += value * 0.05;
+                    parts[5] = String.valueOf(value);
+                    String newLine = String.join(";", parts);
+
+                    raf.seek(position);
+                    raf.writeBytes(newLine);
+
+                    if (newLine.length() < line.length()) {
+                        for (int i = newLine.length(); i < line.length(); i++) {
+                            raf.writeBytes(" ");
+                        }
+                    }
+                    found = true;
+                    break;
                 }
+                position = currentPos;
             }
-        } catch (FileNotFoundException e) {
-            System.out.println("File not found...");
+
+            raf.close();
+
+            if (found) {
+                System.out.println("Salary increased of coach: " + coachName );
+            } else {
+                System.out.println("Coach not found");
+            }
+
         } catch (IOException e) {
-            throw new RuntimeException("Error reading file", e);
-        }
-        for (int i = 0; i < localPlayerData.size(); i++) {
-            String[] parts = localPlayerData.get(i);
-            if (parts[1].equals(coachName)) {
-                parts[7] = coachNewSalary;
-                localPlayerData.set(i, parts);
-                break;
-            }
+            System.out.println("Error al modificar el archivo.");
+            e.printStackTrace();
         }
 
-    }*/
+    }
 
 }

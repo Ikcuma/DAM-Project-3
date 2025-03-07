@@ -6,6 +6,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Scanner;
 
 public class Person {
     protected final String name;
@@ -99,6 +100,15 @@ public class Person {
             }
         }
     }
+
+    public static void CreateNewPerson(String option) {
+        Scanner sc = new Scanner(System.in);
+        switch(option){
+            case "Player":
+        }
+
+    }
+
 
 
     public static void loadHashmaps(HashMap<String, Player> players, HashMap<String, Coach> coaches, HashMap<String, Person> owners,

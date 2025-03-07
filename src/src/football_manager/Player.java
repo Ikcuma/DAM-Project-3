@@ -70,21 +70,17 @@ public class Player extends Person {
                                 parts[7] = PlayerPosition;
                                 String newLine = String.join(";", parts);
 
-
                                 raf.seek(position);
                                 raf.writeBytes(newLine);
-
 
                                 if (newLine.length() < line.length()) {
                                     for (int i = newLine.length(); i < line.length(); i++) {
                                         raf.writeBytes(" ");
                                     }
                                 }
-
                                 found = true;
                                 break;
                             }
-
                             position = currentPos;
                         }
 

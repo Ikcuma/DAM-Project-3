@@ -9,7 +9,9 @@ import java.util.HashSet;
 import java.util.Scanner;
 
 public class Main {
+
     public static void main(String[] args)  {
+
         ArrayList<String> brutePersonData = new ArrayList<>();
         ArrayList<String> bruteTeamData = new ArrayList<>();
         ArrayList<Player> players = new ArrayList<>();
@@ -51,13 +53,34 @@ public class Main {
                 System.out.println("Register a new team ���");
                 break;
             case 4:
-                System.out.println("Register a new player or coach ��");
+                System.out.println("Register a new player, coach or owner ��");
+                System.out.println("Choose between Player, Coach and Owner");
+                scanner.nextLine();
+                String optionPCO = scanner.nextLine();
+                optionPCO = capitalizeFirstLetterNames(optionPCO);
+                switch (optionPCO) {
+                    case "Player":
+                        System.out.println("Name:");
+                        String personName = scanner.nextLine();
+                        System.out.println("surName");
+                        String personSurName = scanner.nextLine();
+                        System.out.println();
+
+                }
+
+
+
+
+                Person.CreateNewPerson(optionPCO);
+
                 break;
             case 5:
                 System.out.println("View team data");
-                for (Team team : teams) {
-                    team.printTeam();
-                }
+                System.out.println("What team would you like to check the data?");
+                scanner.nextLine();
+                String teamName = scanner.nextLine();
+                teamName = capitalizeFirstLetterNames(teamName);
+                printTeamData(teamName, teams);
                 break;
             case 6:
                 System.out.println("View player or coach data");
@@ -76,6 +99,29 @@ public class Main {
         }
     }
 
+    private static void printTeamData(String teamName, ArrayList<Team> teams) {
+        for (Team team : teams) {
+            if (team.getName().equalsIgnoreCase(teamName)) {
+                System.out.println("**************************************************");
+                System.out.println("                 TEAM DATA 📊");
+                System.out.println("**************************************************");
+                System.out.println("🏆 Team: " + team.getName());
+                System.out.println("👑 President: " + team.getOwner().getName() + " " + team.getOwner().getSurName());
+                System.out.println("🎽 Players:");
+
+                for (Player player : team.getPlayers()) {
+                    System.out.println("   - " + player.getName() + " " + player.getSurName() +
+                            " | Position: " + player.getPosition() +
+                            " | Motivation: " + player.getMotivation());
+                }
+
+                System.out.println("🎩 Coach: " + team.getCoach().getName() + " " + team.getCoach().getSurName() +
+                        " | Motivation: " + team.getCoach().getMotivation());
+                System.out.println("**************************************************");
+                return;
+            }
+        }
+    }
     private static void chooseOptionMenu2() {
         Scanner scanner = new Scanner(System.in);
         int option = scanner.nextInt();
@@ -122,11 +168,14 @@ public class Main {
                 break;
             case 3:
                 System.out.println("what couch would you like to choose to increase salary?");
+                scanner.nextLine();
                 String coachName = scanner.nextLine();
-                coachName.substring(0,1).toUpperCase();
-                //Coach.increaseSalary(coachName);
+                coachName = capitalizeFirstLetterNames(coachName);
+                Coach.increaseSalary(coachName);
         }
     }
+
+
 
     private static void printManageTeam() {
         System.out.println("**************************************************");
@@ -176,4 +225,13 @@ public class Main {
         System.out.println("**************************************************");
         System.out.print("  Choose an option: ");
     }
+
+    private static String capitalizeFirstLetterNames(String name) {
+        if (name == null || name.isEmpty()) {
+            return name;
+        }
+        return name.substring(0, 1).toUpperCase() + name.substring(1).toLowerCase();
+
+    }
+
 }
