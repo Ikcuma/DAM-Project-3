@@ -1,6 +1,3 @@
-J;Robert;Lewandowski;21/08/1988;8;33000000;9;DAV;94
-E;Hansi;Flick;24/02/1965;7;3000000;8;false
-J;Marc-André;ter Stegen;30/04/1992;9;15000000;1;POR;90
 J;Jules;Koundé;12/11/1998;8;10000000;23;DEF;88
 J;Alejandro;Balde;18/10/2003;9;3000000;12;DEF;85
 J;Ronald;Araújo;07/03/1999;8;5000000;4;DEF;87

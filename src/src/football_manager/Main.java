@@ -29,13 +29,13 @@ public class Main {
         Team.loadTeams(bruteTeamData,teams,hashMapPlayers,hashMapCoaches,hashMapOwners);
 
         printWelcome();
-        chooseOptionMenu1(teams);
+        chooseOptionMenu1(teams, hashMapPlayers,hashMapCoaches,hashMapOwners);
 
 
     }
 
 
-    private static void chooseOptionMenu1(ArrayList<Team> teams) {
+    private static void chooseOptionMenu1(ArrayList<Team> teams, HashMap<String, Player> players, HashMap<String, Coach> coaches, HashMap<String, Person> owners) {
         Scanner scanner = new Scanner(System.in);
         int option = scanner.nextInt();
         switch (option) {
@@ -58,7 +58,7 @@ public class Main {
                 scanner.nextLine();
                 String optionPCO = scanner.nextLine();
                 optionPCO = capitalizeFirstLetterNames(optionPCO);
-                Person.CreateNewPerson(optionPCO);
+                Person.createNewPerson(optionPCO, players, coaches, owners);
 
                 break;
             case 5:
@@ -114,7 +114,7 @@ public class Main {
         int option = scanner.nextInt();
         switch (option) {
             case 0:
-                chooseOptionMenu1(new ArrayList<>());
+                chooseOptionMenu1(new ArrayList<>(), new HashMap<>(),new HashMap<>(),new HashMap<>());
                 break;
             case 1:
                 System.out.println("Deregister team");
@@ -218,7 +218,6 @@ public class Main {
             return name;
         }
         return name.substring(0, 1).toUpperCase() + name.substring(1).toLowerCase();
-
     }
 
 }

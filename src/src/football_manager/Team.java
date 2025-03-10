@@ -135,20 +135,6 @@ public class Team {
         }
     }
 
-    /*public void printTeamData(String teamName) {
-        System.out.println("Team: " + name);
-        System.out.println("President: " + owner.getName() + " " + owner.getSurName());
-        System.out.println("Players:");
-        for (Player player : players) {
-            System.out.println(player.getName() + " " + player.getSurName() + " - Motivation: " + player.getMotivation());
-        }
-        System.out.println("Coach: " + coach.getName() + " " + coach.getSurName() + " - Motivation: " + coach.getMotivation());
-    }*/
-
-
-
-
-
     @Override
     public String toString() {
         return "Team{" +
