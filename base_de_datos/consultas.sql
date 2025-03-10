@@ -67,7 +67,7 @@ group by equips.nom
 order by gols_totals_rebuts asc
 limit 3;
 
-grant select on football_manager.equipos_menos_goleados to 'periosistaAS'@'localhost';
+grant select on football_manager.equipos_menos_goleados to 'periodistaAS'@'localhost';
 
 select * from equipos_menos_goleados;
 
@@ -335,4 +335,104 @@ having gols_total >= (select sum(case when partits.equips_id_local = e1.id then 
 order by gols_total desc;
 
 -- Consultes de manipulació de dades;
--- 1 
+-- 1
+select * from partits;
+ 
+update partits
+inner join jornades on partits.jornades_id = jornades.id
+inner join lligues on jornades.lligues_id = lligues.id
+set partits.gols_local = 0, partits.gols_visitant = 0, partits.punts_local = 1, partits.punts_visitant = 1
+where jornades.jornada = 5
+	and lligues.nom = @nom_lliga
+    and lligues.tmeporada = @temporada;
+
+-- 2
+select * from ciutats;
+select * from equips;
+
+delete ciutats
+from ciutats
+left join equips on ciutats.id = equips.ciutats_id
+where equips.ciutats_id is null;
+
+-- 3
+select * from persones;
+
+update persones
+set nivell_motivacio = nivell_motivacio * 0.9
+where sou < 5000000 and year(curdate()) - year(data_naixement) >= 35;
+
+-- 4
+select * from jugadors;
+select * from posicions;
+select * from equips;
+
+set @posicio = 'Porter';
+
+update jugadors
+inner join persones on jugadors.persones_id = persones.id
+inner join posicions on jugadors.posicions_id = posicions.id
+inner join jugadors_equips on jugadors.persones_id = jugadors_equips.jugadors_id
+inner join equips on jugadors_equips.equips_id = equips.id
+set jugadors.qualitat = jugadors.qualitat + 3
+where posicions.posicio = @posicio
+and equips.filial_equips_id is null;
+
+-- 5
+select * from jugadors;
+select * from jugadors_equips;
+
+alter table jugadors
+add column disponible tinyint not null default 0;
+
+update jugadors
+inner join jugadors_equips on jugadors.persones_id = jugadors_equips.jugadors_id
+set jugadors.disponible = 1
+where jugadors_equips.data_fitxatge between '2024-01-01' and '2024-03-31';
+
+-- 6
+select * from lligues;
+select * from equips;
+select * from jornades;
+select * from ciutats;
+select * from estadis;
+select * from jornades;
+select * from partits;
+
+insert into lligues (nom, temporada) 
+values ('Premier League',2024);
+
+insert into ciutats (id, nom)
+values 
+(17, 'Liverpool'),
+(18, 'Londres'),
+(19, 'Manchester'),
+(20, 'Brighton'),
+(21, 'Birmingham');
+
+insert into estadis (id, nom, num_espectadors)
+values
+(25, 'Anfield', 54000),
+(26, 'Emirates Stadium', 60000),
+(27, 'Stamford Bridge', 40000),
+(28, 'Etihand Stadium', 53000),
+(29, 'Amex Stadium', 30000),
+(30, 'Villa Park', 42000);
+
+insert into equips(nom, any_fundacio, nom_president, ciutats_id, estadis_id)
+values
+('Liverpool', 1892, 'Tom Werner', 17, 25),
+('Arsenal', 1886, 'Sir Chips Keswick', 18, 26),
+('Chelsea', 1905, 'Todd Boehly', 18, 27),
+('Manchester City', 1880, 'Khaldoon Al Mubarak', 19, 28),
+('Brighton', 1901, 'Tony Bloom', 20, 29),
+('Aston Villa', 1874, 'Nassef Sawiris', 21, 30);
+
+insert into jornades (id, jornada, data, lligues_id)
+values
+(39, 1, '2024-08-20', 2),
+(40, 1, '2024-08-20', 2),
+(41, 1, '2024-08-20', 2),
+(42, 1, '2024-08-20', 2),
+(43, 1, '2024-08-20', 2),
+(44, 1, '2024-08-20', 2);
