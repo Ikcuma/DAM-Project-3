@@ -3,6 +3,7 @@ package football_manager;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Random;
 
 public class Player extends Person {
@@ -100,6 +101,25 @@ public class Player extends Person {
                 } else {
                 System.out.println("Inténtalo de nuevo.");
             }
+    }
+    public static void printPlayerData(String playerName, HashMap<String, Player> players){
+        Player player = players.get(playerName);
+        if(player!= null){
+            System.out.println("════════════════════════════════════════════");
+            System.out.println("  Player Information: " + playerName);
+            System.out.println("════════════════════════════════════════════");
+            System.out.println("Name: " + player.getName());
+            System.out.println("Surname: " + player.getSurName());
+            System.out.println("Date of Birth: " + player.getBirthDay());
+            System.out.println("Motivation: " + player.getMotivation() + " points");
+            System.out.println("Annual Salary: $" + player.getAnualSalary());
+            System.out.println("Position: " + player.getPosition());
+            System.out.println("Quality Points: " + player.getCualityPoints());
+            System.out.println("Jersey Number: " + player.getBack());
+            System.out.println("════════════════════════════════════════════");
+        } else {
+            System.out.println("Player not found.");
+        }
     }
 }
 

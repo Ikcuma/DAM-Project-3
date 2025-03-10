@@ -48,9 +48,11 @@ public class Main {
             case 2:
                 printManageTeam();
                 chooseOptionMenu2();
+
                 break;
             case 3:
                 System.out.println("Register a new team ���");
+                Team.registerTeam(players, coaches, owners);
                 break;
             case 4:
                 System.out.println("Register a new player, coach or owner ��");
@@ -71,6 +73,15 @@ public class Main {
                 break;
             case 6:
                 System.out.println("View player or coach data");
+                String optionData = scanner.nextLine();
+                optionData = capitalizeFirstLetterNames(optionData);
+                if (optionData.equals("Player")){
+                    Player.printPlayerData(optionData, players);
+                } else if (optionData.equals("Coach")) {
+                    Coach.printCoachData(optionData, coaches);
+                } else{
+                    System.out.println("Invalid option. Please choose between Player or Coach");
+                }
                 break;
             case 7:
                 System.out.println("View player or coach statistics");
@@ -168,6 +179,7 @@ public class Main {
         System.out.println("**************************************************");
         System.out.println("            Welcome to Team Manager ⚽️");
         System.out.println("**************************************************");
+
         System.out.println();
         System.out.println(" 1️⃣ - Deregister team ❌");
         System.out.println(" 2️⃣ - Modify president 👔");

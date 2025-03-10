@@ -2,6 +2,7 @@ package football_manager;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Coach extends Person
 {
@@ -81,5 +82,23 @@ public class Coach extends Person
         }
 
     }
+    public static void printCoachData(String coachName, HashMap<String, Coach> coaches){
+            Coach coach = coaches.get(coachName);
+            if(coach!= null){
+                System.out.println("════════════════════════════════════════════");
+                System.out.println("  Player Information: " + coachName);
+                System.out.println("════════════════════════════════════════════");
+                System.out.println("Name: " + coach.getName());
+                System.out.println("Surname: " + coach.getSurName());
+                System.out.println("Date of Birth: " + coach.getBirthDay());
+                System.out.println("Motivation: " + coach.getMotivation() + " points");
+                System.out.println("Annual Salary: $" + coach.getAnualSalary());
+                System.out.println("Victories: " + coach.getVictories());
+                System.out.println("Is he nacional?: " + coach.isNacional());
+                System.out.println("════════════════════════════════════════════");
+            } else {
+                System.out.println("Coach not found.");
+            }
+        }
+    }
 
-}
