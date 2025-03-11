@@ -1,8 +1,5 @@
 package football_manager;
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -30,7 +27,10 @@ public class Main {
 
         printWelcome();
         chooseOptionMenu1(teams, hashMapPlayers,hashMapCoaches,hashMapOwners);
+        //HACER UN METODOS PARA REESCRIBIR LOS ARCHIVOS OSEA EDITAS LOS ARRAYS O HASHMAPS Y LUEGO EL METODO LO PILLO Y REESCRIBE TODO, reescriir lo archivo siempre que la aplicacion cierre
 
+
+        reewriteFileMarket(players, coaches, owners, teams);
 
     }
 
@@ -47,7 +47,7 @@ public class Main {
                 break;
             case 2:
                 printManageTeam();
-                chooseOptionMenu2();
+                chooseOptionMenu2(teams);
                 break;
             case 3:
                 System.out.println("Register a new team ���");
@@ -109,7 +109,7 @@ public class Main {
             }
         }
     }
-    private static void chooseOptionMenu2() {
+    private static void chooseOptionMenu2(HashMap <String, Team> teams) {
         Scanner scanner = new Scanner(System.in);
         int option = scanner.nextInt();
         switch (option) {
@@ -118,6 +118,7 @@ public class Main {
                 break;
             case 1:
                 System.out.println("Deregister team");
+                Team.deregisterTeam(teams);
                 break;
             case 2:
                 System.out.println("Modify president");
@@ -219,5 +220,41 @@ public class Main {
         }
         return name.substring(0, 1).toUpperCase() + name.substring(1).toLowerCase();
     }
+    private static void reewriteFileMarket(ArrayList<Player> players, ArrayList<Coach> coaches, ArrayList<Person> owners,ArrayList<Team> teams) {
+        String filePath = "C:\\Users\\dunkl\\IdeaProjects\\DAM-Project-3\\src\\src\\football_manager\\resources\\market_files.txt";
+
+        try (BufferedWriter w = new BufferedWriter(new FileWriter(filePath))) {
+            for (Player p : players) {
+                String playerData = String.format("J;%s;%s;%s;%d;%d;%d;%s;%d%n",
+                        p.getName(), p.getSurName(), p.getBirthDay(), p.getMotivation(),
+                        p.getAnualSalary(), p.getBack(), p.getPosition(), p.getCualityPoints());
+                w.write(playerData);
+            }
+
+            for (Coach c : coaches) {
+                String coachData = String.format("E;%s;%s;%s;%d;%d;%d;%b%n",
+                        c.getName(), c.getSurName(), c.getBirthDay(), c.getMotivation(),
+                        c.getAnualSalary(), c.getVictories(), c.isNacional());
+                w.write(coachData);
+            }
+
+            for (Person o : owners) {
+                String ownerData = String.format("T;%s;%d;%s;%s;%s%n",
+                        o.getName(), o.getSurName(), o.getBirthDay(), o.getMotivation(),o.getAnualSalary());
+                w.write(ownerData);
+            }
+            for (Team t : teams) {
+                String teamData = String.format("T;%s;%d;%s;%s;%s%n",
+                        t.getName(), t.getBirthDate(), t.getCity(),
+                        t.getCoach().getName(), t.getOwner().getName());
+                w.write(teamData);
+            }
+            System.out.println("Changes saved");
+        } catch (IOException e) {
+            System.out.println("Error al escribir en el archivo: " + e.getMessage());
+        }
+    }
+
+
 
 }

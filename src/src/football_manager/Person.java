@@ -173,7 +173,7 @@ public class Person {
             }
         }
 
-        private static int validateIntegerInput(Scanner scanner) {
+        public static int validateIntegerInput(Scanner scanner) {
             while (true) {
                 try {
                     return scanner.nextInt();
@@ -183,11 +183,11 @@ public class Person {
                 }
             }
         }
-    private static boolean isNameDuplicate(String name,HashMap<String, Player> players, HashMap<String, Coach> coaches, HashMap<String, Person> owners) {
+    public static boolean isNameDuplicate(String name,HashMap<String, Player> players, HashMap<String, Coach> coaches, HashMap<String, Person> owners) {
         return players.containsKey(name) || coaches.containsKey(name) || owners.containsKey(name);
     }
 
-    private static String capitalizeFirstLetterNames(String name) {
+    public static String capitalizeFirstLetterNames(String name) {
         if (name == null || name.isEmpty()) {
             return name;
         }

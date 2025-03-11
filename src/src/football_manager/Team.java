@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Scanner;
 
 public class Team {
     private String name;
@@ -32,6 +33,16 @@ public class Team {
         this.owner = owner;
     }
 
+    public static void deregisterTeam(HashMap<String, Team> teams) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("which team would you like to deregister?");
+        String option = scanner.nextLine();
+        Team t = teams.get(option);
+        if (t != null) {
+
+        }
+
+    }
 
 
     //Getters
