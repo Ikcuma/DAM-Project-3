@@ -148,7 +148,7 @@ public class Person {
                     boolean nacional = scanner.nextLine().trim().equalsIgnoreCase("yes");
 
                     Coach c = new Coach(personName, personSurName, birthday, motivation, salary, victories, nacional);
-                    String coachData = String.format("E;%s;%s;%s;%d;%d;%d;%b%n",
+                    String coachData = String.format("E;%s;%s;%s;%d;%d;%d;%  b%n",
                             c.getName(), c.getSurName(), c.getBirthDay(), c.getMotivation(),
                             c.getAnualSalary(), c.getVictories(), c.isNacional());
 
