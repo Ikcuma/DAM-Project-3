@@ -392,12 +392,20 @@ where jugadors_equips.data_fitxatge between '2024-01-01' and '2024-03-31';
 
 -- 6
 select * from lligues;
-select * from equips;
-select * from jornades;
-select * from ciutats;
-select * from estadis;
 select * from jornades;
 select * from partits;
+select * from partits_gols;
+select * from jugadors;
+select * from posicions;
+select * from jugadors_equips;
+select * from equips;
+select * from participar_lligues;
+select * from ciutats;
+select * from estadis;
+select * from entrenar_equips;
+select * from entrendors;
+select * from persones;
+
 
 insert into lligues (nom, temporada) 
 values ('Premier League',2024);
@@ -436,3 +444,75 @@ values
 (42, 1, '2024-08-20', 2),
 (43, 1, '2024-08-20', 2),
 (44, 1, '2024-08-20', 2);
+
+insert into partits (id, gols_local, gols_visitant, punts_local, punts_visitant, jornades_id, equips_id_local, equips_id_visitant)
+values
+-- jornada 1
+(null, 4, 2, 3, 0, 39, 1, 6),
+(null, 2, 5, 0, 3, 39, 2, 5),
+(null, 3, 3, 1, 1, 39, 3, 4),
+-- jornada 2
+(null, 0, 2, 0, 1, 40, 6, 4),
+(null, 1, 1, 1, 1, 40, 5, 3),
+(null, 2, 4, 0, 1, 40, 1, 2),
+-- jornada 3
+(null, 0, 0, 1, 1, 41, 3, 6),
+(null, 4, 4, 1, 1, 41, 4, 2),
+(null, 3, 2, 3, 0, 41, 5, 1),
+-- jornada 4
+(null, 2, 5, 0, 3, 42, 6, 5),
+(null, 0, 0, 1, 1, 42, 1, 4),
+(null, 3, 3, 1, 1, 42, 2, 3),
+-- jornada 5
+(null, 5, 1, 3, 0, 43, 4, 5),
+(null, 2, 2, 1, 1, 43, 3, 1),
+(null, 4, 1, 3, 0, 43, 6, 2),
+-- jornada 6
+(null, 2, 3, 0, 3, 44, 2, 1),
+(null, 1, 5, 0, 3, 44, 5, 6),
+(null, 4, 4, 1, 1, 44, 4, 3);
+
+insert into persones (id, nom, cognoms, data_naixement, nivell_motivacio, sou, tipus_persona)
+values
+(121, 'Alisson', 'Becker', '1992-10-02', 88, 7800000, 'jugador'),
+(122, 'Mohamed', 'Salah', '1992-06-15', 90, 18200000, 'jugador'),
+(123, 'Jürgen', 'Klopp', '1967-06-16', 85, 16000000, 'entrenador'),
+(124, 'David', 'Raya', '1995-09-15', 80, 1560000, 'jugador'),
+(125, 'Martin', 'Odegaard', '1998-12', 84, 6000000, 'jugador'),
+(126, 'Mikel', 'Arteta', '1982-03-26', 92, 10000000, 'entrenador'),
+(127, 'Dorde', 'Petrovic', '1999-10-08', 81, 1300000, 'jugador'),
+(128, 'Moises', 'Caicedo', '2001-11-02', 95, 6000000, 'jugador'),
+(129, 'Mauricio', 'Pochettino', '1972-03-02', 90, 8000000, 'entrenador'),
+(130, 'Ederson', 'Moraes', '1993-08-17', 86, 5200000, 'jugador'),
+(131, 'Erling', 'Haaland', '2000-07-21', 88, 22400000, 'jugador'),
+(132, 'Pep', 'Guardiola', '1971-01-18', 94, 20000000, 'entrenador'),
+(133, 'Bart', 'Verbruggen', '2002-08-18', 92, 1040000, 'jugador'),
+(134, 'Pervis', 'Estupiñan', '1998-01-21', 92, 2300000, 'jugador'),
+(135, 'Roberto', 'Zerbi', '1979-06-06', 82, 2000000, 'entrenador'),
+(136, 'Emiliano', 'Martínez', '1992-09-02', 93, 5200000, 'jugador'),
+(137, 'Ollie', 'Watkins', '1995-12-30', 87, 3900000, 'jugador'),
+(138, 'Unai', 'Emery', '1971-11-03', 92, 8000000, 'entrenador');
+
+insert into entrenadors
+values 
+(123, 15, 0),
+(126, 15, 0),
+(129, 15, 0),
+(132, 15, 0),
+(135, 15, 0),
+(138, 15, 0);
+
+insert into jugadors(persones_id, dorsal, qualitat, posicions_id)
+values 
+(121, 1, 85, 1),
+(122, 11, 90, 4),
+(124, 22, 88, 1),
+(125, 8, 82, 3),
+(127, 30, 84, 1),
+(128, 25, 95, 3),
+(130, 31, 89, 1),
+(131, 9, 84, 4),
+(133, 13, 91, 1),
+(134, 30, 95, 2),
+(136, 1, 87, 1),
+(137, 11, 77, 4);

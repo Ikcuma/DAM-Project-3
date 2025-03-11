@@ -148,7 +148,7 @@ public class Person {
                     boolean nacional = scanner.nextLine().trim().equalsIgnoreCase("yes");
 
                     Coach c = new Coach(personName, personSurName, birthday, motivation, salary, victories, nacional);
-                    String coachData = String.format("E;%s;%s;%s;%d;%d;%d;%b%n",
+                    String coachData = String.format("E;%s;%s;%s;%d;%d;%d;%  b%n",
                             c.getName(), c.getSurName(), c.getBirthDay(), c.getMotivation(),
                             c.getAnualSalary(), c.getVictories(), c.isNacional());
 
@@ -173,7 +173,7 @@ public class Person {
             }
         }
 
-        private static int validateIntegerInput(Scanner scanner) {
+        public static int validateIntegerInput(Scanner scanner) {
             while (true) {
                 try {
                     return scanner.nextInt();
@@ -183,11 +183,11 @@ public class Person {
                 }
             }
         }
-    private static boolean isNameDuplicate(String name,HashMap<String, Player> players, HashMap<String, Coach> coaches, HashMap<String, Person> owners) {
+    public static boolean isNameDuplicate(String name,HashMap<String, Player> players, HashMap<String, Coach> coaches, HashMap<String, Person> owners) {
         return players.containsKey(name) || coaches.containsKey(name) || owners.containsKey(name);
     }
 
-    private static String capitalizeFirstLetterNames(String name) {
+    public static String capitalizeFirstLetterNames(String name) {
         if (name == null || name.isEmpty()) {
             return name;
         }
