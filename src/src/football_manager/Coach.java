@@ -16,7 +16,7 @@ public class Coach extends Person
         this.nacional = nacional;
     }
 
-
+e
     //Getters
     public int getVictories() {
         return victories;
