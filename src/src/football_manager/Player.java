@@ -6,6 +6,8 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Random;
 
+import static football_manager.Main.reewriteFileMarket;
+
 public class Player extends Person {
     private int back;
     private String position;
@@ -53,53 +55,25 @@ public class Player extends Person {
     //Methods
 
 
-        public static void changePlayerPosition(String PlayerName, String PlayerPosition) {
-            boolean realiza = Math.random() < 0.05;
+    public static void changePlayerPosition(String playerName, String newPosition,
+                                            HashMap<String, Player> hashPlayers,
+                                            ArrayList<Player> players) {
+
+        boolean realiza = Math.random() < 0.05;
             if (realiza) {
-                    String filePath = "C:\\Users\\dunkl\\IdeaProjects\\DAM-Project-3\\src\\src\\football_manager\\resources\\market_files.txt";
-
-                    try {
-                        RandomAccessFile raf = new RandomAccessFile(filePath, "rw");
-                        String line;
-                        long position = 0;
-                        boolean found = false;
-
-                        while ((line = raf.readLine()) != null) {
-                            long currentPos = raf.getFilePointer();
-                            String[] parts = line.split(";");
-
-                            if (parts.length > 7 && parts[1].equals(PlayerName)) {
-                                parts[7] = PlayerPosition;
-                                String newLine = String.join(";", parts);
-
-                                raf.seek(position);
-                                raf.writeBytes(newLine);
-
-                                if (newLine.length() < line.length()) {
-                                    for (int i = newLine.length(); i < line.length(); i++) {
-                                        raf.writeBytes(" ");
-                                    }
-                                }
-                                found = true;
-                                break;
-                            }
-                            position = currentPos;
+                Player player = hashPlayers.get(playerName);
+                if (player != null) {
+                    player.setPosition(newPosition);
+                    for(Player p : players) {
+                        if(p.getName().equals(playerName)) {
+                            p.setPosition(newPosition);
+                            break;
                         }
-
-                        raf.close();
-
-                        if (found) {
-                            System.out.println("Posición de " + PlayerName + " cambiada a " + PlayerPosition);
-                        } else {
-                            System.out.println("Jugador no encontrado.");
-                        }
-
-                    } catch (IOException e) {
-                        System.out.println("Error al modificar el archivo.");
-                        e.printStackTrace();
                     }
+                    System.out.println("Position changed for player: " + playerName);
                 } else {
-                System.out.println("Inténtalo de nuevo.");
+                    System.out.println("Inténtalo de nuevo.");
+                }
             }
     }
     public static void printPlayerData(String playerName, HashMap<String, Player> players){
@@ -121,6 +95,13 @@ public class Player extends Person {
             System.out.println("Player not found.");
         }
     }
+
+    @Override
+    public String toString() {
+        return "Player{" +
+                "name='" + name + '\'' +
+                '}';
+    }
 }
-e
+
 

@@ -1,14 +1,13 @@
 package football_manager;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Scanner;
 
 public class Main {
 
-    public static void main(String[] args)  {
-
+    public static void main(String[] args) {
         ArrayList<String> brutePersonData = new ArrayList<>();
         ArrayList<String> bruteTeamData = new ArrayList<>();
         ArrayList<Player> players = new ArrayList<>();
@@ -20,223 +19,195 @@ public class Main {
         HashMap<String, Coach> hashMapCoaches = new HashMap<>();
         HashMap<String, Person> hashMapOwners = new HashMap<>();
 
-
-        Person.loadPersons(brutePersonData, players, coaches, owners);
-        Person.loadHashmaps(hashMapPlayers,hashMapCoaches,hashMapOwners,players,coaches,owners);
-        Team.loadTeams(bruteTeamData,teams,hashMapPlayers,hashMapCoaches,hashMapOwners);
+        try {
+            Person.loadPersons(brutePersonData, players, coaches, owners);
+            Person.loadHashmaps(hashMapPlayers, hashMapCoaches, hashMapOwners, players, coaches, owners);
+            Team.loadTeams(bruteTeamData, teams, hashMapPlayers, hashMapCoaches, hashMapOwners);
+        } catch (IOException e) {
+            System.err.println("❌ Error loading data: " + e.getMessage());
+            return;
+        }
 
         printWelcome();
-        chooseOptionMenu1(teams, hashMapPlayers,hashMapCoaches,hashMapOwners);
-        //HACER UN METODOS PARA REESCRIBIR LOS ARCHIVOS OSEA EDITAS LOS ARRAYS O HASHMAPS Y LUEGO EL METODO LO PILLO Y REESCRIBE TODO, reescriir lo archivo siempre que la aplicacion cierre
+        chooseOptionMenu1(teams, hashMapPlayers, hashMapCoaches, hashMapOwners, owners, players, coaches);
 
-
-        reewriteFileMarket(players, coaches, owners, teams);
-
-    }
-
-
-    private static void chooseOptionMenu1(ArrayList<Team> teams, HashMap<String, Player> players, HashMap<String, Coach> coaches, HashMap<String, Person> owners) {
-        Scanner scanner = new Scanner(System.in);
-        int option = scanner.nextInt();
-        switch (option) {
-            case 0:
-                System.exit(0);
-                break;
-            case 1:
-                System.out.println("View current league standings");
-                break;
-            case 2:
-                printManageTeam();
-<<<<<<< HEAD
-                chooseOptionMenu2();
-
-=======
-                chooseOptionMenu2(teams);
->>>>>>> origin/main
-                break;
-            case 3:
-                System.out.println("Register a new team ���");
-                Team.registerTeam(players, coaches, owners);
-                break;
-            case 4:
-                System.out.println("Register a new player, coach or owner ��");
-                System.out.println("Choose between Player, Coach and Owner");
-                scanner.nextLine();
-                String optionPCO = scanner.nextLine();
-                optionPCO = capitalizeFirstLetterNames(optionPCO);
-                Person.createNewPerson(optionPCO, players, coaches, owners);
-
-                break;
-            case 5:
-                System.out.println("View team data");
-                System.out.println("What team would you like to check the data?");
-                scanner.nextLine();
-                String teamName = scanner.nextLine();
-                teamName = capitalizeFirstLetterNames(teamName);
-                printTeamData(teamName, teams);
-                break;
-            case 6:
-                System.out.println("View player or coach data");
-                String optionData = scanner.nextLine();
-                optionData = capitalizeFirstLetterNames(optionData);
-                if (optionData.equals("Player")){
-                    Player.printPlayerData(optionData, players);
-                } else if (optionData.equals("Coach")) {
-                    Coach.printCoachData(optionData, coaches);
-                } else{
-                    System.out.println("Invalid option. Please choose between Player or Coach");
-                }
-                break;
-            case 7:
-                System.out.println("View player or coach statistics");
-                break;
-            case 8:
-                printTraining();
-                chooseOptionMenu3();
-                break;
-            default:
-
-
-
+        try {
+            reewriteFileMarket(players, coaches, owners);
+            reewriteTeamFile(teams);
+        } catch (IOException e) {
+            System.err.println("❌ Error saving data: " + e.getMessage());
         }
     }
-e
+
+    private static void chooseOptionMenu1(ArrayList<Team> teams, HashMap<String, Player> hashPlayers,
+                                          HashMap<String, Coach> hashCoaches, HashMap<String, Person> hashOwners,
+                                          ArrayList<Person> owners, ArrayList<Player> players, ArrayList<Coach> coaches) {
+        Scanner scanner = new Scanner(System.in);
+        int option;
+        do {
+            printWelcome();
+            option = scanner.nextInt();
+            scanner.nextLine(); // Consume newline
+
+            switch (option) {
+                case 0 -> System.exit(0);
+                case 1 -> System.out.println("\n🏆 View current league standings 🏆");
+                case 2 -> manageTeamMenu(teams, scanner);
+                case 3 -> Team.registerTeam(hashPlayers, hashCoaches, hashOwners, teams);
+                case 4 -> createNewPersonMenu(scanner, hashPlayers, hashCoaches, hashOwners, owners, players, coaches);
+                case 5 -> viewTeamDataMenu(teams, scanner);
+                case 6 -> viewPersonDataMenu(hashPlayers, hashCoaches, scanner);
+                case 7 -> manageMarketMenu(teams, hashPlayers, players, hashCoaches, coaches, scanner);
+                default -> System.out.println("❌ Invalid option. Please try again.");
+            }
+        } while (option != 0);
+    }
+
+    private static void manageTeamMenu(ArrayList<Team> teams, Scanner scanner) {
+        printManageTeam();
+        int option = scanner.nextInt();
+        scanner.nextLine(); // Consume newline
+
+        switch (option) {
+            case 0 -> chooseOptionMenu1(new ArrayList<>(), new HashMap<>(), new HashMap<>(), new HashMap<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
+            case 1 -> Team.deregisterTeam(teams, scanner);
+            case 2 -> Person.modifyPresident(teams, scanner);
+            case 3 -> Coach.dismissCoach(teams, scanner);
+            default -> System.out.println("❌ Invalid option. Please try again.");
+        }
+    }
+
+    private static void createNewPersonMenu(Scanner scanner, HashMap<String, Player> hashPlayers, HashMap<String, Coach> hashCoaches, HashMap<String, Person> hashOwners, ArrayList<Person> owners, ArrayList<Player> players, ArrayList<Coach> coaches) {
+        System.out.println("\n👤 Register a New Person 👤");
+        System.out.println("=========================");
+        System.out.println("Choose between Player, Coach, and Owner:");
+        String optionPCO = capitalizeFirstLetterNames(scanner.nextLine());
+        Person.createNewPerson(optionPCO, hashPlayers, hashCoaches, hashOwners, owners, players, coaches);
+    }
+
+    private static void viewTeamDataMenu(ArrayList<Team> teams, Scanner scanner) {
+        System.out.println("\n📊 View Team Data 📊");
+        System.out.println("===================");
+        System.out.println("Enter the name of the team you want to check:");
+        printTeamData(capitalizeFirstLetterNames(scanner.nextLine()), teams);
+    }
+
+    private static void viewPersonDataMenu(HashMap<String, Player> hashPlayers, HashMap<String, Coach> hashCoaches, Scanner scanner) {
+        System.out.println("\n👤 View Person Data 👤");
+        System.out.println("=====================");
+        System.out.println("Enter 'Player' or 'Coach' to view their data:");
+        String optionData = capitalizeFirstLetterNames(scanner.nextLine());
+        if ("Player".equals(optionData)) {
+            Player.printPlayerData(optionData, hashPlayers);
+        } else if ("Coach".equals(optionData)) {
+            Coach.printCoachData(optionData, hashCoaches);
+        } else {
+            System.out.println("❌ Invalid option. Please choose between Player or Coach.");
+        }
+    }
+
+    private static void manageMarketMenu(ArrayList<Team> teams, HashMap<String, Player> hashPlayers, ArrayList<Player> players, HashMap<String, Coach> hashCoaches, ArrayList<Coach> coaches, Scanner scanner) {
+        printTraining();
+        int option = scanner.nextInt();
+        scanner.nextLine();
+
+        switch (option) {
+            case 0 -> chooseOptionMenu1(teams, hashPlayers, hashCoaches, new HashMap<>(), new ArrayList<>(), players, coaches);
+            case 1 -> System.out.println("\n🔄 Transfer player or coach 🔄");
+            case 2 -> changePlayerPositionMenu(hashPlayers, players, scanner);
+            case 3 -> increaseCoachSalaryMenu(hashCoaches, coaches, scanner);
+            default -> System.out.println("❌ Invalid option. Please try again.");
+        }
+    }
+
+    private static void changePlayerPositionMenu(HashMap<String, Player> hashPlayers, ArrayList<Player> players, Scanner scanner) {
+        System.out.println("\n🔄 Change Player Position 🔄");
+        System.out.println("=========================");
+        System.out.println("Enter the name of the player:");
+        String playerName = scanner.nextLine();
+        System.out.println("Enter the new position (DAV, POR, DEF, MIG):");
+        String position = scanner.nextLine();
+        playerName = capitalizeFirstLetterNames(playerName);
+        position = position.toUpperCase();
+        Player.changePlayerPosition(playerName, position, hashPlayers, players);
+    }
+
+    private static void increaseCoachSalaryMenu(HashMap<String, Coach> hashCoaches, ArrayList<Coach> coaches, Scanner scanner) {
+        System.out.println("\n💸 Increase Coach Salary 💸");
+        System.out.println("=========================");
+        System.out.println("Enter the name of the coach:");
+        String coachName = scanner.nextLine();
+        coachName = capitalizeFirstLetterNames(coachName);
+        Coach.increaseSalary(coachName, hashCoaches, coaches);
+    }
+
     private static void printTeamData(String teamName, ArrayList<Team> teams) {
         for (Team team : teams) {
             if (team.getName().equalsIgnoreCase(teamName)) {
-                System.out.println("**************************************************");
-                System.out.println("                 TEAM DATA 📊");
-                System.out.println("**************************************************");
+                System.out.println("\n📊 Team Data for " + teamName + " 📊");
+                System.out.println("====================================");
                 System.out.println("🏆 Team: " + team.getName());
                 System.out.println("👑 President: " + team.getOwner().getName() + " " + team.getOwner().getSurName());
                 System.out.println("🎽 Players:");
-
                 for (Player player : team.getPlayers()) {
                     System.out.println("   - " + player.getName() + " " + player.getSurName() +
                             " | Position: " + player.getPosition() +
                             " | Motivation: " + player.getMotivation());
                 }
-
                 System.out.println("🎩 Coach: " + team.getCoach().getName() + " " + team.getCoach().getSurName() +
                         " | Motivation: " + team.getCoach().getMotivation());
-                System.out.println("**************************************************");
+                System.out.println("====================================\n");
                 return;
             }
         }
+        System.out.println("❌ Team '" + teamName + "' not found.");
     }
-    private static void chooseOptionMenu2(HashMap <String, Team> teams) {
-        Scanner scanner = new Scanner(System.in);
-        int option = scanner.nextInt();
-        switch (option) {
-            case 0:
-                chooseOptionMenu1(new ArrayList<>(), new HashMap<>(),new HashMap<>(),new HashMap<>());
-                break;
-            case 1:
-                System.out.println("Deregister team");
-                Team.deregisterTeam(teams);
-                break;
-            case 2:
-                System.out.println("Modify president");
-                break;
-            case 3:
-                System.out.println("Dismiss coach");
-                break;
-            case 4:
-                System.out.println("Sign player or coach");
-                break;
-            default:
-                System.out.println("Invalid option");
-                chooseOptionMenu2();
-        }
-    }
-    private static void chooseOptionMenu3() {
-        Scanner scanner = new Scanner(System.in);
-        int option = scanner.nextInt();
-        switch (option) {
-            case 0:
-                chooseOptionMenu2();
-                break;
-            case 1:
-                System.out.println("Transfer player or coach");
-                break;
-            case 2:
-                System.out.println("what player would you like to change position?");
-                scanner.nextLine();
-                String playerName= scanner.nextLine();
-                System.out.println("To what position would you like to change? (DAV,POR,DEF,MIG)");
-                String position = scanner.nextLine();
-                playerName.substring(0,1).toUpperCase();
-                position.toUpperCase();
-                Player.changePlayerPosition(playerName,position);
-                break;
-            case 3:
-                System.out.println("what couch would you like to choose to increase salary?");
-                scanner.nextLine();
-                String coachName = scanner.nextLine();
-                coachName = capitalizeFirstLetterNames(coachName);
-                Coach.increaseSalary(coachName);
-        }
-    }
-
-
 
     private static void printManageTeam() {
-        System.out.println("**************************************************");
-        System.out.println("            Welcome to Team Manager ⚽️");
-        System.out.println("**************************************************");
-
-        System.out.println();
-        System.out.println(" 1️⃣ - Deregister team ❌");
-        System.out.println(" 2️⃣ - Modify president 👔");
-        System.out.println(" 3️⃣ - Dismiss coach 🛑");
-        System.out.println(" 4️⃣ - Sign player or coach 📝");
-        System.out.println(" 0️⃣ - Exit 🚪");
-        System.out.println();
-        System.out.println("**************************************************");
-        System.out.print("  Choose an option: ");
+        System.out.println("\n⚽ Team Manager ⚽");
+        System.out.println("=================");
+        System.out.println("1️⃣ - Deregister team ❌");
+        System.out.println("2️⃣ - Modify president 👔");
+        System.out.println("3️⃣ - Dismiss coach 🛑");
+        System.out.println("0️⃣ - Exit 🚪");
+        System.out.println("=================");
+        System.out.print("Choose an option: ");
     }
 
     private static void printWelcome() {
-        System.out.println("**************************************************");
-        System.out.println("   Welcome to Politècnics Football Manager ⚽️");
-        System.out.println("**************************************************");
-        System.out.println();
-        System.out.println(" 1️⃣ - View current league standings 🏆");
-        System.out.println(" 2️⃣ - Manage team ⚽...");
-        System.out.println(" 3️⃣ - Register a new team 🆕");
-        System.out.println(" 4️⃣ - Register a new player, coach or Owner 👥");
-        System.out.println(" 5️⃣ - View team data 📊");
-        System.out.println(" 6️⃣ - View player data of team 👤");
-        System.out.println(" 7️⃣ - Start a new league 🏅");
-        System.out.println(" 8️⃣ - Manage market ⚡...");
-        System.out.println(" 9️⃣ - Transfer player 🔄");
-        System.out.println(" 🔟 - Save team data 💾");
-        System.out.println(" 0️⃣ - Exit 🚪");
-        System.out.println();
-        System.out.println("**************************************************");
-        System.out.print("  Choose an option: ");
-    }
-    private static void printTraining(){
-        System.out.println("**************************************************");
-        System.out.println("            Welcome to Transfer Market 💹️");
-        System.out.println("**************************************************");
-        System.out.println();
-        System.out.println(" 1️⃣ - Conduct training session (transfer market) 📑");
-        System.out.println(" 2️⃣ - Change player position ⛓️‍💥");
-        System.out.println(" 3️⃣ - increase couch salary 💸");
-        System.out.println(" 0️⃣ - Exit 🚪");
-        System.out.println();
-        System.out.println("**************************************************");
-        System.out.print("  Choose an option: ");
+        System.out.println("\n⚽ Welcome to Politècnics Football Manager ⚽");
+        System.out.println("============================================");
+        System.out.println("1️⃣ - View current league standings 🏆");
+        System.out.println("2️⃣ - Manage team ⚽...");
+        System.out.println("3️⃣ - Register a new team 🆕");
+        System.out.println("4️⃣ - Register a new player, coach, or owner 👥");
+        System.out.println("5️⃣ - View team data 📊");
+        System.out.println("6️⃣ - View player or coach data 👤");
+        System.out.println("7️⃣- Manage market ⚡...");
+        System.out.println("0️⃣ - Exit 🚪");
+        System.out.println("============================================");
+        System.out.print("Choose an option: ");
     }
 
-    private static String capitalizeFirstLetterNames(String name) {
+    private static void printTraining() {
+        System.out.println("\n⚡ Transfer Market ⚡");
+        System.out.println("===================");
+        System.out.println("1️⃣ - Conduct training session 📑");
+        System.out.println("2️⃣ - Change player position ⛓️‍💥");
+        System.out.println("3️⃣ - Increase coach salary 💸");
+        System.out.println("0️⃣ - Exit 🚪");
+        System.out.println("===================");
+        System.out.print("Choose an option: ");
+    }
+
+    public static String capitalizeFirstLetterNames(String name) {
         if (name == null || name.isEmpty()) {
             return name;
         }
         return name.substring(0, 1).toUpperCase() + name.substring(1).toLowerCase();
     }
-    private static void reewriteFileMarket(ArrayList<Player> players, ArrayList<Coach> coaches, ArrayList<Person> owners,ArrayList<Team> teams) {
+
+    public static void reewriteFileMarket(ArrayList<Player> players, ArrayList<Coach> coaches, ArrayList<Person> owners) throws IOException {
         String filePath = "C:\\Users\\dunkl\\IdeaProjects\\DAM-Project-3\\src\\src\\football_manager\\resources\\market_files.txt";
 
         try (BufferedWriter w = new BufferedWriter(new FileWriter(filePath))) {
@@ -255,22 +226,38 @@ e
             }
 
             for (Person o : owners) {
-                String ownerData = String.format("T;%s;%d;%s;%s;%s%n",
-                        o.getName(), o.getSurName(), o.getBirthDay(), o.getMotivation(),o.getAnualSalary());
+                String ownerData = String.format("O;%s;%s;%s;%d;%d%n",
+                        o.getName(), o.getSurName(), o.getBirthDay(), o.getMotivation(), o.getAnualSalary());
                 w.write(ownerData);
             }
-            for (Team t : teams) {
-                String teamData = String.format("T;%s;%d;%s;%s;%s%n",
-                        t.getName(), t.getBirthDate(), t.getCity(),
-                        t.getCoach().getName(), t.getOwner().getName());
-                w.write(teamData);
-            }
-            System.out.println("Changes saved");
-        } catch (IOException e) {
-            System.out.println("Error al escribir en el archivo: " + e.getMessage());
+            System.out.println("✅ Changes saved successfully!");
         }
     }
 
+    private static void reewriteTeamFile(ArrayList<Team> teams) throws IOException {
+        String filePath = "C:\\Users\\dunkl\\IdeaProjects\\DAM-Project-3\\src\\src\\football_manager\\resources\\team_files.txt";
 
+        try (BufferedWriter w = new BufferedWriter(new FileWriter(filePath, true))) {
+            for (Team t : teams) {
+                String coachName = t.getCoach().getName();
+                String ownerName = t.getOwner().getName();
 
+                StringBuilder playerNames = new StringBuilder();
+                for (Player player : t.getPlayers()) {
+                    playerNames.append(player.getName()).append(";");
+                }
+
+                if (playerNames.length() > 0) {
+                    playerNames.setLength(playerNames.length() - 1);
+                }
+
+                String teamData = String.format("%s;%s;%s;%s;%s;%s%n",
+                        t.getName(), t.getBirthDate(), t.getCity(),
+                        coachName, ownerName, playerNames.toString());
+
+                w.write(teamData);
+            }
+            System.out.println("✅ Team data saved successfully!");
+        }
+    }
 }

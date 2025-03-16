@@ -20,8 +20,6 @@ public class Person {
     }
 
     // Getters
-e
-
     public String getName() {
         return name;
     }
@@ -56,19 +54,14 @@ e
         // Logic for training
     }
 
-    public static void loadPersons(ArrayList<String> brutePersonData, ArrayList<Player> players, ArrayList<Coach> coaches, ArrayList<Person> owners) {
+    public static void loadPersons(ArrayList<String> brutePersonData, ArrayList<Player> players, ArrayList<Coach> coaches, ArrayList<Person> owners) throws IOException {
         String filePath = "C:\\Users\\dunkl\\IdeaProjects\\DAM-Project-3\\src\\src\\football_manager\\resources\\market_files.txt";
 
-        try {
-            BufferedReader reader = new BufferedReader(new FileReader(filePath));
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             String line;
             while ((line = reader.readLine()) != null) {
                 brutePersonData.add(line);
             }
-        } catch (FileNotFoundException e) {
-            System.out.println("File not found...");
-        } catch (IOException e) {
-            throw new RuntimeException("Error reading file", e);
         }
 
         for (String personLine : brutePersonData) {
@@ -98,92 +91,88 @@ e
         }
     }
 
-    public static void createNewPerson(String option, HashMap<String, Player> players, HashMap<String, Coach> coaches, HashMap<String, Person> owners) {
-            Scanner scanner = new Scanner(System.in);
-            String filePath = "C:\\Users\\dunkl\\IdeaProjects\\DAM-Project-3\\src\\src\\football_manager\\resources\\market_files.txt";
-            Random random = new Random();
-            int motivation = 5;
+    public static void createNewPerson(String option, HashMap<String, Player> hashPlayers, HashMap<String, Coach> hashCoaches, HashMap<String, Person> hashOwners,
+                                       ArrayList<Person> owners, ArrayList<Player> players, ArrayList<Coach> coaches) {
+        Scanner scanner = new Scanner(System.in);
+        Random random = new Random();
+        int motivation = 5; // Default motivation value
 
-            try (RandomAccessFile raf = new RandomAccessFile(filePath, "rw")) {
-                String personName;
-                do {
-                    System.out.print("\u001B[34m📛 Enter Name: \u001B[0m");
-                    personName = scanner.nextLine().trim();
-                    personName = capitalizeFirstLetterNames(personName);
-                    if (isNameDuplicate(personName, players, coaches, owners)) {
-                        System.out.println("\u001B[31m🚨 Name already exists! Please enter a different one.\u001B[0m");
-                    }
-                } while (isNameDuplicate(personName, players, coaches, owners));
+        String personName;
+        do {
+            System.out.print("\u001B[34m📛 Enter Name: \u001B[0m");
+            personName = scanner.nextLine().trim();
+            personName = capitalizeFirstLetterNames(personName);
+            if (isNameDuplicate(personName, hashPlayers, hashCoaches, hashOwners)) {
+                System.out.println("\u001B[31m🚨 Name already exists! Please enter a different one.\u001B[0m");
+            }
+        } while (isNameDuplicate(personName, hashPlayers, hashCoaches, hashOwners));
 
-                System.out.println("\u001B[34m👨‍👩‍👧‍👦 Surname:\u001B[0m");
-                String personSurName = scanner.nextLine();
+        System.out.println("\u001B[34m👨‍👩‍👧‍👦 Surname:\u001B[0m");
+        String personSurName = scanner.nextLine();
 
-                System.out.println("\u001B[34m🎂 Birthday (DD-MM-YYYY):\u001B[0m");
-                String birthday = scanner.nextLine();
+        System.out.println("\u001B[34m🎂 Birthday (DD-MM-YYYY):\u001B[0m");
+        String birthday = scanner.nextLine();
 
-                System.out.println("\u001B[34m💰 Salary:\u001B[0m");
-                int salary = validateIntegerInput(scanner);
+        System.out.println("\u001B[34m💰 Salary:\u001B[0m");
+        int salary = validateIntegerInput(scanner);
 
-                if (option.equalsIgnoreCase("Player")) {
-                    System.out.println("\u001B[34m🔙 Back number:\u001B[0m");
-                    int back = validateIntegerInput(scanner);
+        if (option.equalsIgnoreCase("Player")) {
+            System.out.println("\u001B[34m🔙 Back number:\u001B[0m");
+            int back = validateIntegerInput(scanner);
 
-                    System.out.println("\u001B[34m⚽ Position (DAV, POR, DEF, MIG):\u001B[0m");
-                    String position = scanner.nextLine().toUpperCase();
+            System.out.println("\u001B[34m⚽ Position (DAV, POR, DEF, MIG):\u001B[0m");
+            String position = scanner.nextLine().toUpperCase();
 
-                    int quality = random.nextInt(71) + 30;
-                    Player p = new Player(personName, personSurName, birthday, motivation, salary, back, position, quality);
-                    String playerData = String.format("J;%s;%s;%s;%d;%d;%d;%s;%d%n",
-                            p.getName(), p.getSurName(), p.getBirthDay(), p.getMotivation(),
-                            p.getAnualSalary(), p.getBack(), p.getPosition(), p.getCualityPoints());
+            int quality = random.nextInt(71) + 30;
+            Player newPlayer = new Player(personName, personSurName, birthday, motivation, salary, back, position, quality);
 
-                    raf.writeBytes(playerData);
-                    System.out.println("\u001B[32m✅ Player successfully added! ⚽\u001B[0m");
 
-                } else if (option.equalsIgnoreCase("Coach")) {
-                    System.out.println("\u001B[34m🏆 Victories:\u001B[0m");
-                    int victories = validateIntegerInput(scanner);
-                    scanner.nextLine();
-                    System.out.println("\u001B[34m🌍 Have you been selected for a national team? (yes/no):\u001B[0m");
-                    boolean nacional = scanner.nextLine().trim().equalsIgnoreCase("yes");
+            players.add(newPlayer);
+            hashPlayers.put(personName, newPlayer);
 
-                    Coach c = new Coach(personName, personSurName, birthday, motivation, salary, victories, nacional);
-                    String coachData = String.format("E;%s;%s;%s;%d;%d;%d;%  b%n",
-                            c.getName(), c.getSurName(), c.getBirthDay(), c.getMotivation(),
-                            c.getAnualSalary(), c.getVictories(), c.isNacional());
+            System.out.println("\u001B[32m✅ Player successfully added! ⚽\u001B[0m");
 
-                    raf.writeBytes(coachData);
-                    System.out.println("\u001B[32m✅ Coach successfully added! 🎓\u001B[0m");
+        } else if (option.equalsIgnoreCase("Coach")) {
+            System.out.println("\u001B[34m🏆 Victories:\u001B[0m");
+            int victories = validateIntegerInput(scanner);
+            scanner.nextLine(); // Consume newline
+            System.out.println("\u001B[34m🌍 Have you been selected for a national team? (yes/no):\u001B[0m");
+            boolean nacional = scanner.nextLine().trim().equalsIgnoreCase("yes");
 
-                } else if (option.equalsIgnoreCase("Owner")) {
-                    Person p = new Person(personName, personSurName, birthday, motivation, salary);
-                    String personData = String.format("O;%s;%s;%s;%d;%d%n",
-                            p.getName(), p.getSurName(), p.getBirthDay(), p.getMotivation(), p.getAnualSalary());
+            Coach newCoach = new Coach(personName, personSurName, birthday, motivation, salary, victories, nacional);
 
-                    raf.writeBytes(personData);
-                    System.out.println("\u001B[32m✅ Owner successfully added! 🏢\u001B[0m");
 
-                } else {
-                    System.out.println("\u001B[31m❌ Error: Invalid option! Please choose 'Player', 'Coach', or 'Owner'.\u001B[0m");
-                }
+            coaches.add(newCoach);
+            hashCoaches.put(personName, newCoach);
 
-            } catch (IOException e) {
-                System.out.println("\u001B[31m❌ An error occurred while writing to the file.\u001B[0m");
-                e.printStackTrace();
+            System.out.println("\u001B[32m✅ Coach successfully added! 🎓\u001B[0m");
+
+        } else if (option.equalsIgnoreCase("Owner")) {
+            Person newOwner = new Person(personName, personSurName, birthday, motivation, salary);
+
+
+            owners.add(newOwner);
+            hashOwners.put(personName, newOwner);
+
+            System.out.println("\u001B[32m✅ Owner successfully added! 🏢\u001B[0m");
+
+        } else {
+            System.out.println("\u001B[31m❌ Error: Invalid option! Please choose 'Player', 'Coach', or 'Owner'.\u001B[0m");
+        }
+    }
+
+    public static int validateIntegerInput(Scanner scanner) {
+        while (true) {
+            try {
+                return scanner.nextInt();
+            } catch (InputMismatchException e) {
+                System.out.println("\u001B[31m🚨 Invalid input! Please enter a valid number.\u001B[0m");
+                scanner.next();
             }
         }
+    }
 
-        public static int validateIntegerInput(Scanner scanner) {
-            while (true) {
-                try {
-                    return scanner.nextInt();
-                } catch (InputMismatchException e) {
-                    System.out.println("\u001B[31m🚨 Invalid input! Please enter a valid number.\u001B[0m");
-                    scanner.next();
-                }
-            }
-        }
-    public static boolean isNameDuplicate(String name,HashMap<String, Player> players, HashMap<String, Coach> coaches, HashMap<String, Person> owners) {
+    public static boolean isNameDuplicate(String name, HashMap<String, Player> players, HashMap<String, Coach> coaches, HashMap<String, Person> owners) {
         return players.containsKey(name) || coaches.containsKey(name) || owners.containsKey(name);
     }
 
@@ -194,11 +183,44 @@ e
         return name.substring(0, 1).toUpperCase() + name.substring(1).toLowerCase();
     }
 
-
     public static void loadHashmaps(HashMap<String, Player> players, HashMap<String, Coach> coaches, HashMap<String, Person> owners,
                                     ArrayList<Player> playerArray, ArrayList<Coach> coachArray, ArrayList<Person> ownersArray) {
         playerArray.forEach(player -> players.put(player.getName(), player));
         coachArray.forEach(coach -> coaches.put(coach.getName(), coach));
         ownersArray.forEach(owner -> owners.put(owner.getName(), owner));
+    }
+    public static void modifyPresident(ArrayList<Team> teams, Scanner scanner) {
+        System.out.println("Enter the name of the team whose president you want to modify:");
+        String teamName = scanner.nextLine();
+
+        Team teamToModify = null;
+        for (Team team : teams) {
+            if (team.getName().equalsIgnoreCase(teamName)) {
+                teamToModify = team;
+                break;
+            }
+        }
+
+        if (teamToModify != null) {
+            System.out.println("Enter the name of the new president:");
+            String newPresidentName = scanner.nextLine();
+
+            Person newPresident = teamToModify.getOwner(); // Default to current owner
+            for (Person owner : teams.stream().map(Team::getOwner).toList()) {
+                if (owner.getName().equalsIgnoreCase(newPresidentName)) {
+                    newPresident = owner;
+                    break;
+                }
+            }
+
+            if (newPresident != null) {
+                teamToModify.setOwner(newPresident);
+                System.out.println("President of team '" + teamName + "' has been updated to " + newPresident.getName());
+            } else {
+                System.out.println("President '" + newPresidentName + "' not found.");
+            }
+        } else {
+            System.out.println("Team '" + teamName + "' not found.");
+        }
     }
 }

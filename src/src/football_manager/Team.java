@@ -10,14 +10,12 @@ public class Team {
     private String name;
     private String birthDate;
     private String city;
-    private List<Player> players;
     private Coach coach;
     private Person owner;
+    private List<Player> players;
 
-
-    //Constructor
-
-    public Team(String name, String birthDate, String city, List<Player> players, Coach coach, Person owner) {
+    // Constructor
+    public Team(String name, String birthDate, String city, Coach coach, Person owner, List<Player> players) {
         int playerNumber = players.size();
         if (playerNumber < 1) {
             throw new IllegalArgumentException("Debe haber al menos un jugador");
@@ -25,12 +23,12 @@ public class Team {
         this.name = name;
         this.birthDate = birthDate;
         this.city = city;
-        this.players = players;
         this.coach = coach;
         this.owner = owner;
+        this.players = players;
     }
-    //Getters
 
+    // Getters
     public String getName() {
         return name;
     }
@@ -55,10 +53,7 @@ public class Team {
         return owner;
     }
 
-
-    //Setters
-
-
+    // Setters
     public void setName(String name) {
         this.name = name;
     }
@@ -78,27 +73,22 @@ public class Team {
     public void setCoach(Coach coach) {
         this.coach = coach;
     }
-e
+
     public void setOwner(Person owner) {
         this.owner = owner;
     }
 
-    //Methods
+    // Methods
     public static void loadTeams(ArrayList<String> bruteTeamData, ArrayList<Team> teams,
                                  HashMap<String, Player> hashMapPlayers,
                                  HashMap<String, Coach> hashMapCoaches,
-                                 HashMap<String, Person> hashMapOwners) {
+                                 HashMap<String, Person> hashMapOwners) throws IOException {
         String filePath = "C:\\Users\\dunkl\\IdeaProjects\\DAM-Project-3\\src\\src\\football_manager\\resources\\team_files.txt";
-        try {
-            BufferedReader reader = new BufferedReader(new FileReader(filePath));
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             String line;
             while ((line = reader.readLine()) != null) {
                 bruteTeamData.add(line);
             }
-        } catch (FileNotFoundException e) {
-            System.out.println("file not found...");
-        } catch (IOException e) {
-            throw new RuntimeException(e);
         }
 
         for (String line : bruteTeamData) {
@@ -125,12 +115,13 @@ e
                 }
             }
 
-            Team team = new Team(teamData[0], teamData[1], teamData[2], teamPlayers, coach, owner);
+            Team team = new Team(teamData[0], teamData[1], teamData[2], coach, owner, teamPlayers);
             teams.add(team);
-
         }
     }
-    public static void registerTeam(HashMap<String, Player> players, HashMap<String, Coach> coaches, HashMap<String, Person> owners) {
+
+    public static void registerTeam(HashMap<String, Player> players, HashMap<String, Coach> coaches,
+                                    HashMap<String, Person> owners, ArrayList<Team> teams) {
         Scanner scanner = new Scanner(System.in);
         System.out.println("What would be the name of the team?");
         String teamName = scanner.nextLine();
@@ -138,7 +129,7 @@ e
         String birthDate = scanner.nextLine();
         scanner.nextLine();
 
-        System.out.println("W                hat city is the team located in?");
+        System.out.println("What city is the team located in?");
         String city = scanner.nextLine();
 
         Coach coach = null;
@@ -187,45 +178,27 @@ e
             }
         }
 
-        Team newTeam = new Team(teamName, birthDate, city, teamPlayers, coach, owner);
-
-        writeTeamToFile(newTeam);
-
+        Team newTeam = new Team(teamName, birthDate, city, coach, owner, teamPlayers);
+        teams.add(newTeam);
         System.out.println("Team registered and saved to file successfully!");
     }
+    public static void deregisterTeam(ArrayList<Team> teams, Scanner scanner) {
+        System.out.println("Enter the name of the team you want to deregister:");
+        String teamName = scanner.nextLine();
 
-    private static void writeTeamToFile(Team team) {
-        String filePath = "C:\\Users\\dunkl\\IdeaProjects\\DAM-Project-3\\src\\src\\football_manager\\resources\\team_files.txt";
-
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, true))) {
-            StringBuilder teamData = new StringBuilder();
-
-            teamData.append(team.getName()).append(";")
-                    .append(team.getBirthDate()).append(";")
-                    .append(team.getCity()).append(";");
-
-            teamData.append(team.getCoach().getName()).append(";");
-
-            teamData.append(team.getOwner().getName()).append(";");
-
-            for (Player player : team.getPlayers()) {
-                teamData.append(player.getName()).append(";");
+        Team teamToRemove = null;
+        for (Team team : teams) {
+            if (team.getName().equalsIgnoreCase(teamName)) {
+                teamToRemove = team;
+                break;
             }
-
-            if (teamData.length() > 0) {
-                teamData.setLength(teamData.length() - 1);
-            }
-
-            writer.write(teamData.toString());
-            writer.newLine();
-
-        } catch (IOException e) {
-            System.out.println("An error occurred while writing the team data to the file.");
-            e.printStackTrace();
         }
 
+        if (teamToRemove != null) {
+            teams.remove(teamToRemove);
+            System.out.println("Team '" + teamName + "' has been deregistered.");
+        } else {
+            System.out.println("Team '" + teamName + "' not found.");
+        }
     }
-
-
 }
-

@@ -1,3 +1,4 @@
 Barcelona;192318;city;Diego;Hugo;Gavi;Ferran;Raphinha
 hola;1092;kok;Diego;Hugo;Iago
-e
+Barcelona;192318;city;Diego;Hugo;Gavi;Ferran;Raphinha
+hola;1092;kok;Diego;Hugo;Iago
