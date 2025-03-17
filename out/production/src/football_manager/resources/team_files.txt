@@ -1,2 +1,3 @@
 Barcelona;192318;city;Diego;Hugo;Gavi;Ferran;Raphinha
 hola;1092;kok;Diego;Hugo;Iago
+goi;13/12/133;Bahia;Carlo;Hugo;Jan;Mikel

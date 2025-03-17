@@ -25,3 +25,5 @@ E;Carlo;Ancelotti;10/06/1959;8;5000000;15;true
 E;Manuel;Pellegrini;16/09/1953;8;3500000;12;true
 E;Ernesto;Valverde;09/02/1964;7;3000000;9;true
 O;Hugo;Palacin;23/12/2004;5;8000000
+O;Iker;Cunama;15/08/2006;5;2000000
+O;Joaquin;Martinez;04/01/2003;5;98989859
