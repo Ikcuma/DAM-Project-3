@@ -127,7 +127,7 @@ inner join entrenadors on entrenar_equips.entrenadors_id = entrenadors.persones_
 inner join persones on entrenadors.persones_id = persones.id
 where ciutats.nom in ('Barcelona','Sevilla','Madrid') and persones.nom not like 'f%' and persones.cognoms like '%e%';
 
--- 3 ¿?
+-- 3 UTILIZAR EL CASE AND WHEN
 select lligues.nom 'nom_lliga', lligues.temporada 'temporada', equips.nom 'nom_equips', sum(distinct p.punts_local) as puntos_total
 from equips
 inner join partits p on equips.id = p.equips_id_local
