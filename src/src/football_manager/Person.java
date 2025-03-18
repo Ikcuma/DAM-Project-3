@@ -223,4 +223,15 @@ public class Person {
             System.out.println("Team '" + teamName + "' not found.");
         }
     }
+
+    @Override
+    public String toString() {
+        return "Person{" +
+                "name='" + name + '\'' +
+                ", surName='" + surName + '\'' +
+                ", birthDay='" + birthDay + '\'' +
+                ", motivation=" + motivation +
+                ", anualSalary=" + anualSalary +
+                '}';
+    }
 }

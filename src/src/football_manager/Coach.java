@@ -35,19 +35,12 @@ public class Coach extends Person {
     }
 
     // Methods
-    public static void increaseSalary(String coachName, HashMap<String, Coach> hashCoaches, ArrayList<Coach> coaches) {
-        Coach coach = hashCoaches.get(coachName);
-        if (coach != null) {
+    public static void increaseSalary(HashMap<String, Coach> hashCoaches, ArrayList<Coach> coaches) {
+        for (Coach coach : coaches) {
             int newSalary = (int) (coach.getAnualSalary() * 1.05);
             coach.setAnualSalary(newSalary);
-            for (int i = 0; i < coaches.size(); i++) {
-                if (coaches.get(i).getName().equals(coachName)) {
-                    break;
-                }
-            }
-            System.out.println("Salary increased for coach: " + coachName);
-        } else {
-            System.out.println("Coach not found.");
+            hashCoaches.put(coach.getName(), coach);
+            System.out.println("Salary increased for coach: " + coach.getName());
         }
     }
 
@@ -102,5 +95,18 @@ public class Coach extends Person {
         } else {
             System.out.println("Team '" + teamName + "' not found.");
         }
+    }
+
+    @Override
+    public String toString() {
+        return "Coach{" +
+                "victories=" + victories +
+                ", nacional=" + nacional +
+                ", name='" + name + '\'' +
+                ", surName='" + surName + '\'' +
+                ", birthDay='" + birthDay + '\'' +
+                ", motivation=" + motivation +
+                ", anualSalary=" + anualSalary +
+                '}';
     }
 }

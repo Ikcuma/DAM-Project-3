@@ -55,26 +55,24 @@ public class Player extends Person {
     //Methods
 
 
-    public static void changePlayerPosition(String playerName, String newPosition,
-                                            HashMap<String, Player> hashPlayers,
+    public static void changePlayerPosition(HashMap<String, Player> hashPlayers,
                                             ArrayList<Player> players) {
+        String[] options = {"DEF", "MIG", "DAV", "POR"};
+        Random random = new Random();
 
-        boolean realiza = Math.random() < 0.05;
+        for (Player player : players) {
+            int randomIndex = random.nextInt(options.length);
+            String newPosition = options[randomIndex];
+
+            boolean realiza = Math.random() < 0.05;
+
             if (realiza) {
-                Player player = hashPlayers.get(playerName);
-                if (player != null) {
-                    player.setPosition(newPosition);
-                    for(Player p : players) {
-                        if(p.getName().equals(playerName)) {
-                            p.setPosition(newPosition);
-                            break;
-                        }
-                    }
-                    System.out.println("Position changed for player: " + playerName);
-                } else {
-                    System.out.println("Inténtalo de nuevo.");
-                }
+                player.setPosition(newPosition);
+                hashPlayers.put(player.getName(), player);
+
+                System.out.println("El jugador " + player.getName() + " ha cambiado a la posición: " + newPosition);
             }
+        }
     }
     public static void printPlayerData(String playerName, HashMap<String, Player> players){
         Player player = players.get(playerName);
@@ -99,7 +97,14 @@ public class Player extends Person {
     @Override
     public String toString() {
         return "Player{" +
-                "name='" + name + '\'' +
+                "back=" + back +
+                ", position='" + position + '\'' +
+                ", cualityPoints=" + cualityPoints +
+                ", name='" + name + '\'' +
+                ", surName='" + surName + '\'' +
+                ", birthDay='" + birthDay + '\'' +
+                ", motivation=" + motivation +
+                ", anualSalary=" + anualSalary +
                 '}';
     }
 }

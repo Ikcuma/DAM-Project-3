@@ -22,7 +22,8 @@ public class Main {
         try {
             Person.loadPersons(brutePersonData, players, coaches, owners);
             Person.loadHashmaps(hashMapPlayers, hashMapCoaches, hashMapOwners, players, coaches, owners);
-            Team.loadTeams(bruteTeamData, teams, hashMapPlayers, hashMapCoaches, hashMapOwners);
+            Team.loadTeams(bruteTeamData, teams);
+            System.out.println(bruteTeamData);
         } catch (IOException e) {
             System.err.println("❌ Error loading data: " + e.getMessage());
             return;
@@ -62,10 +63,15 @@ public class Main {
         } while (option != 0);
     }
 
+    private static void conductTrainingSession(HashMap<String, Player> hashPlayers, HashMap<String, Coach> hashCoaches, ArrayList<Player> players, ArrayList<Coach> coaches) {
+        Player.changePlayerPosition( hashPlayers, players);
+        Coach.increaseSalary( hashCoaches, coaches);
+    }
+
     private static void manageTeamMenu(ArrayList<Team> teams, Scanner scanner) {
         printManageTeam();
         int option = scanner.nextInt();
-        scanner.nextLine(); // Consume newline
+        scanner.nextLine();
 
         switch (option) {
             case 0 -> chooseOptionMenu1(new ArrayList<>(), new HashMap<>(), new HashMap<>(), new HashMap<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
@@ -88,7 +94,9 @@ public class Main {
         System.out.println("\n📊 View Team Data 📊");
         System.out.println("===================");
         System.out.println("Enter the name of the team you want to check:");
-        printTeamData(capitalizeFirstLetterNames(scanner.nextLine()), teams);
+        String input = scanner.nextLine();
+        input = capitalizeFirstLetterNames(input);
+        printTeamData(input, teams);
     }
 
     private static void viewPersonDataMenu(HashMap<String, Player> hashPlayers, HashMap<String, Coach> hashCoaches, Scanner scanner) {
@@ -114,56 +122,49 @@ public class Main {
 
         switch (option) {
             case 0 -> chooseOptionMenu1(teams, hashPlayers, hashCoaches, new HashMap<>(), new ArrayList<>(), players, coaches);
-            case 1 -> System.out.println("\n🔄 Transfer player or coach 🔄");
-            case 2 -> changePlayerPositionMenu(hashPlayers, players, scanner);
-            case 3 -> increaseCoachSalaryMenu(hashCoaches, coaches, scanner);
+            case 1 -> transferPlayerOrCoach();
+            case 2 -> conductTrainingSession(hashPlayers,hashCoaches,players,coaches);
             default -> System.out.println("❌ Invalid option. Please try again.");
         }
     }
 
-    private static void changePlayerPositionMenu(HashMap<String, Player> hashPlayers, ArrayList<Player> players, Scanner scanner) {
-        System.out.println("\n🔄 Change Player Position 🔄");
-        System.out.println("=========================");
-        System.out.println("Enter the name of the player:");
-        String playerName = scanner.nextLine();
-        System.out.println("Enter the new position (DAV, POR, DEF, MIG):");
-        String position = scanner.nextLine();
-        playerName = capitalizeFirstLetterNames(playerName);
-        position = position.toUpperCase();
-        Player.changePlayerPosition(playerName, position, hashPlayers, players);
+    private static void transferPlayerOrCoach() {
+
+
     }
 
-    private static void increaseCoachSalaryMenu(HashMap<String, Coach> hashCoaches, ArrayList<Coach> coaches, Scanner scanner) {
-        System.out.println("\n💸 Increase Coach Salary 💸");
-        System.out.println("=========================");
-        System.out.println("Enter the name of the coach:");
-        String coachName = scanner.nextLine();
-        coachName = capitalizeFirstLetterNames(coachName);
-        Coach.increaseSalary(coachName, hashCoaches, coaches);
-    }
 
-    private static void printTeamData(String teamName, ArrayList<Team> teams) {
+
+
+
+    public static void printTeamData(String teamName, ArrayList<Team> teams) {
         for (Team team : teams) {
-            if (team.getName().equalsIgnoreCase(teamName)) {
+            if (team.getName().equals(teamName)) {
                 System.out.println("\n📊 Team Data for " + teamName + " 📊");
                 System.out.println("====================================");
                 System.out.println("🏆 Team: " + team.getName());
+                System.out.println("📅 Founded: " + team.getBirthDate());
+                System.out.println("🌍 City: " + team.getCity());
                 System.out.println("👑 President: " + team.getOwner().getName() + " " + team.getOwner().getSurName());
+                System.out.println("💰 Annual Salary: " + team.getOwner().getAnualSalary());
                 System.out.println("🎽 Players:");
                 for (Player player : team.getPlayers()) {
                     System.out.println("   - " + player.getName() + " " + player.getSurName() +
                             " | Position: " + player.getPosition() +
-                            " | Motivation: " + player.getMotivation());
+                            " | Quality Points: " + player.getCualityPoints() +
+                            " | Motivation: " + player.getMotivation() +
+                            " | Salary: " + player.getAnualSalary());
                 }
                 System.out.println("🎩 Coach: " + team.getCoach().getName() + " " + team.getCoach().getSurName() +
-                        " | Motivation: " + team.getCoach().getMotivation());
+                        " | Victories: " + team.getCoach().getVictories() +
+                        " | Motivation: " + team.getCoach().getMotivation() +
+                        " | Salary: " + team.getCoach().getAnualSalary());
                 System.out.println("====================================\n");
                 return;
             }
         }
         System.out.println("❌ Team '" + teamName + "' not found.");
     }
-
     private static void printManageTeam() {
         System.out.println("\n⚽ Team Manager ⚽");
         System.out.println("=================");
@@ -184,7 +185,7 @@ public class Main {
         System.out.println("4️⃣ - Register a new player, coach, or owner 👥");
         System.out.println("5️⃣ - View team data 📊");
         System.out.println("6️⃣ - View player or coach data 👤");
-        System.out.println("7️⃣- Manage market ⚡...");
+        System.out.println("7️⃣ - Manage market ⚡...");
         System.out.println("0️⃣ - Exit 🚪");
         System.out.println("============================================");
         System.out.print("Choose an option: ");
@@ -193,9 +194,8 @@ public class Main {
     private static void printTraining() {
         System.out.println("\n⚡ Transfer Market ⚡");
         System.out.println("===================");
-        System.out.println("1️⃣ - Conduct training session 📑");
-        System.out.println("2️⃣ - Change player position ⛓️‍💥");
-        System.out.println("3️⃣ - Increase coach salary 💸");
+        System.out.println("1️⃣ - Transfer Coach or Player 📑");
+        System.out.println("2️⃣ - Conduct Training Session 👟");
         System.out.println("0️⃣ - Exit 🚪");
         System.out.println("===================");
         System.out.print("Choose an option: ");
@@ -240,21 +240,21 @@ public class Main {
 
         try (BufferedWriter w = new BufferedWriter(new FileWriter(filePath))) {
             for (Team t : teams) {
-                String coachName = t.getCoach().getName();
-                String ownerName = t.getOwner().getName();
+                String coach = t.getCoach().toString();
+                String owner = t.getOwner().toString();
 
-                StringBuilder playerNames = new StringBuilder();
+                StringBuilder playerString = new StringBuilder();
                 for (Player player : t.getPlayers()) {
-                    playerNames.append(player.getName()).append(";");
+                    playerString.append(player.toString()).append(";");
                 }
 
-                if (playerNames.length() > 0) {
-                    playerNames.setLength(playerNames.length() - 1);
+                if (playerString.length() > 0) {
+                    playerString.setLength(playerString.length() - 1);
                 }
 
                 String teamData = String.format("%s;%s;%s;%s;%s;%s%n",
                         t.getName(), t.getBirthDate(), t.getCity(),
-                        coachName, ownerName, playerNames.toString());
+                        coach, owner, playerString);
 
 
                 w.write(teamData);

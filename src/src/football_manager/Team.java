@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Team {
     private String name;
@@ -79,11 +81,9 @@ public class Team {
     }
 
     // Methods
-    public static void loadTeams(ArrayList<String> bruteTeamData, ArrayList<Team> teams,
-                                 HashMap<String, Player> hashMapPlayers,
-                                 HashMap<String, Coach> hashMapCoaches,
-                                 HashMap<String, Person> hashMapOwners) throws IOException {
+    public static void loadTeams(ArrayList<String> bruteTeamData, ArrayList<Team> teams) throws IOException {
         String filePath = "C:\\Users\\dunkl\\IdeaProjects\\DAM-Project-3\\src\\src\\football_manager\\resources\\team_files.txt";
+
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             String line;
             while ((line = reader.readLine()) != null) {
@@ -92,33 +92,96 @@ public class Team {
         }
 
         for (String line : bruteTeamData) {
-            String[] teamData = line.split(";");
+            String[] parts = line.split(";", 4);
+            if (parts.length < 4) {
+                System.out.println("Error: Formato incorrecto en línea: " + line);
+                continue;
+            }
 
-            String coachName = teamData[3];
-            String ownerName = teamData[4];
+            String teamName = parts[0];
+            String birthDate = parts[1];
+            String city = parts[2];
+            String rest = parts[3];
 
-            Coach coach = hashMapCoaches.get(coachName);
-            Person owner = hashMapOwners.get(ownerName);
+            Coach coach = parseCoach(extractCoachData(rest));
+            Person owner = parsePerson(extractOwnerData(rest));
+
+            if (coach == null) {
+                System.out.println("Error: Coach no válido para el equipo: " + teamName);
+            }
+            if (owner == null) {
+                System.out.println("Error: Person (dueño) no válido para el equipo: " + teamName);
+            }
 
             if (coach == null || owner == null) {
-                System.out.println("Error: Entrenador o dueño no encontrado para el equipo: " + teamData[0]);
+                System.out.println("Error: Entrenador o dueño no válido para el equipo: " + teamName);
                 continue;
             }
 
             List<Player> teamPlayers = new ArrayList<>();
-            for (int i = 5; i < teamData.length; i++) {
-                Player player = hashMapPlayers.get(teamData[i]);
+            String playersData = rest.substring(extractCoachData(rest).length() + extractOwnerData(rest).length());
+            Matcher playerMatcher = Pattern.compile("Player\\{back=(\\d+), position='(.*?)', cualityPoints=(\\d+), name='(.*?)', surName='(.*?)', birthDay='(.*?)', motivation=(\\d+), anualSalary=(\\d+)\\}").matcher(playersData);
+
+            while (playerMatcher.find()) {
+                Player player = parsePlayer(playerMatcher.group());
                 if (player != null) {
                     teamPlayers.add(player);
                 } else {
-                    System.out.println("Error: Jugador no encontrado: " + teamData[i]);
+                    System.out.println("Error: No se pudo procesar un jugador en el equipo: " + teamName);
                 }
             }
 
-            Team team = new Team(teamData[0], teamData[1], teamData[2], coach, owner, teamPlayers);
-            teams.add(team);
+            try {
+                Team team = new Team(teamName, birthDate, city, coach, owner, teamPlayers);
+                teams.add(team);
+            } catch (IllegalArgumentException e) {
+                System.out.println("Error: " + e.getMessage() + " para el equipo: " + teamName);
+            }
         }
     }
+
+    private static String extractCoachData(String data) {
+        Matcher matcher = Pattern.compile("Coach\\{.*?\\}").matcher(data);
+        if (matcher.find()) {
+            return matcher.group();
+        }
+        return "";
+    }
+
+    private static String extractOwnerData(String data) {
+        Matcher matcher = Pattern.compile("Person\\{.*?\\}").matcher(data);
+        if (matcher.find()) {
+            return matcher.group();
+        }
+        return "";
+    }
+
+    private static Coach parseCoach(String data) {
+        Matcher matcher = Pattern.compile("Coach\\{victories=(\\d+), nacional=(true|false), name='(.*?)', surName='(.*?)', birthDay='(.*?)', motivation=(\\d+), anualSalary=(\\d+)\\}").matcher(data);
+        if (matcher.find()) {
+            return new Coach(matcher.group(3), matcher.group(4), matcher.group(5), Integer.parseInt(matcher.group(6)), Integer.parseInt(matcher.group(7)), Integer.parseInt(matcher.group(1)), Boolean.parseBoolean(matcher.group(2)));
+        }
+        return null;
+    }
+
+    private static Person parsePerson(String data) {
+        Matcher matcher = Pattern.compile("Person\\{name='(.*?)', surName='(.*?)', birthDay='(.*?)', motivation=(\\d+), anualSalary=(\\d+)\\}").matcher(data);
+        if (matcher.find()) {
+            return new Person(matcher.group(1), matcher.group(2), matcher.group(3), Integer.parseInt(matcher.group(4)), Integer.parseInt(matcher.group(5)));
+        }
+        return null;
+    }
+
+    private static Player parsePlayer(String data) {
+        Matcher matcher = Pattern.compile("Player\\{back=(\\d+), position='(.*?)', cualityPoints=(\\d+), name='(.*?)', surName='(.*?)', birthDay='(.*?)', motivation=(\\d+), anualSalary=(\\d+)\\}").matcher(data);
+        if (matcher.find()) {
+            return new Player(matcher.group(4), matcher.group(5), matcher.group(6), Integer.parseInt(matcher.group(7)), Integer.parseInt(matcher.group(8)), Integer.parseInt(matcher.group(1)), matcher.group(2), Integer.parseInt(matcher.group(3)));
+        }
+        return null;
+    }
+
+
+
 
     public static void registerTeam(HashMap<String, Player> players, HashMap<String, Coach> coaches,
                                     HashMap<String, Person> owners, ArrayList<Team> teams) {
