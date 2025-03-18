@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
 
+import static java.util.stream.Collectors.toList;
+
 public class Main {
 
     public static void main(String[] args) {
@@ -122,16 +124,78 @@ public class Main {
 
         switch (option) {
             case 0 -> chooseOptionMenu1(teams, hashPlayers, hashCoaches, new HashMap<>(), new ArrayList<>(), players, coaches);
-            case 1 -> transferPlayerOrCoach();
+            case 1 -> transferPlayerOrCoach(teams, scanner);
             case 2 -> conductTrainingSession(hashPlayers,hashCoaches,players,coaches);
             default -> System.out.println("❌ Invalid option. Please try again.");
         }
     }
 
-    private static void transferPlayerOrCoach() {
+    public static void transferPlayerOrCoach(ArrayList<Team> teams, Scanner scanner) {
+        System.out.println("Enter the name of the team from which you want to transfer:");
+        String fromTeamName = scanner.nextLine();
 
+        Team fromTeam = null;
+        for (Team team : teams) {
+            if (team.getName().equalsIgnoreCase(fromTeamName)) {
+                fromTeam = team;
+                break;
+            }
+        }
 
+        if (fromTeam == null) {
+            System.out.println("Team '" + fromTeamName + "' not found.");
+            return;
+        }
+
+        System.out.println("Enter the name of the team to which you want to transfer:");
+        String toTeamName = scanner.nextLine();
+
+        Team toTeam = null;
+        for (Team team : teams) {
+            if (team.getName().equalsIgnoreCase(toTeamName)) {
+                toTeam = team;
+                break;
+            }
+        }
+
+        if (toTeam == null) {
+            System.out.println("Team '" + toTeamName + "' not found.");
+            return;
+        }
+
+        System.out.println("Are you transferring a player or a coach? (Enter 'player' or 'coach'):");
+        String choice = scanner.nextLine().trim().toLowerCase();
+
+        if (choice.equals("player")) {
+            System.out.println("Enter the name of the player to transfer:");
+            String playerName = scanner.nextLine();
+
+            Player playerToTransfer = fromTeam.getSpecificPlayer(playerName);
+
+            if (playerToTransfer != null) {
+                fromTeam.getPlayers().remove(playerToTransfer);
+                toTeam.getPlayers().add(playerToTransfer);
+                System.out.println("Player '" + playerName + "' has been transferred from '" + fromTeamName + "' to '" + toTeamName + "'.");
+            } else {
+                System.out.println("Player '" + playerName + "' not found in team '" + fromTeamName + "'.");
+            }
+        } else if (choice.equals("coach")) {
+            System.out.println("Transferring the coach from '" + fromTeamName + "' to '" + toTeamName + "'.");
+
+            Coach coachToTransfer = fromTeam.getCoach();
+
+            if (coachToTransfer != null) {
+                toTeam.setCoach(coachToTransfer);
+                fromTeam.setCoach(null);
+                System.out.println("Coach has been transferred successfully.");
+            } else {
+                System.out.println("No coach found in team '" + fromTeamName + "'.");
+            }
+        } else {
+            System.out.println("Invalid choice. Please enter 'player' or 'coach'.");
+        }
     }
+
 
 
 

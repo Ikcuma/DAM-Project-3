@@ -205,7 +205,7 @@ public class Person {
             System.out.println("Enter the name of the new president:");
             String newPresidentName = scanner.nextLine();
 
-            Person newPresident = teamToModify.getOwner(); // Default to current owner
+            Person newPresident = teamToModify.getOwner();
             for (Person owner : teams.stream().map(Team::getOwner).toList()) {
                 if (owner.getName().equalsIgnoreCase(newPresidentName)) {
                     newPresident = owner;

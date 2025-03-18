@@ -30,6 +30,7 @@ public class Team {
         this.players = players;
     }
 
+
     // Getters
     public String getName() {
         return name;
@@ -46,6 +47,7 @@ public class Team {
     public List<Player> getPlayers() {
         return players;
     }
+
 
     public Coach getCoach() {
         return coach;
@@ -81,6 +83,18 @@ public class Team {
     }
 
     // Methods
+    public Player getSpecificPlayer(String player) {
+        Player newPlayer = null;
+        for (Player p : players){
+            if (p.getName().equals(player)){
+                newPlayer = p;
+                break;
+            }
+        }
+        return newPlayer;
+    }
+
+
     public static void loadTeams(ArrayList<String> bruteTeamData, ArrayList<Team> teams) throws IOException {
         String filePath = "C:\\Users\\dunkl\\IdeaProjects\\DAM-Project-3\\src\\src\\football_manager\\resources\\team_files.txt";
 
