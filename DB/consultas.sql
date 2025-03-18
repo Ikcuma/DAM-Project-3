@@ -43,57 +43,87 @@ grant 'periodista' to 'periodistaMundo'@'localhost';
 
 -- CREAR VISITAS DEL 'periodistaAS'
 -- Visita 1 (Los 5 maximos goleadores)
-create view maximo_goleadores
-as select persones.nom, persones.cognoms, count(partits_gols.jugadors_id) as total_gols
-from partits_gols
-inner join jugadors on partits_gols.jugadors_id = jugadors.persones_id
-inner join persones on jugadors.persones_id = persones.id
-group by persones.nom, persones.cognoms
-order by total_gols desc
-limit 5;
+CREATE VIEW maximo_goleadores AS
+    SELECT 
+        persones.nom,
+        persones.cognoms,
+        COUNT(partits_gols.jugadors_id) AS total_gols
+    FROM
+        partits_gols
+            INNER JOIN
+        jugadors ON partits_gols.jugadors_id = jugadors.persones_id
+            INNER JOIN
+        persones ON jugadors.persones_id = persones.id
+    GROUP BY persones.nom , persones.cognoms
+    ORDER BY total_gols DESC
+    LIMIT 5;
 
 grant select on football_manager.maximo_goleadores to 'periodistaAS'@'localhost';
 
 select * from maximo_goleadores;
 
 -- Visita 2 ( 3 equipo_menos goleados)
-create view equipos_menos_goleados
-as select equips.nom as nom_equip, 
-sum( case when partits.equips_id_local = equips.id then partits.gols_visitant else 0 end) +
-sum(case when partits.equips_id_visitant = equips.id then partits.gols_local else 0 end) as gols_totals_rebuts
-from partits
-inner join equips on partits.equips_id_local = equips.id or partits.equips_id_visitant = equips.id
-group by equips.nom
-order by gols_totals_rebuts asc
-limit 3;
+CREATE VIEW equipos_menos_goleados AS
+    SELECT 
+        equips.nom AS nom_equip,
+        SUM(CASE
+            WHEN partits.equips_id_local = equips.id THEN partits.gols_visitant
+            ELSE 0
+        END) + SUM(CASE
+            WHEN partits.equips_id_visitant = equips.id THEN partits.gols_local
+            ELSE 0
+        END) AS gols_totals_rebuts
+    FROM
+        partits
+            INNER JOIN
+        equips ON partits.equips_id_local = equips.id
+            OR partits.equips_id_visitant = equips.id
+    GROUP BY equips.nom
+    ORDER BY gols_totals_rebuts ASC
+    LIMIT 3;
 
 grant select on football_manager.equipos_menos_goleados to 'periodistaAS'@'localhost';
 
 select * from equipos_menos_goleados;
 
 -- Visita 3 (Los 5 partidos con mas goles)
-create view partidos_mas_goles
-as select el.nom as equip_local, ev.nom as equip_visitant, partits.gols_local, partits.gols_visitant, (partits.gols_local + partits.gols_visitant) as gols_total
-from partits
-inner join equips el on partits.equips_id_local = el.id
-inner join equips ev on partits.equips_id_visitant = ev.id
-order by gols_total desc
-limit 5;
+CREATE VIEW partidos_mas_goles AS
+    SELECT 
+        el.nom AS equip_local,
+        ev.nom AS equip_visitant,
+        partits.gols_local,
+        partits.gols_visitant,
+        (partits.gols_local + partits.gols_visitant) AS gols_total
+    FROM
+        partits
+            INNER JOIN
+        equips el ON partits.equips_id_local = el.id
+            INNER JOIN
+        equips ev ON partits.equips_id_visitant = ev.id
+    ORDER BY gols_total DESC
+    LIMIT 5;
 
 grant select on football_manager.partidos_mas_goles to 'periodistaAS'@'localhost';
 
 select * from partidos_mas_goles;
 
 -- Visita 4 (los 3 equipos con mas penaltis)
-create view equipos_con_mas_penaltis
-as select equips.nom as nom_equip, count(partits_gols.partits_id) as total_penaltis
-from partits_gols 
-inner join partits on partits_gols.partits_id = partits.id
-inner join equips on partits.equips_id_local = equips.id or partits.equips_id_visitant = equips.id
-where partits_gols.es_penal = 1
-group by equips.nom
-order by total_penaltis desc
-limit 3;
+CREATE VIEW equipos_con_mas_penaltis AS
+    SELECT 
+        equips.nom AS nom_equip,
+        COUNT(partits_gols.partits_id) AS total_penaltis
+    FROM
+        partits_gols
+            INNER JOIN
+        partits ON partits_gols.partits_id = partits.id
+            INNER JOIN
+        equips ON partits.equips_id_local = equips.id
+            OR partits.equips_id_visitant = equips.id
+    WHERE
+        partits_gols.es_penal = 1
+    GROUP BY equips.nom
+    ORDER BY total_penaltis DESC
+    LIMIT 3;
 
 grant select on football_manager.equipos_con_mas_penaltis to 'periodistaAS'@'localhost';
 
@@ -101,7 +131,7 @@ select * from equipos_con_mas_penaltis;
 
 -- CONSULTES SQL
 -- variables
-set @equip = 'Girona FC'; -- 88 goles totales
+ -- 88 goles totales // Girona
 set @nom_lliga = 'La Liga EA Sports';
 set @temporada = '2024';
 set @equip_local = 'FC Barcelona';
@@ -109,258 +139,446 @@ set @equip_visitant = 'Real Madrid CF';
 set @porter = 'Porter';
 
 -- 1
-select lligues.nom 'nom_lliga', lligues.temporada, equips.any_fundacio, equips.nom_president, ciutats.nom 'nom_ciutat', estadis.nom 'nom_estadi', estadis.num_espectadors
-from lligues
-inner join participar_lligues on lligues.id = participar_lligues.lligues_id
-inner join equips on participar_lligues.equips_id = equips.id
-inner join ciutats on equips.ciutats_id = ciutats.id
-inner join estadis on equips.estadis_id = estadis.id
-where lligues.nom = @nom_lliga and lligues.temporada = @temporada and estadis.num_espectadors between 30000 and 50000
-order by estadis.num_espectadors desc;
+SELECT 
+    lligues.nom 'nom_lliga',
+    lligues.temporada,
+    equips.any_fundacio,
+    equips.nom_president,
+    ciutats.nom 'nom_ciutat',
+    estadis.nom 'nom_estadi',
+    estadis.num_espectadors
+FROM
+    lligues
+        INNER JOIN
+    participar_lligues ON lligues.id = participar_lligues.lligues_id
+        INNER JOIN
+    equips ON participar_lligues.equips_id = equips.id
+        INNER JOIN
+    ciutats ON equips.ciutats_id = ciutats.id
+        INNER JOIN
+    estadis ON equips.estadis_id = estadis.id
+WHERE
+    lligues.nom = @nom_lliga
+        AND lligues.temporada = @temporada
+        AND estadis.num_espectadors BETWEEN 30000 AND 50000
+ORDER BY estadis.num_espectadors DESC;
 
 -- 2
-select ciutats.nom, equips.nom, persones.nom, persones.cognoms
-from equips
-inner join ciutats on equips.ciutats_id = ciutats.id
-inner join entrenar_equips on equips.id = entrenar_equips.equips_id
-inner join entrenadors on entrenar_equips.entrenadors_id = entrenadors.persones_id
-inner join persones on entrenadors.persones_id = persones.id
-where ciutats.nom in ('Barcelona','Sevilla','Madrid') and persones.nom not like 'f%' and persones.cognoms like '%e%';
+SELECT 
+    ciutats.nom, equips.nom, persones.nom, persones.cognoms
+FROM
+    equips
+        INNER JOIN
+    ciutats ON equips.ciutats_id = ciutats.id
+        INNER JOIN
+    entrenar_equips ON equips.id = entrenar_equips.equips_id
+        INNER JOIN
+    entrenadors ON entrenar_equips.entrenadors_id = entrenadors.persones_id
+        INNER JOIN
+    persones ON entrenadors.persones_id = persones.id
+WHERE
+    ciutats.nom IN ('Barcelona' , 'Sevilla', 'Madrid')
+        AND persones.nom NOT LIKE 'f%'
+        AND persones.cognoms LIKE '%e%';
 
--- 3 ¿?
-select lligues.nom 'nom_lliga', lligues.temporada 'temporada', equips.nom 'nom_equips', sum(distinct p.punts_local) as puntos_total
-from equips
-inner join partits p on equips.id = p.equips_id_local
-inner join partits p2 on equips.id = p2.equips_id_visitant
-inner join jornades on p.jornades_id = jornades.id
-inner join lligues on jornades.lligues_id = lligues.id
-group by lligues.nom, lligues.temporada, equips.nom
-order by puntos_total desc;
-
-select lligues.nom 'nom_lliga', lligues.temporada 'temporada', equips.nom 'nom_equips', sum((partits.equips_id_local = equips.id) * partits.punts_local + (partits.equips_id_visitant = equips.id) * partits.punts_visitant) as puntos_total
-from equips
-inner join partits on  equips.id in (partits.equips_id_local, partits.equips_id_visitant)
-inner join jornades on partits.jornades_id = jornades.id
-inner join lligues on jornades.lligues_id = lligues.id
-group by lligues.nom, lligues.temporada, equips.nom
-order by puntos_total desc;
+-- 3
+SELECT 
+    equips.nom,
+    SUM(CASE
+        WHEN partits.equips_id_local = equips.id THEN partits.punts_local
+        WHEN partits.equips_id_visitant = equips.id THEN partits.punts_visitant
+        ELSE 0
+    END) AS puntuacio_total
+FROM
+    partits
+        INNER JOIN
+    jornades ON partits.jornades_id = jornades.id
+        INNER JOIN
+    lligues ON jornades.lligues_id = lligues.id
+        INNER JOIN
+    equips ON partits.equips_id_local = equips.id
+        OR partits.equips_id_visitant = equips.id
+WHERE
+    lligues.nom = @nom_lliga
+        AND lligues.temporada = @temporada
+GROUP BY equips.id
+ORDER BY puntuacio_total DESC;
 
 -- 4
-select @equip as nom_equip, 'Entrenador' as tipus_persona, concat(persones.nom, ' ', persones.cognoms) as Nom_complet
-from equips
-inner join entrenar_equips on equips.id = entrenar_equips.equips_id
-inner join entrenadors on entrenar_equips.entrenadors_id = entrenadors.persones_id
-inner join persones on entrenadors.persones_id = persones.id
-where equips.nom = @equip
-
-union
-
-select @equip as nom_equip, 'Jugador' as tipus_persona, concat(persones.nom, ' ', persones.cognoms) as Nom_complet
-from equips
-inner join jugadors_equips on equips.id = jugadors_equips.equips_id
-inner join jugadors on jugadors_equips.jugadors_id = jugadors.persones_id
-inner join persones on jugadors.persones_id = persones.id
-where equips.nom = @equip;
+set @equip = 'CA Osasuna';
+SELECT 
+    @equip AS nom_equip,
+    'Entrenador' AS tipus_persona,
+    CONCAT(persones.nom, ' ', persones.cognoms) AS Nom_complet
+FROM
+    equips
+        INNER JOIN
+    entrenar_equips ON equips.id = entrenar_equips.equips_id
+        INNER JOIN
+    entrenadors ON entrenar_equips.entrenadors_id = entrenadors.persones_id
+        INNER JOIN
+    persones ON entrenadors.persones_id = persones.id
+WHERE
+    equips.nom = @equip 
+UNION SELECT 
+    @equip AS nom_equip,
+    'Jugador' AS tipus_persona,
+    CONCAT(persones.nom, ' ', persones.cognoms) AS Nom_complet
+FROM
+    equips
+        INNER JOIN
+    jugadors_equips ON equips.id = jugadors_equips.equips_id
+        INNER JOIN
+    jugadors ON jugadors_equips.jugadors_id = jugadors.persones_id
+        INNER JOIN
+    persones ON jugadors.persones_id = persones.id
+WHERE
+    equips.nom = @equip;
 
 -- 5
-select posicions.posicio, count(jugadors.persones_id) as nombre_jugadors
-from jugadors
-inner join posicions on jugadors.posicions_id = posicions.id
-inner join persones on jugadors.persones_id = persones.id
-inner join jugadors_equips on jugadors.persones_id = jugadors_equips.jugadors_id
-inner join equips on jugadors_equips.equips_id = equips.id
-inner join participar_lligues on equips.id = participar_lligues.equips_id
-inner join lligues on participar_lligues.lligues_id = lligues.id
-where jugadors_equips.data_baixa is null and lligues.nom = @nom_lliga and lligues.temporada = @temporada
-group by posicions.posicio
-order by posicions.posicio desc;
+SELECT 
+    posicions.posicio,
+    COUNT(jugadors.persones_id) AS nombre_jugadors
+FROM
+    jugadors
+        INNER JOIN
+    posicions ON jugadors.posicions_id = posicions.id
+        INNER JOIN
+    persones ON jugadors.persones_id = persones.id
+        INNER JOIN
+    jugadors_equips ON jugadors.persones_id = jugadors_equips.jugadors_id
+        INNER JOIN
+    equips ON jugadors_equips.equips_id = equips.id
+        INNER JOIN
+    participar_lligues ON equips.id = participar_lligues.equips_id
+        INNER JOIN
+    lligues ON participar_lligues.lligues_id = lligues.id
+WHERE
+    jugadors_equips.data_baixa IS NULL
+        AND lligues.nom = @nom_lliga
+        AND lligues.temporada = @temporada
+GROUP BY posicions.posicio
+ORDER BY posicions.posicio DESC;
 
 -- 6
-select jornades.data, jornades.jornada, e.nom as equip_local , partits.gols_local, partits.gols_visitant, e2.nom as equip_visitant
-from jornades
-inner join lligues on jornades.lligues_id = lligues.id
-inner join partits on jornades.id = partits.jornades_id
-inner join equips e on partits.equips_id_local = e.id
-inner join equips e2 on partits.equips_id_visitant = e2.id
-where lligues.nom = @nom_lliga and lligues.temporada = @temporada and e.nom = @equip
-order by jornades.data asc;
+SELECT 
+    jornades.data,
+    jornades.jornada,
+    e.nom AS equip_local,
+    partits.gols_local,
+    partits.gols_visitant,
+    e2.nom AS equip_visitant
+FROM
+    jornades
+        INNER JOIN
+    lligues ON jornades.lligues_id = lligues.id
+        INNER JOIN
+    partits ON jornades.id = partits.jornades_id
+        INNER JOIN
+    equips e ON partits.equips_id_local = e.id
+        INNER JOIN
+    equips e2 ON partits.equips_id_visitant = e2.id
+WHERE
+    lligues.nom = @nom_lliga
+        AND lligues.temporada = @temporada
+        AND e.nom = @equip
+ORDER BY jornades.data ASC;
 
 -- 7
-select jornades.data, jornades.jornada, e.nom as equip_local, e2.nom as equip_visitant, partits.gols_local, partits.gols_visitant, partits_gols.minut, persones.nom as nom_jugador, persones.cognoms as cognom_jugador, jugadors_equips.equips_id, partits_gols.es_penal
-from partits
-inner join jornades on partits.jornades_id = jornades.id
-inner join lligues on jornades.lligues_id = lligues.id
-inner join equips e on partits.equips_id_local = e.id
-inner join equips e2 on partits.equips_id_visitant = e2.id
-inner join partits_gols on partits.id = partits_gols.partits_id
-inner join jugadors on partits_gols.jugadors_id = jugadors.persones_id
-inner join persones on jugadors.persones_id = persones.id
-inner join jugadors_equips on jugadors.persones_id = jugadors_equips.jugadors_id
-where lligues.nom = @nom_lliga and lligues.temporada = @temporada and e.nom = @equip_local and e2.nom = @equip_visitant
-order by partits_gols.minut desc;
+SELECT 
+    jornades.data,
+    jornades.jornada,
+    e.nom AS equip_local,
+    e2.nom AS equip_visitant,
+    partits.gols_local,
+    partits.gols_visitant,
+    partits_gols.minut,
+    persones.nom AS nom_jugador,
+    persones.cognoms AS cognom_jugador,
+    jugadors_equips.equips_id,
+    partits_gols.es_penal
+FROM
+    partits
+        INNER JOIN
+    jornades ON partits.jornades_id = jornades.id
+        INNER JOIN
+    lligues ON jornades.lligues_id = lligues.id
+        INNER JOIN
+    equips e ON partits.equips_id_local = e.id
+        INNER JOIN
+    equips e2 ON partits.equips_id_visitant = e2.id
+        INNER JOIN
+    partits_gols ON partits.id = partits_gols.partits_id
+        INNER JOIN
+    jugadors ON partits_gols.jugadors_id = jugadors.persones_id
+        INNER JOIN
+    persones ON jugadors.persones_id = persones.id
+        INNER JOIN
+    jugadors_equips ON jugadors.persones_id = jugadors_equips.jugadors_id
+WHERE
+    lligues.nom = @nom_lliga
+        AND lligues.temporada = @temporada
+        AND e.nom = @equip_local
+        AND e2.nom = @equip_visitant
+ORDER BY partits_gols.minut DESC;
 
 -- 8
-select concat (persones.nom, ' ' , persones.cognoms) as jugador, count(partits_gols.jugadors_id) as gols_marcats
-from partits
-inner join jornades on partits.jornades_id = jornades.id
-inner join lligues on jornades.lligues_id = lligues.id
-inner join partits_gols on partits.id = partits_gols.partits_id
-inner join jugadors on partits_gols.jugadors_id = jugadors.persones_id
-inner join persones on jugadors.persones_id = persones.id
-where lligues.nom = @nom_lliga and lligues.temporada = @temporada
-group by jugador
-order by gols_marcats
-limit 10;
+SELECT 
+    CONCAT(persones.nom, ' ', persones.cognoms) AS jugador,
+    COUNT(partits_gols.jugadors_id) AS gols_marcats
+FROM
+    partits
+        INNER JOIN
+    jornades ON partits.jornades_id = jornades.id
+        INNER JOIN
+    lligues ON jornades.lligues_id = lligues.id
+        INNER JOIN
+    partits_gols ON partits.id = partits_gols.partits_id
+        INNER JOIN
+    jugadors ON partits_gols.jugadors_id = jugadors.persones_id
+        INNER JOIN
+    persones ON jugadors.persones_id = persones.id
+WHERE
+    lligues.nom = @nom_lliga
+        AND lligues.temporada = @temporada
+GROUP BY jugador
+ORDER BY gols_marcats
+LIMIT 10;
 
 -- 9
-select concat(persones.nom, ' ' , persones.cognoms) as jugadors, persones.sou, persones.nivell_motivacio, persones.data_naixement
-from persones
-where persones.sou between 700000 and 12000000
-and persones.nivell_motivacio >= 85
-and year(persones.data_naixement) in (1959, 1985, 1992);
+SELECT 
+    CONCAT(persones.nom, ' ', persones.cognoms) AS jugadors,
+    persones.sou,
+    persones.nivell_motivacio,
+    persones.data_naixement
+FROM
+    persones
+WHERE
+    persones.sou BETWEEN 700000 AND 12000000
+        AND persones.nivell_motivacio >= 85
+        AND YEAR(persones.data_naixement) IN (1959 , 1985, 1992);
 
 -- 10
-select equips.nom, round(avg(jugadors.qualitat), 2) as mitja_qualitat
-from equips
-inner join jugadors_equips on equips.id = jugadors_equips.equips_id
-inner join jugadors on jugadors_equips.jugadors_id = jugadors.persones_id
-inner join participar_lligues on equips.id = participar_lligues.equips_id
-inner join lligues on participar_lligues.lligues_id = lligues.id
-where lligues.nom = @nom_lliga
-and lligues.temporada = @temporada
-group by equips.nom
-having mitja_qualitat > 80
-order by mitja_qualitat desc;
+SELECT 
+    equips.nom,
+    ROUND(AVG(jugadors.qualitat), 2) AS mitja_qualitat
+FROM
+    equips
+        INNER JOIN
+    jugadors_equips ON equips.id = jugadors_equips.equips_id
+        INNER JOIN
+    jugadors ON jugadors_equips.jugadors_id = jugadors.persones_id
+        INNER JOIN
+    participar_lligues ON equips.id = participar_lligues.equips_id
+        INNER JOIN
+    lligues ON participar_lligues.lligues_id = lligues.id
+WHERE
+    lligues.nom = @nom_lliga
+        AND lligues.temporada = @temporada
+GROUP BY equips.nom
+HAVING mitja_qualitat > 80
+ORDER BY mitja_qualitat DESC;
 
 -- 11
-select equips.nom, equips.filial_equips_id as equip_filial
-from equips
-inner join equips ef on equips.filial_equips_id = ef.id;
+SELECT 
+    equips.nom, equips.filial_equips_id AS equip_filial
+FROM
+    equips
+        INNER JOIN
+    equips ef ON equips.filial_equips_id = ef.id;
 
 -- 12
-select equips.nom, count(jugadors.persones_id) as num_jugadors
-from equips
-inner join jugadors_equips on equips.id = jugadors_equips.equips_id
-inner join jugadors on jugadors_equips.jugadors_id = jugadors.persones_id
-where jugadors.qualitat > 85
-group by equips.nom
-having num_jugadors >= 3;
+SELECT 
+    equips.nom, COUNT(jugadors.persones_id) AS num_jugadors
+FROM
+    equips
+        INNER JOIN
+    jugadors_equips ON equips.id = jugadors_equips.equips_id
+        INNER JOIN
+    jugadors ON jugadors_equips.jugadors_id = jugadors.persones_id
+WHERE
+    jugadors.qualitat > 85
+GROUP BY equips.nom
+HAVING num_jugadors >= 3;
 
 -- 13
-select equips.nom as equip, round(avg(year(curdate()) - year(persones.data_naixement)), 2) as mitjana_edat
-from equips
-inner join jugadors_equips on equips.id = jugadors_equips.equips_id
-inner join jugadors on jugadors_equips.jugadors_id = jugadors.persones_id
-inner join persones on jugadors.persones_id = persones.id
-group by equips.nom
-order by mitjana_edat desc;
+SELECT 
+    equips.nom AS equip,
+    ROUND(AVG(YEAR(CURDATE()) - YEAR(persones.data_naixement)),
+            2) AS mitjana_edat
+FROM
+    equips
+        INNER JOIN
+    jugadors_equips ON equips.id = jugadors_equips.equips_id
+        INNER JOIN
+    jugadors ON jugadors_equips.jugadors_id = jugadors.persones_id
+        INNER JOIN
+    persones ON jugadors.persones_id = persones.id
+GROUP BY equips.nom
+ORDER BY mitjana_edat DESC;
 
 -- 14
-select persones.nom, persones.cognoms, count(persones.id) as total_gols
-from persones
-inner join jugadors on persones.id = jugadors.persones_id
-inner join partits_gols on jugadors.persones_id = partits_gols.jugadors_id
-inner join partits on partits_gols.partits_id = partits.id
-inner join jornades on partits.jornades_id = jornades.id
-inner join lligues on jornades.lligues_id = lligues.id
-where lligues.nom = @nom_lliga
-and lligues.temporada = @temporada
-group by persones.nom, persones.cognoms
-order by total_gols desc
-limit 1;
+SELECT 
+    persones.nom,
+    persones.cognoms,
+    COUNT(persones.id) AS total_gols
+FROM
+    persones
+        INNER JOIN
+    jugadors ON persones.id = jugadors.persones_id
+        INNER JOIN
+    partits_gols ON jugadors.persones_id = partits_gols.jugadors_id
+        INNER JOIN
+    partits ON partits_gols.partits_id = partits.id
+        INNER JOIN
+    jornades ON partits.jornades_id = jornades.id
+        INNER JOIN
+    lligues ON jornades.lligues_id = lligues.id
+WHERE
+    lligues.nom = @nom_lliga
+        AND lligues.temporada = @temporada
+GROUP BY persones.nom , persones.cognoms
+ORDER BY total_gols DESC
+LIMIT 1;
 
 -- 15
-select posicions.posicio, jugadors.dorsal, persones.nom, persones.cognoms, equips.nom as equip, count(partits_gols.jugadors_id) as gols
-from persones
-inner join jugadors on persones.id = jugadors.persones_id
-inner join jugadors_equips on jugadors.persones_id = jugadors_equips.jugadors_id
-inner join equips on jugadors_equips.equips_id = equips.id
-inner join participar_lligues on equips.id = participar_lligues.equips_id
-inner join lligues on participar_lligues.lligues_id = lligues.id
-inner join posicions on jugadors.posicions_id = posicions.id
-inner join partits_gols on jugadors.persones_id = partits_gols.jugadors_id
-inner join partits on partits_gols.partits_id = partits.id
-where lligues.nom = @nom_lliga
-and lligues.temporada = @temporada
-and posicions.posicio in ('Defensa')
-group by posicions.posicio, jugadors.dorsal, persones.nom, persones.cognoms, equips.nom
-having gols > 5;
+SELECT 
+    posicions.posicio,
+    jugadors.dorsal,
+    persones.nom,
+    persones.cognoms,
+    equips.nom AS equip,
+    COUNT(partits_gols.jugadors_id) AS gols
+FROM
+    persones
+        INNER JOIN
+    jugadors ON persones.id = jugadors.persones_id
+        INNER JOIN
+    jugadors_equips ON jugadors.persones_id = jugadors_equips.jugadors_id
+        INNER JOIN
+    equips ON jugadors_equips.equips_id = equips.id
+        INNER JOIN
+    participar_lligues ON equips.id = participar_lligues.equips_id
+        INNER JOIN
+    lligues ON participar_lligues.lligues_id = lligues.id
+        INNER JOIN
+    posicions ON jugadors.posicions_id = posicions.id
+        INNER JOIN
+    partits_gols ON jugadors.persones_id = partits_gols.jugadors_id
+        INNER JOIN
+    partits ON partits_gols.partits_id = partits.id
+WHERE
+    lligues.nom = @nom_lliga
+        AND lligues.temporada = @temporada
+        AND posicions.posicio IN ('Defensa')
+GROUP BY posicions.posicio , jugadors.dorsal , persones.nom , persones.cognoms , equips.nom
+HAVING gols > 5;
 
--- 16 mas o menos
-select 
-	@equip as nom_equip, 
-		sum(
-			case
-				when e.nom = @equip then partits.gols_local
-                when e2.nom = @equip then partits.gols_visitant
-                else 0
-			end
-        ) as gols_totals
-from partits
-inner join equips e on partits.equips_id_local = e.id
-inner join equips e2 on partits.equips_id_visitant = e2.id
-inner join jornades on partits.jornades_id = jornades.id
-inner join lligues on jornades.lligues_id = lligues.id
-where lligues.nom = @nom_lliga
-and lligues.temporada = @temporada
-and (e.nom = @equip or e2.nom = @equip)
-group by nom_equip;
+-- 16
+SELECT 
+    @equip AS nom_equip,
+    SUM(CASE
+        WHEN e.nom = @equip THEN partits.gols_local
+        WHEN e2.nom = @equip THEN partits.gols_visitant
+        ELSE 0
+    END) AS gols_totals
+FROM
+    partits
+        INNER JOIN
+    equips e ON partits.equips_id_local = e.id
+        INNER JOIN
+    equips e2 ON partits.equips_id_visitant = e2.id
+        INNER JOIN
+    jornades ON partits.jornades_id = jornades.id
+        INNER JOIN
+    lligues ON jornades.lligues_id = lligues.id
+WHERE
+    lligues.nom = @nom_lliga
+        AND lligues.temporada = @temporada
+        AND (e.nom = @equip OR e2.nom = @equip)
+GROUP BY nom_equip;
 
--- 17 ¿?
-select equips.nom as equip, 
-		sum(
-			case
-				when partits.equips_id_local = equips.id then partits.gols_local
-                when partits.equips_id_visitant = equips.id then partits.gols_visitant
-                else 0
-			end
-        ) as gols_total
-from partits
-inner join equips on partits.equips_id_local = equips.id or partits.equips_id_visitant = equips.id
-inner join jornades on partits.jornades_id = jornades.id
-inner join lligues on jornades.lligues_id = lligues.id
-where lligues.nom = @nom_lliga
-and lligues.temporada = @temporada
-group by equips.nom
-having gols_total >= (select sum(case when partits.equips_id_local = e1.id then partits.gols_local when partits.equips_id_visitant = e1.id then partits.gols_visitant else 0 end)
-    from partits
-    inner join equips e1 on partits.equips_id_local = e1.id or partits.equips_id_visitant = e1.id
-    inner join jornades on partits.jornades_id = jornades.id
-    inner join lligues on jornades.lligues_id = lligues.id
-    where lligues.nom = @nom_lliga
-    and lligues.temporada = @temporada
-    and e1.nom = @equip
-    group by e1.nom
-    )
-order by gols_total desc;
+-- 17
+SELECT 
+    equips.nom AS equip,
+    SUM(CASE
+        WHEN partits.equips_id_local = equips.id THEN partits.gols_local
+        WHEN partits.equips_id_visitant = equips.id THEN partits.gols_visitant
+        ELSE 0
+    END) AS gols_total
+FROM
+    partits
+        INNER JOIN
+    equips ON partits.equips_id_local = equips.id
+        OR partits.equips_id_visitant = equips.id
+        INNER JOIN
+    jornades ON partits.jornades_id = jornades.id
+        INNER JOIN
+    lligues ON jornades.lligues_id = lligues.id
+WHERE
+    lligues.nom = @nom_lliga
+        AND lligues.temporada = @temporada
+GROUP BY equips.nom
+HAVING gols_total >= (SELECT 
+        SUM(CASE
+                WHEN partits.equips_id_local = e1.id THEN partits.gols_local
+                WHEN partits.equips_id_visitant = e1.id THEN partits.gols_visitant
+                ELSE 0
+            END)
+    FROM
+        partits
+            INNER JOIN
+        equips e1 ON partits.equips_id_local = e1.id
+            OR partits.equips_id_visitant = e1.id
+            INNER JOIN
+        jornades ON partits.jornades_id = jornades.id
+            INNER JOIN
+        lligues ON jornades.lligues_id = lligues.id
+    WHERE
+        lligues.nom = @nom_lliga
+            AND lligues.temporada = @temporada
+            AND e1.nom = @equip
+    GROUP BY e1.nom)
+ORDER BY gols_total DESC;
 
 -- Consultes de manipulació de dades;
 -- 1
 select * from partits;
  
-update partits
-inner join jornades on partits.jornades_id = jornades.id
-inner join lligues on jornades.lligues_id = lligues.id
-set partits.gols_local = 0, partits.gols_visitant = 0, partits.punts_local = 1, partits.punts_visitant = 1
-where jornades.jornada = 5
-	and lligues.nom = @nom_lliga
-    and lligues.tmeporada = @temporada;
+UPDATE partits
+        INNER JOIN
+    jornades ON partits.jornades_id = jornades.id
+        INNER JOIN
+    lligues ON jornades.lligues_id = lligues.id 
+SET 
+    partits.gols_local = 0,
+    partits.gols_visitant = 0,
+    partits.punts_local = 1,
+    partits.punts_visitant = 1
+WHERE
+    jornades.jornada = 5
+        AND lligues.nom = @nom_lliga
+        AND lligues.tmeporada = @temporada;
 
 -- 2
 select * from ciutats;
 select * from equips;
 
-delete ciutats
-from ciutats
-left join equips on ciutats.id = equips.ciutats_id
-where equips.ciutats_id is null;
+DELETE ciutats FROM ciutats
+        LEFT JOIN
+    equips ON ciutats.id = equips.ciutats_id 
+WHERE
+    equips.ciutats_id IS NULL;
 
 -- 3
 select * from persones;
 
-update persones
-set nivell_motivacio = nivell_motivacio * 0.9
-where sou < 5000000 and year(curdate()) - year(data_naixement) >= 35;
+UPDATE persones 
+SET 
+    nivell_motivacio = nivell_motivacio * 0.9
+WHERE
+    sou < 5000000
+        AND YEAR(CURDATE()) - YEAR(data_naixement) >= 35;
 
 -- 4
 select * from jugadors;
@@ -369,14 +587,20 @@ select * from equips;
 
 set @posicio = 'Porter';
 
-update jugadors
-inner join persones on jugadors.persones_id = persones.id
-inner join posicions on jugadors.posicions_id = posicions.id
-inner join jugadors_equips on jugadors.persones_id = jugadors_equips.jugadors_id
-inner join equips on jugadors_equips.equips_id = equips.id
-set jugadors.qualitat = jugadors.qualitat + 3
-where posicions.posicio = @posicio
-and equips.filial_equips_id is null;
+UPDATE jugadors
+        INNER JOIN
+    persones ON jugadors.persones_id = persones.id
+        INNER JOIN
+    posicions ON jugadors.posicions_id = posicions.id
+        INNER JOIN
+    jugadors_equips ON jugadors.persones_id = jugadors_equips.jugadors_id
+        INNER JOIN
+    equips ON jugadors_equips.equips_id = equips.id 
+SET 
+    jugadors.qualitat = jugadors.qualitat + 3
+WHERE
+    posicions.posicio = @posicio
+        AND equips.filial_equips_id IS NULL;
 
 -- 5
 select * from jugadors;
@@ -385,12 +609,15 @@ select * from jugadors_equips;
 alter table jugadors
 add column disponible tinyint not null default 0;
 
-update jugadors
-inner join jugadors_equips on jugadors.persones_id = jugadors_equips.jugadors_id
-set jugadors.disponible = 1
-where jugadors_equips.data_fitxatge between '2024-01-01' and '2024-03-31';
+UPDATE jugadors
+        INNER JOIN
+    jugadors_equips ON jugadors.persones_id = jugadors_equips.jugadors_id 
+SET 
+    jugadors.disponible = 1
+WHERE
+    jugadors_equips.data_fitxatge BETWEEN '2024-01-01' AND '2024-03-31';
 
--- 6
+-- select de tablas
 select * from lligues;
 select * from jornades;
 select * from partits;
@@ -406,26 +633,9 @@ select * from entrenar_equips;
 select * from entrendors;
 select * from persones;
 
-
+-- 6
 insert into lligues (nom, temporada) 
 values ('Premier League',2024);
-
-insert into ciutats (id, nom)
-values 
-(17, 'Liverpool'),
-(18, 'Londres'),
-(19, 'Manchester'),
-(20, 'Brighton'),
-(21, 'Birmingham');
-
-insert into estadis (id, nom, num_espectadors)
-values
-(25, 'Anfield', 54000),
-(26, 'Emirates Stadium', 60000),
-(27, 'Stamford Bridge', 40000),
-(28, 'Etihand Stadium', 53000),
-(29, 'Amex Stadium', 30000),
-(30, 'Villa Park', 42000);
 
 insert into equips(nom, any_fundacio, nom_president, ciutats_id, estadis_id)
 values
@@ -445,74 +655,42 @@ values
 (43, 1, '2024-08-20', 2),
 (44, 1, '2024-08-20', 2);
 
+select * from jornades;
+
+-- 7
+insert into jornades (id, jornada, data, lligues_id)
+values
+(45, 39, 2025-05-13, 1);
+
+select * from equips;
 insert into partits (id, gols_local, gols_visitant, punts_local, punts_visitant, jornades_id, equips_id_local, equips_id_visitant)
 values
--- jornada 1
-(null, 4, 2, 3, 0, 39, 1, 6),
-(null, 2, 5, 0, 3, 39, 2, 5),
-(null, 3, 3, 1, 1, 39, 3, 4),
--- jornada 2
-(null, 0, 2, 0, 1, 40, 6, 4),
-(null, 1, 1, 1, 1, 40, 5, 3),
-(null, 2, 4, 0, 1, 40, 1, 2),
--- jornada 3
-(null, 0, 0, 1, 1, 41, 3, 6),
-(null, 4, 4, 1, 1, 41, 4, 2),
-(null, 3, 2, 3, 0, 41, 5, 1),
--- jornada 4
-(null, 2, 5, 0, 3, 42, 6, 5),
-(null, 0, 0, 1, 1, 42, 1, 4),
-(null, 3, 3, 1, 1, 42, 2, 3),
--- jornada 5
-(null, 5, 1, 3, 0, 43, 4, 5),
-(null, 2, 2, 1, 1, 43, 3, 1),
-(null, 4, 1, 3, 0, 43, 6, 2),
--- jornada 6
-(null, 2, 3, 0, 3, 44, 2, 1),
-(null, 1, 5, 0, 3, 44, 5, 6),
-(null, 4, 4, 1, 1, 44, 4, 3);
+(null, 4, 2, 3, 0, 45, 1, 2);
+
+-- 8
+insert into ciutats (id, nom)
+values 
+(17, 'Liverpool');
+
+insert into estadis (id, nom, num_espectadors)
+values
+(25, 'Anfield', 54000);
+
+insert into equips(nom, any_fundacio, nom_president, ciutats_id, estadis_id)
+values
+('Liverpool', 1892, 'Tom Werner', 17, 25);
 
 insert into persones (id, nom, cognoms, data_naixement, nivell_motivacio, sou, tipus_persona)
 values
 (121, 'Alisson', 'Becker', '1992-10-02', 88, 7800000, 'jugador'),
 (122, 'Mohamed', 'Salah', '1992-06-15', 90, 18200000, 'jugador'),
-(123, 'Jürgen', 'Klopp', '1967-06-16', 85, 16000000, 'entrenador'),
-(124, 'David', 'Raya', '1995-09-15', 80, 1560000, 'jugador'),
-(125, 'Martin', 'Odegaard', '1998-12', 84, 6000000, 'jugador'),
-(126, 'Mikel', 'Arteta', '1982-03-26', 92, 10000000, 'entrenador'),
-(127, 'Dorde', 'Petrovic', '1999-10-08', 81, 1300000, 'jugador'),
-(128, 'Moises', 'Caicedo', '2001-11-02', 95, 6000000, 'jugador'),
-(129, 'Mauricio', 'Pochettino', '1972-03-02', 90, 8000000, 'entrenador'),
-(130, 'Ederson', 'Moraes', '1993-08-17', 86, 5200000, 'jugador'),
-(131, 'Erling', 'Haaland', '2000-07-21', 88, 22400000, 'jugador'),
-(132, 'Pep', 'Guardiola', '1971-01-18', 94, 20000000, 'entrenador'),
-(133, 'Bart', 'Verbruggen', '2002-08-18', 92, 1040000, 'jugador'),
-(134, 'Pervis', 'Estupiñan', '1998-01-21', 92, 2300000, 'jugador'),
-(135, 'Roberto', 'Zerbi', '1979-06-06', 82, 2000000, 'entrenador'),
-(136, 'Emiliano', 'Martínez', '1992-09-02', 93, 5200000, 'jugador'),
-(137, 'Ollie', 'Watkins', '1995-12-30', 87, 3900000, 'jugador'),
-(138, 'Unai', 'Emery', '1971-11-03', 92, 8000000, 'entrenador');
+(123, 'Jürgen', 'Klopp', '1967-06-16', 85, 16000000, 'entrenador');
 
-insert into entrenadors
+insert into entrenadors (persones_id, nom_tornejos, es_selecionador)
 values 
-(123, 15, 0),
-(126, 15, 0),
-(129, 15, 0),
-(132, 15, 0),
-(135, 15, 0),
-(138, 15, 0);
+(123, 15, 0);
 
 insert into jugadors(persones_id, dorsal, qualitat, posicions_id)
 values 
 (121, 1, 85, 1),
-(122, 11, 90, 4),
-(124, 22, 88, 1),
-(125, 8, 82, 3),
-(127, 30, 84, 1),
-(128, 25, 95, 3),
-(130, 31, 89, 1),
-(131, 9, 84, 4),
-(133, 13, 91, 1),
-(134, 30, 95, 2),
-(136, 1, 87, 1),
-(137, 11, 77, 4);
+(122, 11, 90, 4);
