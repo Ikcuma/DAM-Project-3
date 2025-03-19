@@ -54,43 +54,6 @@ public class Person {
         // Logic for training
     }
 
-    public static void loadPersons(ArrayList<String> brutePersonData, ArrayList<Player> players, ArrayList<Coach> coaches, ArrayList<Person> owners) throws IOException {
-        String filePath = "C:\\Users\\dunkl\\IdeaProjects\\DAM-Project-3\\src\\src\\football_manager\\resources\\market_files.txt";
-
-        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                brutePersonData.add(line);
-            }
-        }
-
-        for (String personLine : brutePersonData) {
-            String[] personData = personLine.split(";");
-
-            if (personData.length >= 6) {
-                if (personData[0].equals("J")) {
-                    Player player = new Player(personData[1], personData[2], personData[3], Integer.parseInt(personData[4]),
-                            Integer.parseInt(personData[5]), Integer.parseInt(personData[6]), personData[7], Integer.parseInt(personData[8]));
-                    players.add(player);
-                } else if (personData[0].equals("E")) {
-                    if (personData.length >= 8) {
-                        Coach coach = new Coach(personData[1], personData[2], personData[3], Integer.parseInt(personData[4]),
-                                Integer.parseInt(personData[5]), Integer.parseInt(personData[6]), Boolean.parseBoolean(personData[7]));
-                        coaches.add(coach);
-                    }
-                } else if (personData[0].equals("O")) {
-                    if (personData.length >= 6) {
-                        Person owner = new Person(personData[1], personData[2], personData[3],
-                                Integer.parseInt(personData[4]), Integer.parseInt(personData[5]));
-                        owners.add(owner);
-                    }
-                }
-            } else {
-                System.out.println("Línea inválida (menos de 6 campos): " + personLine);
-            }
-        }
-    }
-
     public static void createNewPerson(String option, HashMap<String, Player> hashPlayers, HashMap<String, Coach> hashCoaches, HashMap<String, Person> hashOwners,
                                        ArrayList<Person> owners, ArrayList<Player> players, ArrayList<Coach> coaches) {
         Scanner scanner = new Scanner(System.in);
@@ -183,11 +146,8 @@ public class Person {
         return name.substring(0, 1).toUpperCase() + name.substring(1).toLowerCase();
     }
 
-    public static void loadHashmaps(HashMap<String, Player> players, HashMap<String, Coach> coaches, HashMap<String, Person> owners,
-                                    ArrayList<Player> playerArray, ArrayList<Coach> coachArray, ArrayList<Person> ownersArray) {
-        playerArray.forEach(player -> players.put(player.getName(), player));
-        coachArray.forEach(coach -> coaches.put(coach.getName(), coach));
-        ownersArray.forEach(owner -> owners.put(owner.getName(), owner));
+    public static void loadHashmaps(HashMap<String, Person> peopleHash, ArrayList<Person> peopleList) {
+        peopleList.forEach(person -> peopleHash.put(person.getName(), person));
     }
     public static void modifyPresident(ArrayList<Team> teams, Scanner scanner) {
         System.out.println("Enter the name of the team whose president you want to modify:");
@@ -222,6 +182,9 @@ public class Person {
         } else {
             System.out.println("Team '" + teamName + "' not found.");
         }
+    }
+    public String toFileFormat() {
+        return String.format("O;%s;%s;%s;%d;%d", name, surName, birthDay, motivation, anualSalary);
     }
 
     @Override

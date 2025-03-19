@@ -95,9 +95,9 @@ public class Team {
     }
 
 
-    public static void loadTeams(ArrayList<String> bruteTeamData, ArrayList<Team> teams) throws IOException {
+    public static void loadTeams(ArrayList<Team> teams) throws IOException {
         String filePath = "C:\\Users\\dunkl\\IdeaProjects\\DAM-Project-3\\src\\src\\football_manager\\resources\\team_files.txt";
-
+        ArrayList<String> bruteTeamData = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             String line;
             while ((line = reader.readLine()) != null) {
@@ -152,46 +152,6 @@ public class Team {
                 System.out.println("Error: " + e.getMessage() + " para el equipo: " + teamName);
             }
         }
-    }
-
-    private static String extractCoachData(String data) {
-        Matcher matcher = Pattern.compile("Coach\\{.*?\\}").matcher(data);
-        if (matcher.find()) {
-            return matcher.group();
-        }
-        return "";
-    }
-
-    private static String extractOwnerData(String data) {
-        Matcher matcher = Pattern.compile("Person\\{.*?\\}").matcher(data);
-        if (matcher.find()) {
-            return matcher.group();
-        }
-        return "";
-    }
-
-    private static Coach parseCoach(String data) {
-        Matcher matcher = Pattern.compile("Coach\\{victories=(\\d+), nacional=(true|false), name='(.*?)', surName='(.*?)', birthDay='(.*?)', motivation=(\\d+), anualSalary=(\\d+)\\}").matcher(data);
-        if (matcher.find()) {
-            return new Coach(matcher.group(3), matcher.group(4), matcher.group(5), Integer.parseInt(matcher.group(6)), Integer.parseInt(matcher.group(7)), Integer.parseInt(matcher.group(1)), Boolean.parseBoolean(matcher.group(2)));
-        }
-        return null;
-    }
-
-    private static Person parsePerson(String data) {
-        Matcher matcher = Pattern.compile("Person\\{name='(.*?)', surName='(.*?)', birthDay='(.*?)', motivation=(\\d+), anualSalary=(\\d+)\\}").matcher(data);
-        if (matcher.find()) {
-            return new Person(matcher.group(1), matcher.group(2), matcher.group(3), Integer.parseInt(matcher.group(4)), Integer.parseInt(matcher.group(5)));
-        }
-        return null;
-    }
-
-    private static Player parsePlayer(String data) {
-        Matcher matcher = Pattern.compile("Player\\{back=(\\d+), position='(.*?)', cualityPoints=(\\d+), name='(.*?)', surName='(.*?)', birthDay='(.*?)', motivation=(\\d+), anualSalary=(\\d+)\\}").matcher(data);
-        if (matcher.find()) {
-            return new Player(matcher.group(4), matcher.group(5), matcher.group(6), Integer.parseInt(matcher.group(7)), Integer.parseInt(matcher.group(8)), Integer.parseInt(matcher.group(1)), matcher.group(2), Integer.parseInt(matcher.group(3)));
-        }
-        return null;
     }
 
 

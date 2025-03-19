@@ -3,39 +3,34 @@ package football_manager;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
+import static football_manager.Team.extractCoachData;
 import static java.util.stream.Collectors.toList;
 
 public class Main {
 
     public static void main(String[] args) {
-        ArrayList<String> brutePersonData = new ArrayList<>();
-        ArrayList<String> bruteTeamData = new ArrayList<>();
-        ArrayList<Player> players = new ArrayList<>();
-        ArrayList<Coach> coaches = new ArrayList<>();
-        ArrayList<Person> owners = new ArrayList<>();
-        ArrayList<Team> teams = new ArrayList<>();
 
-        HashMap<String, Player> hashMapPlayers = new HashMap<>();
-        HashMap<String, Coach> hashMapCoaches = new HashMap<>();
-        HashMap<String, Person> hashMapOwners = new HashMap<>();
+        ArrayList<Person> peopleList = new ArrayList<>();
+        ArrayList<Team> teams = new ArrayList<>();
+        HashMap<String, Person> hashMapPeople = new HashMap<>();
 
         try {
-            Person.loadPersons(brutePersonData, players, coaches, owners);
-            Person.loadHashmaps(hashMapPlayers, hashMapCoaches, hashMapOwners, players, coaches, owners);
-            Team.loadTeams(bruteTeamData, teams);
-            System.out.println(bruteTeamData);
+            loadFileToList(peopleList);
+            Person.loadHashmaps(hashMapPeople, peopleList);
+            loadTeams( teams);
         } catch (IOException e) {
             System.err.println("❌ Error loading data: " + e.getMessage());
             return;
         }
-        chooseOptionMenu1(teams, hashMapPlayers, hashMapCoaches, hashMapOwners, owners, players, coaches);
+        chooseOptionMenu1(teams, hashMapPeople, peopleList);
     }
 
-    private static void chooseOptionMenu1(ArrayList<Team> teams, HashMap<String, Player> hashPlayers,
-                                          HashMap<String, Coach> hashCoaches, HashMap<String, Person> hashOwners,
-                                          ArrayList<Person> owners, ArrayList<Player> players, ArrayList<Coach> coaches) {
+    private static void chooseOptionMenu1(ArrayList<Team> teams, HashMap<String, Person> peopleHash, ArrayList<Person> peopleList) {
         Scanner scanner = new Scanner(System.in);
         int option;
         do {
@@ -46,7 +41,7 @@ public class Main {
             switch (option) {
                 case 0 -> {
                     try {
-                        reewriteFileMarket(players, coaches, owners);
+                        reewriteFileMarket(peopleList);
                         reewriteTeamFile(teams);
                     } catch (IOException e) {
                         System.err.println("❌ Error saving data: " + e.getMessage());
@@ -271,59 +266,148 @@ public class Main {
         }
         return name.substring(0, 1).toUpperCase() + name.substring(1).toLowerCase();
     }
-
-    public static void reewriteFileMarket(ArrayList<Player> players, ArrayList<Coach> coaches, ArrayList<Person> owners) throws IOException {
+    private static void loadFileToList(ArrayList<Person> peopleList)throws IOException{
         String filePath = "C:\\Users\\dunkl\\IdeaProjects\\DAM-Project-3\\src\\src\\football_manager\\resources\\market_files.txt";
-
-        try (BufferedWriter w = new BufferedWriter(new FileWriter(filePath))) {
-            for (Player p : players) {
-                String playerData = String.format("J;%s;%s;%s;%d;%d;%d;%s;%d%n",
-                        p.getName(), p.getSurName(), p.getBirthDay(), p.getMotivation(),
-                        p.getAnualSalary(), p.getBack(), p.getPosition(), p.getCualityPoints());
-                w.write(playerData);
+        ArrayList<String> brutePersonData = new ArrayList<String>();
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                brutePersonData.add(line);
             }
-
-            for (Coach c : coaches) {
-                String coachData = String.format("E;%s;%s;%s;%d;%d;%d;%b%n",
-                        c.getName(), c.getSurName(), c.getBirthDay(), c.getMotivation(),
-                        c.getAnualSalary(), c.getVictories(), c.isNacional());
-                w.write(coachData);
-            }
-
-            for (Person o : owners) {
-                String ownerData = String.format("O;%s;%s;%s;%d;%d%n",
-                        o.getName(), o.getSurName(), o.getBirthDay(), o.getMotivation(), o.getAnualSalary());
-                w.write(ownerData);
-            }
-            System.out.println("✅ Changes saved successfully!");
         }
+        for (String personLine : brutePersonData) {
+            String[] personData = personLine.split(";");
+            if (personData.length >= 6) {
+                if (personData[0].equals("J")) {
+                    Person player = new Player(personData[1], personData[2], personData[3], Integer.parseInt(personData[4]),
+                            Integer.parseInt(personData[5]), Integer.parseInt(personData[6]), personData[7], Integer.parseInt(personData[8]));
+                    peopleList.add(player);
+                } else if (personData[0].equals("E")) {
+                    if (personData.length >= 8) {
+                        Person coach = new Coach(personData[1], personData[2], personData[3], Integer.parseInt(personData[4]),
+                                Integer.parseInt(personData[5]), Integer.parseInt(personData[6]), Boolean.parseBoolean(personData[7]));
+                        peopleList.add(coach);
+                    }
+                } else if (personData[0].equals("O")) {
+                    if (personData.length >= 6) {
+                        Person owner = new Person(personData[1], personData[2], personData[3],
+                                Integer.parseInt(personData[4]), Integer.parseInt(personData[5]));
+                        peopleList.add(owner);
+                    }
+                }
+            } else {
+                System.out.println("Línea inválida (menos de 6 campos): " + personLine);
+            }
+        }
+        System.out.println(peopleList);
     }
 
-    private static void reewriteTeamFile(ArrayList<Team> teams) throws IOException {
-        String filePath = "C:\\Users\\dunkl\\IdeaProjects\\DAM-Project-3\\src\\src\\football_manager\\resources\\team_files.txt";
-
-        try (BufferedWriter w = new BufferedWriter(new FileWriter(filePath))) {
-            for (Team t : teams) {
-                String coach = t.getCoach().toString();
-                String owner = t.getOwner().toString();
-
-                StringBuilder playerString = new StringBuilder();
-                for (Player player : t.getPlayers()) {
-                    playerString.append(player.toString()).append(";");
-                }
-
-                if (playerString.length() > 0) {
-                    playerString.setLength(playerString.length() - 1);
-                }
-
-                String teamData = String.format("%s;%s;%s;%s;%s;%s%n",
-                        t.getName(), t.getBirthDate(), t.getCity(),
-                        coach, owner, playerString);
-
-
-                w.write(teamData);
+    public static void reewriteFileMarket(ArrayList<Person> peopleList) throws IOException {
+        String filePath = "C:\\Users\\dunkl\\IdeaProjects\\DAM-Project-3\\src\\src\\football_manager\\resources\\market_files.txt";
+        try(BufferedWriter w = new BufferedWriter(new FileWriter(filePath))){
+            for (Person p : peopleList) {
+                w.write(p.toFileFormat());
+                w.newLine();
             }
             System.out.println("✅ Team data saved successfully!");
         }
+    }
+
+    public static void loadTeams(ArrayList<Team> teams) throws IOException {
+        String filePath = "C:\\Users\\dunkl\\IdeaProjects\\DAM-Project-3\\src\\src\\football_manager\\resources\\team_files.txt";
+        ArrayList<String> bruteTeamData = new ArrayList<>();
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                bruteTeamData.add(line);
+            }
+        }
+
+        for (String line : bruteTeamData) {
+            String[] parts = line.split(";", 4);
+            if (parts.length < 4) {
+                System.out.println("Error: Formato incorrecto en línea: " + line);
+                continue;
+            }
+
+            String teamName = parts[0];
+            String birthDate = parts[1];
+            String city = parts[2];
+            String rest = parts[3];
+
+            Coach coach = parseCoach(extractCoachData(rest));
+            Person owner = parsePerson(extractOwnerData(rest));
+
+            if (coach == null) {
+                System.out.println("Error: Coach no válido para el equipo: " + teamName);
+            }
+            if (owner == null) {
+                System.out.println("Error: Person (dueño) no válido para el equipo: " + teamName);
+            }
+
+            if (coach == null || owner == null) {
+                System.out.println("Error: Entrenador o dueño no válido para el equipo: " + teamName);
+                continue;
+            }
+
+            List<Player> teamPlayers = new ArrayList<>();
+            String playersData = rest.substring(extractCoachData(rest).length() + extractOwnerData(rest).length());
+            Matcher playerMatcher = Pattern.compile("Player\\{back=(\\d+), position='(.*?)', cualityPoints=(\\d+), name='(.*?)', surName='(.*?)', birthDay='(.*?)', motivation=(\\d+), anualSalary=(\\d+)\\}").matcher(playersData);
+
+            while (playerMatcher.find()) {
+                Player player = parsePlayer(playerMatcher.group());
+                if (player != null) {
+                    teamPlayers.add(player);
+                } else {
+                    System.out.println("Error: No se pudo procesar un jugador en el equipo: " + teamName);
+                }
+            }
+
+            try {
+                Team team = new Team(teamName, birthDate, city, coach, owner, teamPlayers);
+                teams.add(team);
+            } catch (IllegalArgumentException e) {
+                System.out.println("Error: " + e.getMessage() + " para el equipo: " + teamName);
+            }
+        }
+    }
+    private static String extractCoachData(String data) {
+        Matcher matcher = Pattern.compile("Coach\\{.*?\\}").matcher(data);
+        if (matcher.find()) {
+            return matcher.group();
+        }
+        return "";
+    }
+
+    private static String extractOwnerData(String data) {
+        Matcher matcher = Pattern.compile("Person\\{.*?\\}").matcher(data);
+        if (matcher.find()) {
+            return matcher.group();
+        }
+        return "";
+    }
+
+    private static Coach parseCoach(String data) {
+        Matcher matcher = Pattern.compile("Coach\\{victories=(\\d+), nacional=(true|false), name='(.*?)', surName='(.*?)', birthDay='(.*?)', motivation=(\\d+), anualSalary=(\\d+)\\}").matcher(data);
+        if (matcher.find()) {
+            return new Coach(matcher.group(3), matcher.group(4), matcher.group(5), Integer.parseInt(matcher.group(6)), Integer.parseInt(matcher.group(7)), Integer.parseInt(matcher.group(1)), Boolean.parseBoolean(matcher.group(2)));
+        }
+        return null;
+    }
+
+    private static Person parsePerson(String data) {
+        Matcher matcher = Pattern.compile("Person\\{name='(.*?)', surName='(.*?)', birthDay='(.*?)', motivation=(\\d+), anualSalary=(\\d+)\\}").matcher(data);
+        if (matcher.find()) {
+            return new Person(matcher.group(1), matcher.group(2), matcher.group(3), Integer.parseInt(matcher.group(4)), Integer.parseInt(matcher.group(5)));
+        }
+        return null;
+    }
+
+    private static Player parsePlayer(String data) {
+        Matcher matcher = Pattern.compile("Player\\{back=(\\d+), position='(.*?)', cualityPoints=(\\d+), name='(.*?)', surName='(.*?)', birthDay='(.*?)', motivation=(\\d+), anualSalary=(\\d+)\\}").matcher(data);
+        if (matcher.find()) {
+            return new Player(matcher.group(4), matcher.group(5), matcher.group(6), Integer.parseInt(matcher.group(7)), Integer.parseInt(matcher.group(8)), Integer.parseInt(matcher.group(1)), matcher.group(2), Integer.parseInt(matcher.group(3)));
+        }
+        return null;
     }
 }

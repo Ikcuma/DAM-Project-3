@@ -96,6 +96,13 @@ public class Coach extends Person {
             System.out.println("Team '" + teamName + "' not found.");
         }
     }
+    public String toFileFormat() {
+        return String.format("E;%s;%s;%s;%d;%d;%d;%b",
+                super.name, super.surName, super.birthDay, super.motivation, super.anualSalary, this.victories, this.nacional);
+    }
+
+
+
 
     @Override
     public String toString() {

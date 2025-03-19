@@ -93,6 +93,9 @@ public class Player extends Person {
             System.out.println("Player not found.");
         }
     }
+    public String toFileFormat() {
+        return String.format("J;%s;%s;%s;%d;%d;%d;%s;%d", super.name, super.surName, super.birthDay, super.motivation, super.anualSalary, this.back, this.position, this.cualityPoints);
+    }
 
     @Override
     public String toString() {
