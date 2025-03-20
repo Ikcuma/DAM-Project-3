@@ -6,7 +6,6 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Random;
 
-import static football_manager.Main.reewriteFileMarket;
 
 public class Player extends Person {
     private int back;
@@ -74,28 +73,35 @@ public class Player extends Person {
             }
         }
     }
-    public static void printPlayerData(String playerName, HashMap<String, Player> players){
-        Player player = players.get(playerName);
-        if(player!= null){
+    public void printPersonData(){
             System.out.println("════════════════════════════════════════════");
-            System.out.println("  Player Information: " + playerName);
+            System.out.println("  Player Information: " + this.name);
             System.out.println("════════════════════════════════════════════");
-            System.out.println("Name: " + player.getName());
-            System.out.println("Surname: " + player.getSurName());
-            System.out.println("Date of Birth: " + player.getBirthDay());
-            System.out.println("Motivation: " + player.getMotivation() + " points");
-            System.out.println("Annual Salary: $" + player.getAnualSalary());
-            System.out.println("Position: " + player.getPosition());
-            System.out.println("Quality Points: " + player.getCualityPoints());
-            System.out.println("Jersey Number: " + player.getBack());
+            System.out.println("Name: " + this.name);
+            System.out.println("Surname: " + this.surName);
+            System.out.println("Date of Birth: " + this.birthDay);
+            System.out.println("Motivation: " + this.motivation + " points");
+            System.out.println("Annual Salary: $" + this.anualSalary);
+            System.out.println("Position: " + this.position);
+            System.out.println("Quality Points: " + this.cualityPoints);
+            System.out.println("Jersey Number: " + this.back);
             System.out.println("════════════════════════════════════════════");
-        } else {
-            System.out.println("Player not found.");
-        }
     }
     public String toFileFormat() {
         return String.format("J;%s;%s;%s;%d;%d;%d;%s;%d", super.name, super.surName, super.birthDay, super.motivation, super.anualSalary, this.back, this.position, this.cualityPoints);
     }
+
+    public String toFileFormatTeam() {
+        return "Player{name='" + this.name +
+                "', surName='" + this.surName +
+                "', birthDay='" + this.birthDay +
+                "', motivation=" + this.motivation +
+                ", anualSalary=" + this.anualSalary +
+                ", back=" + this.back +
+                ", position='" + this.position +
+                "', cualityPoints=" + this.cualityPoints + "}";
+    }
+
 
     @Override
     public String toString() {

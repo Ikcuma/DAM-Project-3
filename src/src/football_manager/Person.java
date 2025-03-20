@@ -54,21 +54,20 @@ public class Person {
         // Logic for training
     }
 
-    public static void createNewPerson(String option, HashMap<String, Player> hashPlayers, HashMap<String, Coach> hashCoaches, HashMap<String, Person> hashOwners,
-                                       ArrayList<Person> owners, ArrayList<Player> players, ArrayList<Coach> coaches) {
+    public static void createNewPerson(String option, HashMap<String, Person> hashPersons, ArrayList<Person> listPersons) {
         Scanner scanner = new Scanner(System.in);
         Random random = new Random();
-        int motivation = 5; // Default motivation value
+        int motivation = 5;
 
         String personName;
         do {
             System.out.print("\u001B[34m📛 Enter Name: \u001B[0m");
             personName = scanner.nextLine().trim();
             personName = capitalizeFirstLetterNames(personName);
-            if (isNameDuplicate(personName, hashPlayers, hashCoaches, hashOwners)) {
+            if (isNameDuplicate(personName, hashPersons)) {
                 System.out.println("\u001B[31m🚨 Name already exists! Please enter a different one.\u001B[0m");
             }
-        } while (isNameDuplicate(personName, hashPlayers, hashCoaches, hashOwners));
+        } while (isNameDuplicate(personName,hashPersons));
 
         System.out.println("\u001B[34m👨‍👩‍👧‍👦 Surname:\u001B[0m");
         String personSurName = scanner.nextLine();
@@ -87,11 +86,11 @@ public class Person {
             String position = scanner.nextLine().toUpperCase();
 
             int quality = random.nextInt(71) + 30;
-            Player newPlayer = new Player(personName, personSurName, birthday, motivation, salary, back, position, quality);
+            Person newPlayer = new Player(personName, personSurName, birthday, motivation, salary, back, position, quality);
 
 
-            players.add(newPlayer);
-            hashPlayers.put(personName, newPlayer);
+            listPersons.add(newPlayer);
+            hashPersons.put(personName, newPlayer);
 
             System.out.println("\u001B[32m✅ Player successfully added! ⚽\u001B[0m");
 
@@ -102,11 +101,11 @@ public class Person {
             System.out.println("\u001B[34m🌍 Have you been selected for a national team? (yes/no):\u001B[0m");
             boolean nacional = scanner.nextLine().trim().equalsIgnoreCase("yes");
 
-            Coach newCoach = new Coach(personName, personSurName, birthday, motivation, salary, victories, nacional);
+            Person newCoach = new Coach(personName, personSurName, birthday, motivation, salary, victories, nacional);
 
 
-            coaches.add(newCoach);
-            hashCoaches.put(personName, newCoach);
+            listPersons.add(newCoach);
+            hashPersons.put(personName, newCoach);
 
             System.out.println("\u001B[32m✅ Coach successfully added! 🎓\u001B[0m");
 
@@ -114,14 +113,17 @@ public class Person {
             Person newOwner = new Person(personName, personSurName, birthday, motivation, salary);
 
 
-            owners.add(newOwner);
-            hashOwners.put(personName, newOwner);
+            listPersons.add(newOwner);
+            hashPersons.put(personName, newOwner);
 
             System.out.println("\u001B[32m✅ Owner successfully added! 🏢\u001B[0m");
 
         } else {
             System.out.println("\u001B[31m❌ Error: Invalid option! Please choose 'Player', 'Coach', or 'Owner'.\u001B[0m");
         }
+    }
+    public void printPersonData(){
+
     }
 
     public static int validateIntegerInput(Scanner scanner) {
@@ -135,8 +137,8 @@ public class Person {
         }
     }
 
-    public static boolean isNameDuplicate(String name, HashMap<String, Player> players, HashMap<String, Coach> coaches, HashMap<String, Person> owners) {
-        return players.containsKey(name) || coaches.containsKey(name) || owners.containsKey(name);
+    public static boolean isNameDuplicate(String name, HashMap<String, Person> persons) {
+        return persons.containsKey(name);
     }
 
     public static String capitalizeFirstLetterNames(String name) {
@@ -186,6 +188,14 @@ public class Person {
     public String toFileFormat() {
         return String.format("O;%s;%s;%s;%d;%d", name, surName, birthDay, motivation, anualSalary);
     }
+    public String toFileFormatTeam() {
+        return "Person{name='" + name +
+                "', surName='" + surName +
+                "', birthDay='" + birthDay +
+                "', motivation=" + motivation +
+                ", anualSalary=" + anualSalary + "}";
+    }
+
 
     @Override
     public String toString() {

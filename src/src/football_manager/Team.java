@@ -12,12 +12,12 @@ public class Team {
     private String name;
     private String birthDate;
     private String city;
-    private Coach coach;
+    private Person coach;
     private Person owner;
-    private List<Player> players;
+    private List<Person> players;
 
     // Constructor
-    public Team(String name, String birthDate, String city, Coach coach, Person owner, List<Player> players) {
+    public Team(String name, String birthDate, String city, Person coach, Person owner, List<Person> players) {
         int playerNumber = players.size();
         if (playerNumber < 1) {
             throw new IllegalArgumentException("Debe haber al menos un jugador");
@@ -44,13 +44,13 @@ public class Team {
         return city;
     }
 
-    public List<Player> getPlayers() {
+    public List<Person> getPlayers() {
         return players;
     }
 
 
     public Coach getCoach() {
-        return coach;
+        return (coach instanceof Coach) ? (Coach) coach : null;
     }
 
     public Person getOwner() {
@@ -70,7 +70,7 @@ public class Team {
         this.city = city;
     }
 
-    public void setPlayers(List<Player> players) {
+    public void setPlayers(List<Person> players) {
         this.players = players;
     }
 
@@ -84,97 +84,52 @@ public class Team {
 
     // Methods
     public Player getSpecificPlayer(String player) {
-        Player newPlayer = null;
-        for (Player p : players){
-            if (p.getName().equals(player)){
-                newPlayer = p;
-                break;
+        Person newPlayer = null;
+        for (Person p : players){
+            if (p.getName().equals(player) && p instanceof Player) {
+                return (Player) p;
             }
         }
-        return newPlayer;
+        return null;
     }
 
+    public String toFileFormat(){
+        StringBuilder sb = new StringBuilder();
 
-    public static void loadTeams(ArrayList<Team> teams) throws IOException {
-        String filePath = "C:\\Users\\dunkl\\IdeaProjects\\DAM-Project-3\\src\\src\\football_manager\\resources\\team_files.txt";
-        ArrayList<String> bruteTeamData = new ArrayList<>();
-        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                bruteTeamData.add(line);
-            }
+        sb.append(name).append(";")
+                .append(birthDate).append(";")
+                .append(city).append(";");
+
+        sb.append(coach.toFileFormatTeam()).append(";");
+
+        sb.append(owner.toFileFormatTeam()).append(";");
+
+        for (Person player : players) {
+            sb.append(player.toFileFormatTeam()).append(";");
         }
 
-        for (String line : bruteTeamData) {
-            String[] parts = line.split(";", 4);
-            if (parts.length < 4) {
-                System.out.println("Error: Formato incorrecto en línea: " + line);
-                continue;
-            }
+        sb.deleteCharAt(sb.length() - 1);
 
-            String teamName = parts[0];
-            String birthDate = parts[1];
-            String city = parts[2];
-            String rest = parts[3];
-
-            Coach coach = parseCoach(extractCoachData(rest));
-            Person owner = parsePerson(extractOwnerData(rest));
-
-            if (coach == null) {
-                System.out.println("Error: Coach no válido para el equipo: " + teamName);
-            }
-            if (owner == null) {
-                System.out.println("Error: Person (dueño) no válido para el equipo: " + teamName);
-            }
-
-            if (coach == null || owner == null) {
-                System.out.println("Error: Entrenador o dueño no válido para el equipo: " + teamName);
-                continue;
-            }
-
-            List<Player> teamPlayers = new ArrayList<>();
-            String playersData = rest.substring(extractCoachData(rest).length() + extractOwnerData(rest).length());
-            Matcher playerMatcher = Pattern.compile("Player\\{back=(\\d+), position='(.*?)', cualityPoints=(\\d+), name='(.*?)', surName='(.*?)', birthDay='(.*?)', motivation=(\\d+), anualSalary=(\\d+)\\}").matcher(playersData);
-
-            while (playerMatcher.find()) {
-                Player player = parsePlayer(playerMatcher.group());
-                if (player != null) {
-                    teamPlayers.add(player);
-                } else {
-                    System.out.println("Error: No se pudo procesar un jugador en el equipo: " + teamName);
-                }
-            }
-
-            try {
-                Team team = new Team(teamName, birthDate, city, coach, owner, teamPlayers);
-                teams.add(team);
-            } catch (IllegalArgumentException e) {
-                System.out.println("Error: " + e.getMessage() + " para el equipo: " + teamName);
-            }
-        }
+        return sb.toString();
     }
 
-
-
-
-    public static void registerTeam(HashMap<String, Player> players, HashMap<String, Coach> coaches,
-                                    HashMap<String, Person> owners, ArrayList<Team> teams) {
-        Scanner scanner = new Scanner(System.in);
+    public static void registerTeam(HashMap<String, Person> hashMapPeople, ArrayList<Team> teams) {
+        Scanner sc = new Scanner(System.in);
         System.out.println("What would be the name of the team?");
-        String teamName = scanner.nextLine();
+        String teamName = sc.nextLine();
         System.out.println("What would be the birth date of the team?");
-        String birthDate = scanner.nextLine();
-        scanner.nextLine();
+        String birthDate = sc.nextLine();
+        sc.nextLine();
 
         System.out.println("What city is the team located in?");
-        String city = scanner.nextLine();
+        String city = sc.nextLine();
 
-        Coach coach = null;
+        Person coach = null;
         boolean exit = false;
         do {
             System.out.println("Who is the coach?");
-            String coachName = scanner.nextLine();
-            coach = coaches.get(coachName);
+            String coachName = sc.nextLine();
+            coach = hashMapPeople.get(coachName);
             if (coach == null) {
                 System.out.println("The coach doesn't exist. Please try again.");
             } else {
@@ -186,8 +141,8 @@ public class Team {
         exit = false;
         do {
             System.out.println("Who is the owner?");
-            String ownerName = scanner.nextLine();
-            owner = owners.get(ownerName);
+            String ownerName = sc.nextLine();
+            owner = hashMapPeople.get(ownerName);
             if (owner == null) {
                 System.out.println("The owner doesn't exist. Please try again.");
             } else {
@@ -195,17 +150,17 @@ public class Team {
             }
         } while (!exit);
 
-        List<Player> teamPlayers = new ArrayList<>();
+        List<Person> teamPlayers = new ArrayList<>();
 
         boolean addMorePlayers = true;
         while (addMorePlayers) {
             System.out.println("Enter the name of a player to add (or press Enter to finish):");
-            String playerName = scanner.nextLine();
+            String playerName = sc.nextLine();
 
             if (playerName.isEmpty()) {
                 addMorePlayers = false;
             } else {
-                Player player = players.get(playerName);
+                Person player = hashMapPeople.get(playerName);
                 if (player != null) {
                     teamPlayers.add(player);
                     System.out.println("Player " + playerName + " added to the team.");
@@ -218,6 +173,7 @@ public class Team {
         Team newTeam = new Team(teamName, birthDate, city, coach, owner, teamPlayers);
         teams.add(newTeam);
         System.out.println("Team registered and saved to file successfully!");
+        sc.close();
     }
     public static void deregisterTeam(ArrayList<Team> teams, Scanner scanner) {
         System.out.println("Enter the name of the team you want to deregister:");

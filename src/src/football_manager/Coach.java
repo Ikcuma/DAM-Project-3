@@ -44,23 +44,19 @@ public class Coach extends Person {
         }
     }
 
-    public static void printCoachData(String coachName, HashMap<String, Coach> coaches) {
-        Coach coach = coaches.get(coachName);
-        if (coach != null) {
+    public void printPersonData() {
             System.out.println("════════════════════════════════════════════");
-            System.out.println("  Coach Information: " + coachName);
+            System.out.println("  Coach Information: " + name);
             System.out.println("════════════════════════════════════════════");
-            System.out.println("Name: " + coach.getName());
-            System.out.println("Surname: " + coach.getSurName());
-            System.out.println("Date of Birth: " + coach.getBirthDay());
-            System.out.println("Motivation: " + coach.getMotivation() + " points");
-            System.out.println("Annual Salary: $" + coach.getAnualSalary());
-            System.out.println("Victories: " + coach.getVictories());
-            System.out.println("Is he nacional?: " + coach.isNacional());
+            System.out.println("Name: " + this.name);
+            System.out.println("Surname: " + this.surName);
+            System.out.println("Date of Birth: " + this.birthDay);
+            System.out.println("Motivation: " + this.motivation + " points");
+            System.out.println("Annual Salary: $" + this.anualSalary);
+            System.out.println("Victories: " + this.victories);
+            System.out.println("Is he nacional?: " + this.nacional);
             System.out.println("════════════════════════════════════════════");
-        } else {
-            System.out.println("Coach not found.");
-        }
+
     }
     public static void dismissCoach(ArrayList<Team> teams, Scanner scanner) {
         System.out.println("Enter the name of the team whose coach you want to dismiss:");
@@ -100,6 +96,16 @@ public class Coach extends Person {
         return String.format("E;%s;%s;%s;%d;%d;%d;%b",
                 super.name, super.surName, super.birthDay, super.motivation, super.anualSalary, this.victories, this.nacional);
     }
+    public String toFileFormatTeam() {
+        return "Coach{name='" + this.name +
+                "', surName='" + this.surName +
+                "', birthDay='" + this.birthDay +
+                "', motivation=" + this.motivation +
+                ", anualSalary=" + this.anualSalary +
+                ", victories=" + this.victories +
+                ", nacional=" + this.nacional + "}";
+    }
+
 
 
 
