@@ -54,24 +54,20 @@ public class Player extends Person {
     //Methods
 
 
-    public static void changePlayerPosition(HashMap<String, Player> hashPlayers,
-                                            ArrayList<Player> players) {
+    public  void train() {
         String[] options = {"DEF", "MIG", "DAV", "POR"};
         Random random = new Random();
 
-        for (Player player : players) {
-            int randomIndex = random.nextInt(options.length);
-            String newPosition = options[randomIndex];
+        int randomIndex = random.nextInt(options.length);
+        String newPosition = options[randomIndex];
 
-            boolean realiza = Math.random() < 0.05;
+        boolean realiza = Math.random() < 0.05;
 
             if (realiza) {
-                player.setPosition(newPosition);
-                hashPlayers.put(player.getName(), player);
-
-                System.out.println("El jugador " + player.getName() + " ha cambiado a la posición: " + newPosition);
+                this.position = newPosition;
+                System.out.println("El jugador " + this.name + " ha cambiado a la posición: " + newPosition);
             }
-        }
+
     }
     public void printPersonData(){
             System.out.println("════════════════════════════════════════════");

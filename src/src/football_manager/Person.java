@@ -51,7 +51,7 @@ public class Person {
 
     // Methods
     public void train() {
-        // Logic for training
+
     }
 
     public static void createNewPerson(String option, HashMap<String, Person> hashPersons, ArrayList<Person> listPersons) {

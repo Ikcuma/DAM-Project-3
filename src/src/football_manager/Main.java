@@ -58,10 +58,15 @@ public class Main {
     }
 
     private static void conductTrainingSession(HashMap<String, Person> hashPersons, ArrayList<Person> listPersons) {
-        Player.changePlayerPosition( hashPlayers, players);
-        Coach.increaseSalary( hashCoaches, coaches);
-
-        Person.trainingMethod()
+        for (Person p : listPersons){
+            if(p instanceof Coach){
+                p.train();
+                hashPersons.put(p.getName(), p);
+            } else if (p instanceof Player) {
+                p.train();
+                hashPersons.put(p.getName(), p);
+            }
+        }
     }
 
     private static void manageTeamMenu(ArrayList<Team> teams) {
@@ -238,7 +243,6 @@ public class Main {
         }
         System.out.println("❌ Team '" + teamName + "' not found.");
     }
-
 
     private static void printManageTeam() {
         System.out.println("\n⚽ Team Manager ⚽");
@@ -439,9 +443,4 @@ public class Main {
         }
         return null;
     }
-
-    private static
-
-
-
 }

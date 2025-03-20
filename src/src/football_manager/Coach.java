@@ -35,13 +35,9 @@ public class Coach extends Person {
     }
 
     // Methods
-    public static void increaseSalary(HashMap<String, Coach> hashCoaches, ArrayList<Coach> coaches) {
-        for (Coach coach : coaches) {
-            int newSalary = (int) (coach.getAnualSalary() * 1.05);
-            coach.setAnualSalary(newSalary);
-            hashCoaches.put(coach.getName(), coach);
-            System.out.println("Salary increased for coach: " + coach.getName());
-        }
+    public void train() {
+            int newSalary = (int) (this.anualSalary * 1.05);
+            System.out.println("Salary increased for coach: " + this.name);
     }
 
     public void printPersonData() {
