@@ -4,6 +4,8 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Coach extends Person {
     private int victories;
@@ -72,7 +74,7 @@ public class Coach extends Person {
 
             Coach newCoach = teamToModify.getCoach(); // Default to current coach
             for (Coach coach : teams.stream().map(Team::getCoach).toList()) {
-                if (coach.getName().equalsIgnoreCase(newCoachName)) {
+                if (coach != null && coach.getName().equalsIgnoreCase(newCoachName)) {
                     newCoach = coach;
                     break;
                 }
@@ -100,6 +102,35 @@ public class Coach extends Person {
                 ", anualSalary=" + this.anualSalary +
                 ", victories=" + this.victories +
                 ", nacional=" + this.nacional + "}";
+    }
+    public static String extractCoachData(String data) {
+        Pattern pattern = Pattern.compile("Coach\\{[^}]+\\}");
+        Matcher matcher = pattern.matcher(data);
+        return matcher.find() ? matcher.group(0) : "";
+    }
+
+    public static Coach parse(String data) {
+        if (data.isEmpty()) {
+            return null;
+        }
+
+        Pattern pattern = Pattern.compile(
+                "Coach\\{name='(.*?)', surName='(.*?)', birthDay='(.*?)', motivation=(\\d+), anualSalary=(\\d+), victories=(\\d+), nacional=(true|false)\\}"
+        );
+        Matcher matcher = pattern.matcher(data);
+
+        if (matcher.find()) {
+            return new Coach(
+                    matcher.group(1),  // name
+                    matcher.group(2),  // surName
+                    matcher.group(3),  // birthDay
+                    Integer.parseInt(matcher.group(4)),  // motivation
+                    Integer.parseInt(matcher.group(5)),  // anualSalary
+                    Integer.parseInt(matcher.group(6)),  // victories
+                    Boolean.parseBoolean(matcher.group(7))  // nacional
+            );
+        }
+        return null;
     }
 
 
