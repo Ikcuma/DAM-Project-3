@@ -1,10 +1,7 @@
 package football_manager;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -91,7 +88,6 @@ public class Main {
         System.out.println("Choose between Player, Coach, and Owner:");
         String optionPCO = capitalizeFirstLetterNames(sc.nextLine());
         Person.createNewPerson(optionPCO, hashPersons, peopleList);
-        sc.close();
     }
 
     private static void viewTeamDataMenu(ArrayList<Team> teams) {
@@ -219,11 +215,16 @@ public class Main {
                 for (Person p : team.getPlayers()) {
                     if (p instanceof Player) {
                         Player player = (Player) p;
-                        System.out.println("   - " + player.getName() + " " + player.getSurName() +
-                                " | Position: " + player.getPosition() +
-                                " | Quality Points: " + player.getCualityPoints() +
-                                " | Motivation: " + player.getMotivation() +
-                                " | Salary: " + player.getAnualSalary());
+                        // Filtrar jugadores con datos nulos o inválidos
+                        if (player.getName() != null && !player.getName().isEmpty() &&
+                                player.getSurName() != null && !player.getSurName().isEmpty() &&
+                                player.getPosition() != null && !player.getPosition().isEmpty()) {
+                            System.out.println("   - " + player.getName() + " " + player.getSurName() +
+                                    " | Position: " + player.getPosition() +
+                                    " | Quality Points: " + player.getCualityPoints() +
+                                    " | Motivation: " + player.getMotivation() +
+                                    " | Salary: " + player.getAnualSalary());
+                        }
                     }
                 }
 
@@ -288,10 +289,24 @@ public class Main {
     }
 
     private static void loadListToFileTeam(ArrayList<Team> teams) throws IOException {
-        String filePath = "C:\\Users\\dunkl\\IdeaProjects\\DAM-Project-3\\src\\src\\football_manager\\resources\\market_files.txt";
-        try(BufferedWriter w = new BufferedWriter(new FileWriter(filePath))){
+        String filePath = "C:\\Users\\dunkl\\IdeaProjects\\DAM-Project-3\\src\\src\\football_manager\\resources\\team_files.txt";
+        try (BufferedWriter w = new BufferedWriter(new FileWriter(filePath))) {
             for (Team t : teams) {
-                w.write(t.toFileFormat());
+
+                List<Person> validPlayers = new ArrayList<>();
+                for (Person player : t.getPlayers()) {
+                    if (player instanceof Player) {
+                        Player p = (Player) player;
+                        if (p.getName() != null && !p.getName().isEmpty() &&
+                                p.getSurName() != null && !p.getSurName().isEmpty() &&
+                                p.getPosition() != null && !p.getPosition().isEmpty()) {
+                            validPlayers.add(p);
+                        }
+                    }
+                }
+
+                Team validTeam = new Team(t.getName(), t.getBirthDate(), t.getCity(), t.getCoach(), t.getOwner(), validPlayers);
+                w.write(validTeam.toFileFormat());
                 w.newLine();
             }
             System.out.println("✅ Team data saved successfully!");
@@ -367,27 +382,21 @@ public class Main {
             String city = parts[2];
             String rest = parts[3];
 
-            Coach coach = parseCoach(extractCoachData(rest));
-            Person owner = parsePerson(extractOwnerData(rest));
-
-            if (coach == null) {
-                System.out.println("Error: Coach no válido para el equipo: " + teamName);
-            }
-            if (owner == null) {
-                System.out.println("Error: Person (dueño) no válido para el equipo: " + teamName);
-            }
+            // Extraer datos del entrenador y dueño
+            Person coach = Coach.parse(Coach.extractCoachData(rest));
+            Person owner = Person.parse(Person.extractPersonData(rest));
 
             if (coach == null || owner == null) {
                 System.out.println("Error: Entrenador o dueño no válido para el equipo: " + teamName);
                 continue;
             }
 
+            // Extraer jugadores
             List<Person> teamPlayers = new ArrayList<>();
-            String playersData = rest.substring(extractCoachData(rest).length() + extractOwnerData(rest).length());
-            Matcher playerMatcher = Pattern.compile("Player\\{ name='(.*?)', surName='(.*?)', birthDay='(.*?)', motivation=(\\d+), anualSalary=(\\d+),back=(\\d+), position='(.*?)', cualityPoints=(\\d+)\\}").matcher(playersData);
-
+            String playersData = rest.substring(Coach.extractCoachData(rest).length() + Person.extractPersonData(rest).length());
+            Matcher playerMatcher = Pattern.compile("Player\\{[^}]+\\}").matcher(playersData);
             while (playerMatcher.find()) {
-                Player player = parsePlayer(playerMatcher.group());
+                Player player = Player.parse(playerMatcher.group());
                 if (player != null) {
                     teamPlayers.add(player);
                 } else {
@@ -403,44 +412,5 @@ public class Main {
             }
         }
     }
-
-    private static String extractCoachData(String data) {
-        Matcher matcher = Pattern.compile("Coach\\{.*?\\}").matcher(data);
-        if (matcher.find()) {
-            return matcher.group();
-        }
-        return "";
-    }
-
-    private static String extractOwnerData(String data) {
-        Matcher matcher = Pattern.compile("Person\\{.*?\\}").matcher(data);
-        if (matcher.find()) {
-            return matcher.group();
-        }
-        return "";
-    }
-
-    private static Coach parseCoach(String data) {
-        Matcher matcher = Pattern.compile("Coach\\{name='(.*?)', surName='(.*?)', birthDay='(.*?)', motivation=(\\d+), anualSalary=(\\d+),victories=(\\d+), nacional=(true|false)\\}").matcher(data);
-        if (matcher.find()) {
-            return new Coach(matcher.group(3), matcher.group(4), matcher.group(5), Integer.parseInt(matcher.group(6)), Integer.parseInt(matcher.group(7)), Integer.parseInt(matcher.group(1)), Boolean.parseBoolean(matcher.group(2)));
-        }
-        return null;
-    }
-
-    private static Person parsePerson(String data) {
-        Matcher matcher = Pattern.compile("Person\\{name='(.*?)', surName='(.*?)', birthDay='(.*?)', motivation=(\\d+), anualSalary=(\\d+)\\}").matcher(data);
-        if (matcher.find()) {
-            return new Person(matcher.group(1), matcher.group(2), matcher.group(3), Integer.parseInt(matcher.group(4)), Integer.parseInt(matcher.group(5)));
-        }
-        return null;
-    }
-
-    private static Player parsePlayer(String data) {
-        Matcher matcher = Pattern.compile("Player\\{ name='(.*?)', surName='(.*?)', birthDay='(.*?)', motivation=(\\d+), anualSalary=(\\d+),back=(\\d+), position='(.*?)', cualityPoints=(\\d+)\\}").matcher(data);
-        if (matcher.find()) {
-            return new Player(matcher.group(4), matcher.group(5), matcher.group(6), Integer.parseInt(matcher.group(7)), Integer.parseInt(matcher.group(8)), Integer.parseInt(matcher.group(1)), matcher.group(2), Integer.parseInt(matcher.group(3)));
-        }
-        return null;
-    }
 }
+

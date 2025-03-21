@@ -75,6 +75,10 @@ public class Team {
     }
 
     public void setCoach(Coach coach) {
+        if (coach == null) {
+            System.out.println("Error: Coach no válido para el equipo: " + this.name);
+            return;
+        }
         this.coach = coach;
     }
 
@@ -119,7 +123,6 @@ public class Team {
         String teamName = sc.nextLine();
         System.out.println("What would be the birth date of the team?");
         String birthDate = sc.nextLine();
-        sc.nextLine();
 
         System.out.println("What city is the team located in?");
         String city = sc.nextLine();
@@ -173,7 +176,6 @@ public class Team {
         Team newTeam = new Team(teamName, birthDate, city, coach, owner, teamPlayers);
         teams.add(newTeam);
         System.out.println("Team registered and saved to file successfully!");
-        sc.close();
     }
     public static void deregisterTeam(ArrayList<Team> teams, Scanner scanner) {
         System.out.println("Enter the name of the team you want to deregister:");

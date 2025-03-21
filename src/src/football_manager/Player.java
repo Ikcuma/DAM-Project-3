@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Random;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 public class Player extends Person {
@@ -96,6 +98,48 @@ public class Player extends Person {
                 ", back=" + this.back +
                 ", position='" + this.position +
                 "', cualityPoints=" + this.cualityPoints + "}";
+    }
+    public static String extractPlayerData(String data) {
+        Pattern pattern = Pattern.compile("Player\\{[^}]+\\}");
+        Matcher matcher = pattern.matcher(data);
+        return matcher.find() ? matcher.group(0) : "";
+    }
+
+    public static Player parse(String data) {
+        if (data.isEmpty()) {
+            return null;
+        }
+
+        Pattern pattern = Pattern.compile(
+                "Player\\{name='(.*?)', surName='(.*?)', birthDay='(.*?)', motivation=(\\d+), anualSalary=(\\d+), back=(\\d+), position='(.*?)', cualityPoints=(\\d+)\\}"
+        );
+        Matcher matcher = pattern.matcher(data);
+
+        if (matcher.find()) {
+            String name = matcher.group(1);
+            String surName = matcher.group(2);
+            String birthDay = matcher.group(3);
+            String position = matcher.group(7);
+
+            // Validar que los campos obligatorios no sean nulos o vacíos
+            if (name == null || name.isEmpty() || surName == null || surName.isEmpty() ||
+                    birthDay == null || birthDay.isEmpty() || position == null || position.isEmpty()) {
+                System.out.println("Error: Datos incompletos para el jugador: " + data);
+                return null;
+            }
+
+            return new Player(
+                    name,  // name
+                    surName,  // surName
+                    birthDay,  // birthDay
+                    Integer.parseInt(matcher.group(4)),  // motivation
+                    Integer.parseInt(matcher.group(5)),  // anualSalary
+                    Integer.parseInt(matcher.group(6)),  // back
+                    position,  // position
+                    Integer.parseInt(matcher.group(8))   // cualityPoints
+            );
+        }
+        return null;
     }
 
 

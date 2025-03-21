@@ -2,6 +2,8 @@ package football_manager;
 
 import java.io.*;
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Person {
     protected final String name;
@@ -194,6 +196,33 @@ public class Person {
                 "', birthDay='" + birthDay +
                 "', motivation=" + motivation +
                 ", anualSalary=" + anualSalary + "}";
+    }
+    public static String extractPersonData(String data) {
+        Pattern pattern = Pattern.compile("Person\\{[^}]+\\}");
+        Matcher matcher = pattern.matcher(data);
+        return matcher.find() ? matcher.group(0) : "";
+    }
+
+    public static Person parse(String data) {
+        if (data.isEmpty()) {
+            return null;
+        }
+
+        Pattern pattern = Pattern.compile(
+                "Person\\{name='(.*?)', surName='(.*?)', birthDay='(.*?)', motivation=(\\d+), anualSalary=(\\d+)\\}"
+        );
+        Matcher matcher = pattern.matcher(data);
+
+        if (matcher.find()) {
+            return new Person(
+                    matcher.group(1),  // name
+                    matcher.group(2),  // surName
+                    matcher.group(3),  // birthDay
+                    Integer.parseInt(matcher.group(4)),  // motivation
+                    Integer.parseInt(matcher.group(5))   // anualSalary
+            );
+        }
+        return null;
     }
 
 
