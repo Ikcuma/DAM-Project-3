@@ -1,0 +1,171 @@
+/* Contenedor principal */
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #eaeaea;
+    margin: 0;
+}
+
+.main-container {
+    width: 1200px;
+    background-color: white;
+    border-radius: 20px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+/* Barra superior */
+.top-bar {
+    background-color: #4caf50;
+    height: 50px;
+    width: 100%;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+/* Fila de cubos */
+.team-row {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    padding: 20px 0;
+    background-color: #f4f4f4;
+    border-bottom: 1px solid #ddd;
+}
+
+.team-box {
+    width: 60px;
+    height: 60px;
+    background-color: #e0e0e0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    font-weight: bold;
+    color: #4caf50;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease-in-out;
+}
+
+.team-box:hover {
+    transform: scale(1.1);
+    background-color: #d6d6d6;
+}
+
+/* Encabezado: Logo y botones */
+.bottom-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 15px;
+    background-color: white;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    border-top: 1px solid #ddd;
+}
+
+.bottom-header .logo {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #4caf50;
+}
+
+.nav-buttons button {
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    margin-left: 10px;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 0.95rem;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.nav-buttons button:hover {
+    background-color: #3e8e41;
+    transform: scale(1.05);
+}
+
+/* Banner */
+.banner {
+    height: 350px;
+    background: linear-gradient(135deg, #4caf50, #2e7d32);
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 2.5rem;
+    font-weight: bold;
+    border-radius: 10px;
+    margin: 20px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Carrusel */
+.carousel {
+    display: flex;
+    overflow-x: scroll;
+    padding: 20px;
+    margin: 20px;
+    gap: 20px;
+}
+
+.match-card {
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 15px;
+    padding: 30px;
+    text-align: center;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    height: 180px;
+    transition: transform 0.3s;
+}
+
+.match-card:hover {
+    transform: scale(1.05);
+}
+
+/* Estadísticas */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 30px;
+    padding: 30px;
+}
+
+.stat-card {
+    background-color: #fff;
+    padding: 30px;
+    text-align: center;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    height: 150px;
+    transition: transform 0.3s;
+}
+
+.stat-card:hover {
+    transform: scale(1.05);
+}
+
+/* Noticias */
+.news-card {
+    background-color: white;
+    margin: 20px 0;
+    padding: 25px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    height: 150px;
+}
+
+/* Pie de página */
+footer {
+    text-align: center;
+    padding: 15px;
+    background-color: #333;
+    color: white;
+    border-top: 5px solid #4caf50;
+}
