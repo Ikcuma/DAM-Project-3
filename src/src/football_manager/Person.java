@@ -99,7 +99,7 @@ public class Person {
         } else if (option.equalsIgnoreCase("Coach")) {
             System.out.println("\u001B[34m🏆 Victories:\u001B[0m");
             int victories = validateIntegerInput(scanner);
-            scanner.nextLine(); // Consume newline
+            scanner.nextLine();
             System.out.println("\u001B[34m🌍 Have you been selected for a national team? (yes/no):\u001B[0m");
             boolean nacional = scanner.nextLine().trim().equalsIgnoreCase("yes");
 
@@ -215,11 +215,11 @@ public class Person {
 
         if (matcher.find()) {
             return new Person(
-                    matcher.group(1),  // name
-                    matcher.group(2),  // surName
-                    matcher.group(3),  // birthDay
-                    Integer.parseInt(matcher.group(4)),  // motivation
-                    Integer.parseInt(matcher.group(5))   // anualSalary
+                    matcher.group(1),
+                    matcher.group(2),
+                    matcher.group(3),
+                    Integer.parseInt(matcher.group(4)),
+                    Integer.parseInt(matcher.group(5))
             );
         }
         return null;

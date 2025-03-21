@@ -382,7 +382,7 @@ public class Main {
             String city = parts[2];
             String rest = parts[3];
 
-            // Extraer datos del entrenador y dueño
+
             Person coach = Coach.parse(Coach.extractCoachData(rest));
             Person owner = Person.parse(Person.extractPersonData(rest));
 
@@ -391,7 +391,7 @@ public class Main {
                 continue;
             }
 
-            // Extraer jugadores
+
             List<Person> teamPlayers = new ArrayList<>();
             String playersData = rest.substring(Coach.extractCoachData(rest).length() + Person.extractPersonData(rest).length());
             Matcher playerMatcher = Pattern.compile("Player\\{[^}]+\\}").matcher(playersData);

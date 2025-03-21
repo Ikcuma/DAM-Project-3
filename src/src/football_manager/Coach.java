@@ -72,7 +72,7 @@ public class Coach extends Person {
             System.out.println("Enter the name of the new coach:");
             String newCoachName = scanner.nextLine();
 
-            Coach newCoach = teamToModify.getCoach(); // Default to current coach
+            Coach newCoach = teamToModify.getCoach();
             for (Coach coach : teams.stream().map(Team::getCoach).toList()) {
                 if (coach != null && coach.getName().equalsIgnoreCase(newCoachName)) {
                     newCoach = coach;
@@ -121,13 +121,13 @@ public class Coach extends Person {
 
         if (matcher.find()) {
             return new Coach(
-                    matcher.group(1),  // name
-                    matcher.group(2),  // surName
-                    matcher.group(3),  // birthDay
-                    Integer.parseInt(matcher.group(4)),  // motivation
-                    Integer.parseInt(matcher.group(5)),  // anualSalary
-                    Integer.parseInt(matcher.group(6)),  // victories
-                    Boolean.parseBoolean(matcher.group(7))  // nacional
+                    matcher.group(1),
+                    matcher.group(2),
+                    matcher.group(3),
+                    Integer.parseInt(matcher.group(4)),
+                    Integer.parseInt(matcher.group(5)),
+                    Integer.parseInt(matcher.group(6)),
+                    Boolean.parseBoolean(matcher.group(7))
             );
         }
         return null;
