@@ -7,8 +7,12 @@ body {
     background-color: #eaeaea;
     margin: 0;
 }
+.imagenesHeader{
+    width: 70px;
+}
 
 .main-container {
+    margin-top: 10vh;
     width: 1200px;
     background-color: white;
     border-radius: 20px;
@@ -18,10 +22,14 @@ body {
 
 /* Barra superior */
 .top-bar {
-    background-color: #4caf50;
-    height: 50px;
-    width: 100%;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+    background-color: #66cc6ad0;
+    position: absolute;
+    top: 0vh;
+    
+    height: 4.5vh;
+    width: 2000px;
+    
+    margin-bottom: 5vh;
 }
 
 /* Fila de cubos */
@@ -35,22 +43,17 @@ body {
 }
 
 .team-box {
-    width: 60px;
-    height: 60px;
-    background-color: #e0e0e0;
+    
     display: flex;
     align-items: center;
     justify-content: center;
     border-radius: 12px;
     font-weight: bold;
-    color: #4caf50;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
     transition: transform 0.2s ease-in-out;
 }
 
 .team-box:hover {
     transform: scale(1.1);
-    background-color: #d6d6d6;
 }
 
 /* Encabezado: Logo y botones */
