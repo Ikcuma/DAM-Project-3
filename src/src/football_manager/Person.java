@@ -99,7 +99,7 @@ public class Person {
         } else if (option.equalsIgnoreCase("Coach")) {
             System.out.println("\u001B[34m🏆 Victories:\u001B[0m");
             int victories = validateIntegerInput(scanner);
-            scanner.nextLine(); // Consume newline
+            scanner.nextLine();
             System.out.println("\u001B[34m🌍 Have you been selected for a national team? (yes/no):\u001B[0m");
             boolean nacional = scanner.nextLine().trim().equalsIgnoreCase("yes");
 

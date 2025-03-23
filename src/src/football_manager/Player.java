@@ -121,7 +121,7 @@ public class Player extends Person {
             String birthDay = matcher.group(3);
             String position = matcher.group(7);
 
-            // Validar que los campos obligatorios no sean nulos o vacíos
+
             if (name == null || name.isEmpty() || surName == null || surName.isEmpty() ||
                     birthDay == null || birthDay.isEmpty() || position == null || position.isEmpty()) {
                 System.out.println("Error: Datos incompletos para el jugador: " + data);
@@ -129,14 +129,14 @@ public class Player extends Person {
             }
 
             return new Player(
-                    name,  // name
-                    surName,  // surName
-                    birthDay,  // birthDay
-                    Integer.parseInt(matcher.group(4)),  // motivation
-                    Integer.parseInt(matcher.group(5)),  // anualSalary
-                    Integer.parseInt(matcher.group(6)),  // back
-                    position,  // position
-                    Integer.parseInt(matcher.group(8))   // cualityPoints
+                    name,
+                    surName,
+                    birthDay,
+                    Integer.parseInt(matcher.group(4)),
+                    Integer.parseInt(matcher.group(5)),
+                    Integer.parseInt(matcher.group(6)),
+                    position,
+                    Integer.parseInt(matcher.group(8))
             );
         }
         return null;
