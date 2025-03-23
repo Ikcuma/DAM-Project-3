@@ -27,7 +27,6 @@ public class Main {
     private static void chooseOptionMenu1(ArrayList<Team> teams, HashMap<String, Person> hashMapPeople, ArrayList<Person> peopleList) {
         Scanner scanner = new Scanner(System.in);
         int option;
-        do {
             printWelcome();
             option = scanner.nextInt();
             scanner.nextLine();
@@ -51,7 +50,6 @@ public class Main {
                 case 7 -> manageMarketMenu(teams, peopleList, hashMapPeople);
                 default -> System.out.println("❌ Invalid option. Please try again.");
             }
-        } while (option != 0);
     }
 
     private static void conductTrainingSession(HashMap<String, Person> hashPersons, ArrayList<Person> listPersons) {

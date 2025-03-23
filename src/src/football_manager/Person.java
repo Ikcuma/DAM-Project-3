@@ -191,11 +191,11 @@ public class Person {
         return String.format("O;%s;%s;%s;%d;%d", name, surName, birthDay, motivation, anualSalary);
     }
     public String toFileFormatTeam() {
-        return "Person{name='" + name +
-                "', surName='" + surName +
-                "', birthDay='" + birthDay +
-                "', motivation=" + motivation +
-                ", anualSalary=" + anualSalary + "}";
+        return "Person{name='" + this.name +
+                "', surName='" + this.surName +
+                "', birthDay='" + this.birthDay +
+                "', motivation=" + this.motivation +
+                ", anualSalary=" + this.anualSalary + "}";
     }
     public static String extractPersonData(String data) {
         Pattern pattern = Pattern.compile("Person\\{[^}]+\\}");
@@ -215,11 +215,11 @@ public class Person {
 
         if (matcher.find()) {
             return new Person(
-                    matcher.group(1),  // name
-                    matcher.group(2),  // surName
-                    matcher.group(3),  // birthDay
-                    Integer.parseInt(matcher.group(4)),  // motivation
-                    Integer.parseInt(matcher.group(5))   // anualSalary
+                    matcher.group(1),
+                    matcher.group(2),
+                    matcher.group(3),
+                    Integer.parseInt(matcher.group(4)),
+                    Integer.parseInt(matcher.group(5))
             );
         }
         return null;
@@ -229,11 +229,11 @@ public class Person {
     @Override
     public String toString() {
         return "Person{" +
-                "name='" + name + '\'' +
-                ", surName='" + surName + '\'' +
-                ", birthDay='" + birthDay + '\'' +
-                ", motivation=" + motivation +
-                ", anualSalary=" + anualSalary +
+                "name='" + this.name + '\'' +
+                ", surName='" + this.surName + '\'' +
+                ", birthDay='" + this.birthDay + '\'' +
+                ", motivation=" + this.motivation +
+                ", anualSalary=" + this.anualSalary +
                 '}';
     }
 }

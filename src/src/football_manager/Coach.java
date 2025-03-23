@@ -38,19 +38,19 @@ public class Coach extends Person {
 
     // Methods
     public void train() {
-            int newSalary = (int) (this.anualSalary * 1.05);
-            System.out.println("Salary increased for coach: " + this.name);
+            int newSalary = (int) (super.anualSalary * 1.05);
+            System.out.println("Salary increased for coach: " + super.name);
     }
 
     public void printPersonData() {
             System.out.println("════════════════════════════════════════════");
             System.out.println("  Coach Information: " + name);
             System.out.println("════════════════════════════════════════════");
-            System.out.println("Name: " + this.name);
-            System.out.println("Surname: " + this.surName);
-            System.out.println("Date of Birth: " + this.birthDay);
-            System.out.println("Motivation: " + this.motivation + " points");
-            System.out.println("Annual Salary: $" + this.anualSalary);
+            System.out.println("Name: " + super.name);
+            System.out.println("Surname: " + super.surName);
+            System.out.println("Date of Birth: " + super.birthDay);
+            System.out.println("Motivation: " + super.motivation + " points");
+            System.out.println("Annual Salary: $" + super.anualSalary);
             System.out.println("Victories: " + this.victories);
             System.out.println("Is he nacional?: " + this.nacional);
             System.out.println("════════════════════════════════════════════");
@@ -133,20 +133,4 @@ public class Coach extends Person {
         return null;
     }
 
-
-
-
-
-    @Override
-    public String toString() {
-        return "Coach{" +
-                "victories=" + victories +
-                ", nacional=" + nacional +
-                ", name='" + name + '\'' +
-                ", surName='" + surName + '\'' +
-                ", birthDay='" + birthDay + '\'' +
-                ", motivation=" + motivation +
-                ", anualSalary=" + anualSalary +
-                '}';
-    }
 }
