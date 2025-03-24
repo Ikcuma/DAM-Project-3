@@ -1,0 +1,333 @@
+/* Estilo global */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f5f5f5;
+}
+
+/* Header con logos */
+.header {
+    background-color: #ffffff;
+    padding: 10px 0;
+    text-align: center;
+    border-bottom: 2px solid #ddd;
+}
+
+.header .top-logos img {
+    width: 50px;
+    margin: 0 10px;
+}
+
+.header-logo {
+    width: auto; /* Tamaño personalizado para los escudos del encabezado */
+    height: 50px; /* Mantiene las proporciones originales */
+    margin: 0 100px; /* Espacio entre los escudos */
+    transition: transform 0.3s, filter 0.3s; /* Efectos suaves de animación */
+}
+
+.header-logo:hover {
+    transform: scale(1.2); /* Aumenta ligeramente el tamaño al pasar el ratón */
+    filter: brightness(1.2); /* Mejora el brillo */
+}
+
+/* Menú de navegación */
+.menu {
+    background-color: #e6e6fa; /* Fondo lila claro */
+    padding: 10px 40px; /* Añade márgenes internos horizontales con este valor */
+    display: flex;
+    align-items: center; /* Alinea los elementos verticalmente */
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin: 30px 450px; /* Márgenes externos a los lados del menú */
+}
+
+.menu-logo {
+    width: 140px; /* Tamaño reducido del logo */
+    height: auto; /* Mantiene las proporciones */
+    margin-right: 20px; /* Espacio entre el logo y los botones */
+}
+
+.menu ul {
+    list-style: none;
+    display: flex; /* Flexbox para los botones */
+    justify-content: flex-end; /* Los botones permanecen a la derecha */
+    margin: 0;
+    padding: 0;
+    flex-grow: 1; /* Ocupa el espacio disponible para alinear correctamente */
+}
+
+.menu ul li {
+    margin: 0 15px; /* Márgenes entre los botones */
+}
+
+.menu ul li a {
+    text-decoration: none;
+    color: #ffffff;
+    font-weight: bold;
+    padding: 10px 20px;
+    background-color: #4b0082;
+    border-radius: 5px;
+    transition: transform 0.3s, background-color 0.3s;
+}
+
+.menu ul li a:hover {
+    background-color: #800080;
+    transform: scale(1.1);
+}
+
+/* Sección de equipos */
+.team-section {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap; /* Esto permite que los cuadrados se ajusten en varias filas si es necesario */
+    margin: 0 auto; /* Centra la sección en la página */
+    max-width: 1200px; /* Define un ancho máximo */
+}
+
+.team {
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: 200px;
+    height: 120px;
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.3s, background-color 0.3s; /* Animación suave */
+}
+
+/* Animaciones y colores individuales */
+.team-section .team:nth-child(1):hover {
+    background-color: #9e1b32; /* Color rosado para el primer escudo */
+}
+
+.team-section .team:nth-child(2):hover {
+    background-color: #e50000; /* Color naranja para el segundo escudo */
+}
+
+.team-section .team:nth-child(3):hover {
+    background-color: #D50032; /* Color amarillo para el tercer escudo */
+}
+
+.team-section .team:nth-child(4):hover {
+    background-color: #1A3C75; /* Color verde claro para el cuarto escudo */
+}
+
+.team-section .team:nth-child(5):hover {
+    background-color: #003D75; /* Color celeste para el quinto escudo */
+}
+
+.team-section .team:nth-child(6):hover {
+    background-color: #AD144E; /* Color azul suave para el sexto escudo barcelona */
+}
+
+.team-section .team:nth-child(7):hover {
+    background-color: #005bac; /* Color lila para el séptimo escudo */
+}
+
+.team-section .team:nth-child(8):hover {
+    background-color: #D91C2C; /* Color rosa pastel para el octavo escudo */
+}
+
+.team-section .team:nth-child(9):hover {
+    background-color: #D50032; /* Color rosado para el primer escudo */
+}
+
+.team-section .team:nth-child(10):hover {
+    background-color: #4C9FD4; /* Color naranja para el segundo escudo */
+}
+
+.team-section .team:nth-child(11):hover {
+    background-color: #0067B1; /* Color amarillo para el tercer escudo */
+}
+
+.team-section .team:nth-child(12):hover {
+    background-color: #9e1b32; /* Color verde claro para el cuarto escudo */
+}
+
+.team-section .team:nth-child(13):hover {
+    background-color: #00A859; /* Color celeste para el quinto escudo */
+}
+
+.team-section .team:nth-child(14):hover {
+    background-color: #D1C6E2; /* Color azul suave para el sexto escudo barcelona */
+}
+
+.team-section .team:nth-child(15):hover {
+    background-color: #3A5F91; /* Color lila para el séptimo escudo */
+}
+
+.team-section .team:nth-child(16):hover {
+    background-color: #6B4F97; /* Color rosa pastel para el octavo escudo */
+}
+.team-section .team:nth-child(17):hover {
+    background-color: #D91B2D; /* Color rosado para el primer escudo */
+}
+
+.team-section .team:nth-child(18):hover {
+    background-color: #F1C232; /* Color naranja para el segundo escudo */
+}
+
+.team-section .team:nth-child(19):hover {
+    background-color: #F15A29; /* Color amarillo para el tercer escudo */
+}
+
+.team-section .team:nth-child(20):hover {
+    background-color: #F15A29; /* Color amarillo para el tercer escudo */
+}
+/* Puedes seguir añadiendo más reglas según el número total de cuadros */
+
+.team:active {
+    background-color: #d40000; /* Cambia el color de fondo al hacer clic */
+    transform: scale(0.95); /* Reduce ligeramente el tamaño al hacer clic */
+}
+
+.team img {
+    width: 50px; /* Ajusta el ancho de la imagen */
+    height: auto; /* Mantiene la proporción de la imagen */
+    margin-bottom: 10px;
+}
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Equipos y Clasificación</title>
+    <link rel="stylesheet" href="../html/CSS/equipos.css">
+</head>
+<body>
+    <header class="header">
+        <div class="top-logos">
+            <img src="../Resources/Escudos/athletic 1 (1).png" alt="Athletic Club">
+            <img src="../Resources/Escudos/atlmadrid 3 (1).png" alt="Atlético de Madrid">
+            <img src="../Resources/Escudos/osasuna 1 (1).png" alt="Osasuna">
+            <img src="../Resources/Escudos/leganes 1 (1).png" alt="Leganés">
+            <img src="../Resources/Escudos/alaves 1 (1).png" alt="Alavés">
+            <img src="../Resources/Escudos/barcelona 4 (1).png" alt="Barcelona">
+            <img src="../Resources/Escudos/getafe 1 (1).png" alt="Getafe">
+            <img src="../Resources/Escudos/girona 1 (1).png" alt="Girona">
+            <img src="../Resources/Escudos/rayovallecano 1 (1).png" alt="Rayo Vallecano">
+            <img src="../Resources/Escudos/celta 1 (1).png" alt="Celta">
+            <img src="../Resources/Escudos/espanyol 3 (1).png" alt="Espanyol">
+            <img src="../Resources/Escudos/mallorca 1 (1).png" alt="Mallorca">
+            <img src="../Resources/Escudos/betis 1 (1).png" alt="Betis">
+            <img src="../Resources/Escudos/realmadrid 2 (1).png" alt="Real Madrid">
+            <img src="../Resources/Escudos/realsociedad 1 (1).png" alt="Real Sociedad">
+            <img src="../Resources/Escudos/valladolid 1 (1).png" alt="Valladolid">
+            <img src="../Resources/Escudos/sevilla 1 (1).png" alt="Sevilla">
+            <img src="../Resources/Escudos/udlaspalmas 1 (1).png" alt="UD Las Palmas">
+            <img src="../Resources/Escudos/valencia 1 (1).png" alt="Valencia">
+            <img src="../Resources/Escudos/villarreal 1 (1).png" alt="Villarreal">
+        </div>
+    </header>
+    <nav class="menu">
+        <img src="../Resources/Escudos/logo_sin_fondo.png" alt="Logo" class="menu-logo">
+        <ul>
+            <li><a href="#">Equipos</a></li>
+            <li><a href="#">Classificación</a></li>
+            <li><a href="#">Formulario</a></li>
+            <li><a href="#">Es/En</a></li>
+        </ul>
+    </nav>
+
+    <main class="content">
+        <section class="team-section">
+            <!-- Fila 1 -->
+            <div class="team">
+                <img src="../Resources/Escudos/athletic 1 (1).png" alt="Athletic Club">
+                <p>ATHLETIC CLUB</p>
+            </div>
+            <div class="team">
+                <img src="../Resources/Escudos/atlmadrid 3 (1).png" alt="FC Barcelona">
+                <p>ATLÉTICO DE MADRID</p>
+            </div>
+            <div class="team">
+                <img src="../Resources/Escudos/osasuna 1 (1).png" alt="Real Madrid">
+                <p>CA OSASUNA</p>
+            </div>
+            <div class="team">
+                <img src="../Resources/Escudos/leganes 1 (1).png" alt="Sevilla FC">
+                <p>CD LEGANÉS</p>
+            </div>
+            <!-- Fila 2 -->
+            <div class="team">
+                <img src="../Resources/Escudos/alaves 1 (1).png" alt="Betis">
+                <p>DEPORTIVO ALAVÉS</p>
+            </div>
+            <div class="team">
+                <img src="../Resources/Escudos/barcelona 4 (1).png" alt="Real Sociedad">
+                <p>FC BARCELONA</p>
+            </div>
+            <div class="team">
+                <img src="../Resources/Escudos/getafe 1 (1).png" alt="Valencia">
+                <p>GETAFE CF</p>
+            </div>
+            <div class="team">
+                <img src="../Resources/Escudos/girona 1 (1).png" alt="Villarreal">
+                <p>GIRONA FC</p>
+            </div>
+            <!-- Fila 3 -->
+            <div class="team">
+                <img src="../Resources/Escudos/rayovallecano 1 (1).png" alt="Osasuna">
+                <p>RAYO VALLECANO</p>
+            </div>
+            <div class="team">
+                <img src="../Resources/Escudos/celta 1 (1).png" alt="Celta">
+                <p>CELTA DE VIGO</p>
+            </div>
+            <div class="team">
+                <img src="../Resources/Escudos/espanyol 3 (1).png" alt="Espanyol">
+                <p>RCD ESPAÑOL</p>
+            </div>
+            <div class="team">
+                <img src="../Resources/Escudos/mallorca 1 (1).png" alt="Mallorca">
+                <p>RCD MALLORCA</p>
+            </div>
+            <!-- Fila 4 -->
+            <div class="team">
+                <img src="../Resources/Escudos/betis 1 (1).png" alt="Girona">
+                <p>REAL BETIS</p>
+            </div>
+            <div class="team">
+                <img src="../Resources/Escudos/realmadrid 2 (1).png" alt="Getafe">
+                <p>REAL MADRID</p>
+            </div>
+            <div class="team">
+                <img src="../Resources/Escudos/realsociedad 1 (1).png" alt="UD Las Palmas">
+                <p>REAL SOCIEDAD</p>
+            </div>
+            <div class="team">
+                <img src="../Resources/Escudos/valladolid 1 (1).png" alt="Leganés">
+                <p>REAL VALLADOLID</p>
+            </div>
+            <!-- Fila 5 -->
+            <div class="team">
+                <img src="../Resources/Escudos/sevilla 1 (1).png" alt="Alavés">
+                <p>SEVILLA FC</p>
+            </div>
+            <div class="team">
+                <img src="../Resources/Escudos/udlaspalmas 1 (1).png" alt="Rayo Vallecano">
+                <p>UD LAS PALMAS</p>
+            </div>
+            <div class="team">
+                <img src="../Resources/Escudos/valencia 1 (1).png" alt="Atlético de Madrid">
+                <p>VALENCIA CF</p>
+            </div>
+            <div class="team">
+                <img src="../Resources/Escudos/villarreal 1 (1).png" alt="Valladolid">
+                <p>VILLAREAL CF</p>
+            </div>
+        </section>
+    </main>
+</body>
+</html>

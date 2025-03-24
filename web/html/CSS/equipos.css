@@ -83,7 +83,7 @@ body {
 
 .menu ul li a {
     text-decoration: none;
-    color: #ffffff; /* Texto blanco */
+    color: #000000; /* Texto negro */
     font-weight: bold;
     padding: 10px 20px; /* Botones grandes */
     background-color: #4b0082; /* Fondo morado oscuro */
