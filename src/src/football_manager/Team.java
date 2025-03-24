@@ -98,9 +98,9 @@ public class Team {
     public String toFileFormat(){
         StringBuilder sb = new StringBuilder();
 
-        sb.append(name).append(";")
-                .append(birthDate).append(";")
-                .append(city).append(";");
+        sb.append(this.name).append(";")
+                .append(this.birthDate).append(";")
+                .append(this.city).append(";");
 
         sb.append(coach.toFileFormatTeam()).append(";");
 
