@@ -1,4 +1,4 @@
-/* Variables de color */
+/* ===== VARIABLES Y RESET ===== */
 :root {
     --primary-color: #1a3e8c;
     --secondary-color: #d62828;
@@ -7,14 +7,126 @@
     --dark-color: #212529;
     --success-color: #28a745;
 }
-/* Estilos para la sección de partidos */
-.partidos-container {
-    display: flex;
-    gap: 2rem;
-    margin-top: 1.5rem;
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-/* Reemplaza la sección de estilos de partidos con esto: */
+body {
+    background-color: var(--light-color);
+    color: var(--dark-color);
+    line-height: 1.6;
+}
+
+/* ===== HEADER ===== */
+header {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 1rem 2rem;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    align-items: center;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 2rem;
+}
+
+.logo img {
+    height: 50px;
+}
+
+nav {
+    padding: 0 2rem 1rem;
+}
+
+nav ul {
+    display: flex;
+    list-style: none;
+    gap: 2rem;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+nav a:hover, nav a.active {
+    background-color: var(--secondary-color);
+}
+
+/* Escudos en header */
+.escudos-container {
+    width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    white-space: nowrap;
+    padding: 0.5rem 0;
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.1);
+    margin-bottom: 1rem;
+}
+
+.escudos-scroll {
+    display: inline-block;
+    padding: 0 1rem;
+}
+
+.escudos-scroll img {
+    height: 3rem;
+    width: auto;
+    margin: 0 1.5rem;
+    transition: transform 0.3s ease;
+}
+
+.escudos-scroll img:hover {
+    transform: scale(1.1);
+}
+
+.escudos-container::-webkit-scrollbar {
+    height: 5px;
+}
+
+.escudos-container::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.escudos-container::-webkit-scrollbar-thumb {
+    background-color: var(--secondary-color);
+    border-radius: 10px;
+}
+
+/* ===== MAIN CONTENT ===== */
+main {
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+section {
+    margin-bottom: 3rem;
+}
+
+h2 {
+    color: var(--primary-color);
+    margin-bottom: 1.5rem;
+    font-size: 2rem;
+    border-bottom: 2px solid var(--accent-color);
+    padding-bottom: 0.5rem;
+}
+
+/* ===== SECCIÓN DE PARTIDOS ===== */
 .partidos-container {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -32,7 +144,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    min-height: 250px; /* Asegura una altura mínima */
+    min-height: 250px;
 }
 
 .partido-card:hover {
@@ -98,152 +210,14 @@
     transform: scale(1.05);
 }
 
-/* Responsive */
-@media (max-width: 768px) {
-    .partidos-container {
-        grid-template-columns: 1fr;
-    }
-}
-
-/* Estilos para el contenedor de escudos */
-.escudos-container {
-    width: 100%;
-    overflow-x: auto;
-    overflow-y: hidden;
-    white-space: nowrap;
-    padding: 0.5rem 0;
-    text-align: center;
-    background-color: rgba(255, 255, 255, 0.1);
-    margin-bottom: 1rem;
-}
-
-.escudos-scroll {
-    display: inline-block;
-    padding: 0 1rem;
-}
-
-.escudos-scroll img {
-    height: 3rem;
-    width: auto;
-    margin: 0 1.5rem;
-    transition: transform 0.3s ease;
-}
-
-.escudos-scroll img:hover {
-    transform: scale(1.1);
-}
-
-/* Ocultar la barra de scroll pero mantener funcionalidad */
-.escudos-container::-webkit-scrollbar {
-    height: 5px;
-}
-
-.escudos-container::-webkit-scrollbar-track {
-    background: rgba(255, 255, 255, 0.1);
-}
-
-.escudos-container::-webkit-scrollbar-thumb {
-    background-color: var(--secondary-color);
-    border-radius: 10px;
-}
-
-/* Ajustes para el header con la nueva sección */
-header {
-    display: flex;
-    flex-direction: column;
-    background-color: var(--primary-color);
-    color: white;
-    padding: 0;
-}
-
-.logo {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    padding: 1rem 2rem;
-}
-
-nav {
-    padding: 0 2rem 1rem;
-}
-/* Reset y estilos base */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-
-body {
-    background-color: var(--light-color);
-    color: var(--dark-color);
-    line-height: 1.6;
-}
-
-header {
-    background-color: var(--primary-color);
-    color: white;
-    padding: 1rem 2rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-}
-
-.logo {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-}
-
-.logo img {
-    height: 50px;
-}
-
-nav ul {
-    display: flex;
-    list-style: none;
-    gap: 2rem;
-}
-
-nav a {
-    color: white;
-    text-decoration: none;
-    font-weight: 500;
-    padding: 0.5rem 1rem;
-    border-radius: 4px;
-    transition: all 0.3s ease;
-}
-
-nav a:hover, nav a.active {
-    background-color: var(--secondary-color);
-}
-
-main {
-    padding: 2rem;
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
-section {
-    margin-bottom: 3rem;
-}
-
-h2 {
-    color: var(--primary-color);
-    margin-bottom: 1.5rem;
-    font-size: 2rem;
-    border-bottom: 2px solid var(--accent-color);
-    padding-bottom: 0.5rem;
-}
-
-/* Estilos para la sección de estadísticas con scroll horizontal */
+/* ===== SECCIÓN DE ESTADÍSTICAS ===== */
 .stats {
     background-color: #f5f5f5;
     padding: 2rem;
     border-radius: 10px;
     margin: 2rem 0;
     overflow: hidden;
+    position: relative;
 }
 
 .stats-grid {
@@ -252,7 +226,7 @@ h2 {
     overflow-x: auto;
     padding-bottom: 1rem;
     scroll-snap-type: x mandatory;
-    -webkit-overflow-scrolling: touch; /* Para un scroll suave en iOS */
+    -webkit-overflow-scrolling: touch;
 }
 
 .stats-grid::-webkit-scrollbar {
@@ -282,7 +256,27 @@ h2 {
     flex: 0 0 auto;
 }
 
-/* Mantén el resto de tus estilos para .stat-card, .player-info, etc. igual */
+.stat-card:hover {
+    transform: translateY(-5px);
+}
+
+.stat-card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 12px;
+    background: linear-gradient(135deg, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0) 60%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.stat-card:hover::after {
+    opacity: 1;
+}
+
 .stat-number {
     font-size: 3rem;
     font-weight: bold;
@@ -345,11 +339,8 @@ h2 {
     margin-top: 0.5rem;
     font-weight: 500;
 }
-/* Estilos para los botones de navegación */
-.stats {
-    position: relative;
-}
 
+/* Navegación stats */
 .stats-nav {
     position: absolute;
     top: 50%;
@@ -385,50 +376,7 @@ h2 {
     transform: scale(1.1);
 }
 
-/* Ocultar botones en móviles */
-@media (max-width: 768px) {
-    .stats-nav {
-        display: none;
-    }
-    
-    .stats-grid {
-        scroll-snap-type: none;
-    }
-}
-/* Efecto de brillo al pasar el mouse */
-.stat-card::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    border-radius: 12px;
-    background: linear-gradient(135deg, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0) 60%);
-    opacity: 0;
-    transition: opacity 0.3s ease;
-}
-
-.stat-card:hover::after {
-    opacity: 1;
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-    .stats-grid {
-        grid-template-columns: 1fr;
-    }
-    
-    .player-info img {
-        width: 80px;
-        height: 80px;
-    }
-    
-    .stat-number {
-        font-size: 2.5rem;
-    }
-}
-/* Estilos para la sección de noticias */
+/* ===== SECCIÓN DE NOTICIAS ===== */
 .noticias {
     background-color: white;
     padding: 2rem;
@@ -438,12 +386,8 @@ h2 {
 }
 
 .noticias h2 {
-    color: var(--primary-color);
-    margin-bottom: 2rem;
-    font-size: 2rem;
     text-align: center;
     position: relative;
-    padding-bottom: 1rem;
 }
 
 .noticias h2::after {
@@ -501,9 +445,7 @@ h2 {
 }
 
 .noticia h3 {
-    color: var(--primary-color);
     margin-bottom: 0.8rem;
-    font-size: 1.3rem;
     line-height: 1.4;
 }
 
@@ -534,7 +476,6 @@ h2 {
 }
 
 .noticia p {
-    color: var(--dark-color);
     margin-bottom: 1.5rem;
     line-height: 1.6;
     flex-grow: 1;
@@ -563,30 +504,89 @@ h2 {
     transform: translateX(3px);
 }
 
-/* Responsive */
-@media (max-width: 768px) {
-    .noticias-container {
-        grid-template-columns: 1fr;
-    }
-    
-    .noticia-imagen {
-        height: 250px;
-    }
-}
-/* Footer */
-footer {
-    background-color: var(--dark-color);
-    color: white;
+/* ===== SECCIÓN DE EQUIPOS ===== */
+.equipos-container {
     padding: 2rem;
-    text-align: center;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
-/* Estilos para el footer mejorado */
+.equipos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.equipo-card {
+    background: white;
+    border-radius: 10px;
+    padding: 1.5rem 1rem;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+    border: 2px solid #e0e0e0;
+}
+
+.equipo-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--team-color, #ffffff);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: -1;
+}
+
+.equipo-card:hover::before {
+    opacity: 0.15;
+}
+
+.equipo-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(0,0,0,0.15);
+}
+
+.equipo-escudo {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+    margin-bottom: 1rem;
+    transition: transform 0.3s ease;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+}
+
+.equipo-card:hover .equipo-escudo {
+    transform: scale(1.1);
+}
+
+.equipo-nombre {
+    font-weight: 600;
+    color: var(--primary-color);
+    margin-top: 0.5rem;
+    font-size: 0.95rem;
+    transition: color 0.3s ease;
+}
+
+.equipo-card:hover .equipo-nombre {
+    color: var(--team-text-color, var(--primary-color));
+    font-weight: 700;
+}
+
+/* ===== FOOTER ===== */
 footer {
     background: linear-gradient(135deg, #1a3e8c 0%, #0d2b66 100%);
     color: white;
     padding: 3rem 2rem 0;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .footer-container {
@@ -618,7 +618,6 @@ footer {
 .footer-logo h3 {
     font-size: 1.5rem;
     margin-bottom: 0.5rem;
-    color: white;
 }
 
 .footer-logo p {
@@ -634,7 +633,6 @@ footer {
     margin-bottom: 1.5rem;
     position: relative;
     padding-bottom: 0.5rem;
-    color: white;
 }
 
 .footer-links h4::after,
@@ -743,8 +741,63 @@ footer {
     color: white;
 }
 
-/* Responsive */
+/* ===== MEDIA QUERIES ===== */
 @media (max-width: 768px) {
+    /* Header */
+    header {
+        flex-direction: column;
+        padding: 1rem;
+    }
+    
+    nav ul {
+        margin-top: 1rem;
+        gap: 1rem;
+    }
+    
+    /* Partidos */
+    .partidos-container {
+        grid-template-columns: 1fr;
+    }
+    
+    /* Estadísticas */
+    .stats-nav {
+        display: none;
+    }
+    
+    .stats-grid {
+        scroll-snap-type: none;
+    }
+    
+    .player-info img {
+        width: 80px;
+        height: 80px;
+    }
+    
+    .stat-number {
+        font-size: 2.5rem;
+    }
+    
+    /* Noticias */
+    .noticias-container {
+        grid-template-columns: 1fr;
+    }
+    
+    .noticia-imagen {
+        height: 250px;
+    }
+    
+    /* Equipos */
+    .equipos-grid {
+        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+        gap: 1.5rem;
+    }
+    
+    .equipo-escudo {
+        width: 60px;
+        height: 60px;
+    }
+    
+    /* Footer */
     .footer-grid {
         grid-template-columns: 1fr;
     }
