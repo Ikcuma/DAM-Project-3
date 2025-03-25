@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 /* Estilo global */
 body {
     font-family: Arial, sans-serif;
@@ -331,3 +332,82 @@ body {
     </main>
 </body>
 </html>
+=======
+/* Estilos Generales */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+    text-align: center;
+    padding: 20px;
+}
+
+header {
+    background-color: #d1c4e9;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+nav button {
+    background-color: #1a237e;
+    color: white;
+    padding: 10px 20px;
+    margin: 5px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+nav button:hover {
+    background-color: #3949ab;
+}
+
+.categorias button {
+    background-color: #1a237e;
+    color: white;
+    padding: 10px 15px;
+    margin: 5px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.categorias button:hover {
+    background-color: #3949ab;
+}
+
+.jugadores h2 {
+    margin: 20px 0 10px;
+}
+
+.grid {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+}
+
+.grid img, .jugadores img {
+    width: 150px;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.grid img:hover, .jugadores img:hover {
+    transform: scale(1.1);
+}
+
+footer {
+    margin-top: 20px;
+    color: #616161;
+}
+>>>>>>> Stashed changes
