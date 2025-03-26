@@ -1,11 +1,18 @@
 /* ===== VARIABLES Y RESET ===== */
 :root {
-    --primary-color: #1a3e8c;
-    --secondary-color: #d62828;
-    --accent-color: #f77f00;
-    --light-color: #f8f9fa;
-    --dark-color: #212529;
-    --success-color: #28a745;
+    --primary-color: #0c0c46;        /* Azul oscuro principal */
+    --primary-light: #7180ac;        /* Variante clara del primario */
+    --secondary-color: #2ecc71;      /* Verde brillante */
+    --secondary-dark: #27ae60;       /* Variante oscura del secundario */
+    --accent-color: #b7d5d4;        /* Verde azulado claro */
+    --light-color: #fdfdfbfa;          /* Beige claro para fondos */
+    --light-accent: #e8f4f3;         /* Variante más clara del acento */
+    --dark-color: #333333;           /* Texto oscuro */
+    --dark-light: #555555;           /* Texto gris */
+    --success-color: #2ecc71;        /* Usando el verde como éxito */
+    --warning-color: #f39c12;        /* Naranja para advertencias */
+    --danger-color: #e74c3c;         /* Rojo para errores */
+    --border-color: #d5dbdb;         /* Color para bordes */
 }
 
 * {
@@ -64,6 +71,7 @@ nav a {
 
 nav a:hover, nav a.active {
     background-color: var(--secondary-color);
+    color: var(--primary-color);
 }
 
 /* Escudos en header */
@@ -112,6 +120,7 @@ main {
     padding: 2rem;
     max-width: 1200px;
     margin: 0 auto;
+    background-color: var(--light-color);
 }
 
 section {
@@ -145,6 +154,7 @@ h2 {
     flex-direction: column;
     align-items: center;
     min-height: 250px;
+    border: 1px solid var(--border-color);
 }
 
 .partido-card:hover {
@@ -179,9 +189,10 @@ h2 {
 }
 
 .logo-partido {
-    width: 50px;
+    width: 3.2rem;
     height: auto;
-    margin: 0.5rem auto;
+    margin: 1rem auto;
+    margin-top: -0.2rem;
     opacity: 0.7;
 }
 
@@ -208,16 +219,18 @@ h2 {
 .btn-match:hover {
     background-color: var(--secondary-color);
     transform: scale(1.05);
+    color: var(--primary-color);
 }
 
 /* ===== SECCIÓN DE ESTADÍSTICAS ===== */
 .stats {
-    background-color: #f5f5f5;
+    background-color: var(--light-accent);
     padding: 2rem;
     border-radius: 10px;
     margin: 2rem 0;
     overflow: hidden;
     position: relative;
+    border: 1px solid var(--border-color);
 }
 
 .stats-grid {
@@ -239,18 +252,18 @@ h2 {
 }
 
 .stats-grid::-webkit-scrollbar-thumb {
-    background-color: var(--primary-color);
+    background-color: var(--primary-light);
     border-radius: 10px;
 }
 
 .stat-card {
-    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+    background: white;
     border-radius: 12px;
     padding: 2rem;
     box-shadow: 0 6px 15px rgba(0,0,0,0.1);
     text-align: center;
     transition: all 0.3s ease;
-    border: 1px solid rgba(0,0,0,0.05);
+    border: 1px solid var(--border-color);
     min-width: 280px;
     scroll-snap-align: start;
     flex: 0 0 auto;
@@ -258,23 +271,7 @@ h2 {
 
 .stat-card:hover {
     transform: translateY(-5px);
-}
-
-.stat-card::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    border-radius: 12px;
-    background: linear-gradient(135deg, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0) 60%);
-    opacity: 0;
-    transition: opacity 0.3s ease;
-}
-
-.stat-card:hover::after {
-    opacity: 1;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.15);
 }
 
 .stat-number {
@@ -282,7 +279,6 @@ h2 {
     font-weight: bold;
     color: var(--secondary-color);
     margin: 0.5rem 0;
-    text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
 }
 
 .stat-label {
@@ -324,13 +320,13 @@ h2 {
 }
 
 .player-info p {
-    color: var(--dark-color);
+    color: var(--dark-light);
     font-size: 1rem;
     margin-bottom: 0.5rem;
 }
 
 .trophies {
-    background-color: var(--accent-color);
+    background-color: var(--secondary-color);
     color: white;
     padding: 0.3rem 1rem;
     border-radius: 20px;
@@ -374,6 +370,7 @@ h2 {
 .nav-btn:hover {
     background-color: var(--secondary-color);
     transform: scale(1.1);
+    color: var(--primary-color);
 }
 
 /* ===== SECCIÓN DE NOTICIAS ===== */
@@ -383,6 +380,7 @@ h2 {
     border-radius: 10px;
     margin: 3rem 0;
     box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    border: 1px solid var(--border-color);
 }
 
 .noticias h2 {
@@ -414,6 +412,8 @@ h2 {
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     display: flex;
     flex-direction: column;
+    background-color: white;
+    border: 1px solid var(--border-color);
 }
 
 .noticia:hover {
@@ -447,6 +447,7 @@ h2 {
 .noticia h3 {
     margin-bottom: 0.8rem;
     line-height: 1.4;
+    color: var(--primary-color);
 }
 
 .noticia-meta {
@@ -454,7 +455,7 @@ h2 {
     gap: 1rem;
     margin-bottom: 1rem;
     font-size: 0.85rem;
-    color: #666;
+    color: var(--dark-light);
 }
 
 .noticia-fecha {
@@ -468,7 +469,8 @@ h2 {
 }
 
 .noticia-categoria {
-    background-color: #f0f0f0;
+    background-color: var(--light-accent);
+    color: var(--primary-color);
     padding: 0.2rem 0.8rem;
     border-radius: 20px;
     font-size: 0.75rem;
@@ -479,6 +481,7 @@ h2 {
     margin-bottom: 1.5rem;
     line-height: 1.6;
     flex-grow: 1;
+    color: var(--dark-color);
 }
 
 .noticia-enlace {
@@ -531,7 +534,8 @@ h2 {
     position: relative;
     overflow: hidden;
     z-index: 1;
-    border: 2px solid #e0e0e0;
+    border: 1px solid #e0e0e0;
+    text-decoration: none; /* Para quitar el subrayado de los enlaces */
 }
 
 .equipo-card::before {
@@ -548,7 +552,7 @@ h2 {
 }
 
 .equipo-card:hover::before {
-    opacity: 0.15;
+    opacity: 0.2; /* Ajusta este valor para la intensidad del color */
 }
 
 .equipo-card:hover {
@@ -578,13 +582,13 @@ h2 {
 }
 
 .equipo-card:hover .equipo-nombre {
-    color: var(--team-text-color, var(--primary-color));
+    color: var(--team-text-color);
     font-weight: 700;
 }
 
 /* ===== FOOTER ===== */
 footer {
-    background: linear-gradient(135deg, #1a3e8c 0%, #0d2b66 100%);
+    background: linear-gradient(135deg, var(--primary-color) 0%, #0a0a3a 100%);
     color: white;
     padding: 3rem 2rem 0;
 }
@@ -664,7 +668,7 @@ footer {
 }
 
 .footer-links a:hover {
-    color: white;
+    color: var(--secondary-color);
     padding-left: 5px;
 }
 
@@ -701,8 +705,9 @@ footer {
 }
 
 .social-icons a:hover {
-    background-color: var(--accent-color);
+    background-color: var(--secondary-color);
     transform: translateY(-3px);
+    color: var(--primary-color);
 }
 
 .social-icons img {
@@ -738,7 +743,7 @@ footer {
 }
 
 .legal-links a:hover {
-    color: white;
+    color: var(--secondary-color);
 }
 
 /* ===== MEDIA QUERIES ===== */

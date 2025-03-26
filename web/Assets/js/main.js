@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', function() {
         { nombre: 'RCD Mallorca', escudo: 'mallorca.png', pagina: 'mallorca.html' },
         { nombre: 'CA Osasuna', escudo: 'osasuna.png', pagina: 'osasuna.html' },
         { nombre: 'Rayo Vallecano', escudo: 'rayovallecano.png', pagina: 'rayo.html' },
-        { nombre: 'Real Madrid', escudo: 'realmadrid.png', pagina: 'realmadrid.html' },
+        { nombre: 'Real Madrid', escudo: 'realmadrid.png', pagina: 'Real_Madrid.html' },
         { nombre: 'Sevilla FC', escudo: 'sevilla.png', pagina: 'sevilla.html' },
         { nombre: 'UD Las Palmas', escudo: 'udlaspalmas.png', pagina: 'laspalmas.html' },
         { nombre: 'Valencia CF', escudo: 'valencia.png', pagina: 'valencia.html' },

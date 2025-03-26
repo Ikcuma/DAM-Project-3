@@ -63,12 +63,6 @@ document.addEventListener('DOMContentLoaded', function() {
         const categoriaSeleccionada = document.getElementById(categoriaAMostrar);
         if (categoriaSeleccionada) {
             categoriaSeleccionada.classList.add('active');
-            
-            // Scroll suave a la sección
-            categoriaSeleccionada.scrollIntoView({
-                behavior: 'smooth',
-                block: 'start'
-            });
         } else {
             console.error(`No se encontró la categoría con ID: ${categoriaAMostrar}`);
         }
