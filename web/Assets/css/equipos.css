@@ -3,21 +3,48 @@
     max-width: 1200px;
     margin: 0 auto;
     padding: 2rem;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .equipo-header {
     text-align: center;
     margin-bottom: 3rem;
+    position: relative;
+}
+
+.equipo-header::after {
+    content: "";
+    display: block;
+    width: 150px;
+    height: 3px;
+    background: linear-gradient(90deg, #A50044, #1a3e8c);
+    margin: 1.5rem auto 0;
 }
 
 .equipo-escudo-grande {
     width: 150px;
     height: auto;
     margin-bottom: 1rem;
+    transition: transform 0.3s ease;
+}
+
+.equipo-escudo-grande:hover {
+    transform: scale(1.05);
 }
 
 .equipo-info {
     margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+}
+
+.equipo-info p {
+    background: rgba(0, 31, 84, 0.1);
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-weight: 500;
 }
 
 /* Estilos para las categorías */
@@ -27,6 +54,10 @@
     gap: 1rem;
     margin-bottom: 2rem;
     flex-wrap: wrap;
+    padding: 1rem;
+    background: rgba(245, 245, 245, 0.8);
+    border-radius: 15px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
 .categoria-btn {
@@ -36,59 +67,179 @@
     border-radius: 20px;
     cursor: pointer;
     transition: all 0.3s ease;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.categoria-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
 
 .categoria-btn.active {
-    background-color: #1a3e8c;
+    background: linear-gradient(135deg, #1a3e8c, #0056FF);
     color: white;
+    box-shadow: 0 4px 8px rgba(26, 62, 140, 0.3);
 }
 
 /* Estilos para las tarjetas de jugadores */
 .jugadores-categoria {
     display: none;
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 2rem;
+    gap: 25px;
+    padding: 15px;
 }
 
 .jugadores-categoria.active {
     display: grid;
+    animation: fadeIn 0.5s ease-out;
 }
 
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Estilo de las cards */
 .jugador-card {
-    background: white;
-    border-radius: 10px;
+    position: relative;
+    border-radius: 12px;
     overflow: hidden;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-    transition: transform 0.3s ease;
+    background: linear-gradient(180deg, #A50044 0%, #8A0038 100%);
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border: none;
 }
 
 .jugador-card:hover {
-    transform: translateY(-5px);
+    transform: translateY(-8px);
+    box-shadow: 0 12px 20px rgba(0, 86, 255, 0.2);
+}
+
+.jugador-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #0056FF, #1a3e8c);
+}
+
+/* Imagen del jugador */
+.jugador-img {
+    width: 100%;
+    height: 280px;
+    overflow: hidden;
+    position: relative;
 }
 
 .jugador-img img {
     width: 100%;
-    height: 250px;
+    height: 100%;
     object-fit: cover;
+    object-position: top center;
+    display: block;
+    transition: transform 0.5s ease;
 }
 
+.jugador-card:hover .jugador-img img {
+    transform: scale(1.05);
+}
+
+/* Información del jugador */
 .jugador-info {
-    padding: 1.5rem;
-}
-
-.jugador-info .dorsal {
-    display: inline-block;
-    background-color: #1a3e8c;
-    color: white;
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
+    padding: 1.2rem;
+    background: linear-gradient(180deg, #001F54 0%, #000D2B 100%);
     text-align: center;
-    line-height: 30px;
-    margin-bottom: 0.5rem;
+    position: relative;
 }
 
-/* Estilos específicos para el entrenador */
-.entrenador .jugador-img img {
-    height: 300px;
+.jugador-info::before {
+    content: "";
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+    height: 2px;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+/* Dorsal */
+.dorsal {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    background: linear-gradient(135deg, #1a3e8c, #0056FF);
+    color: white;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 18px;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
+    z-index: 2;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Textos */
+.posicion {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.8);
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-weight: 600;
+}
+
+.nombre {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: white;
+    margin: 8px 0 0 0;
+    letter-spacing: 0.5px;
+    position: relative;
+    display: inline-block;
+}
+
+.nombre::after {
+    content: "";
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #A50044, transparent);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.jugador-card:hover .nombre::after {
+    opacity: 1;
+}
+
+/* Estilo especial para entrenador */
+.entrenador .jugador-img {
+    height: 320px;
+}
+
+.entrenador .jugador-info {
+    background: linear-gradient(180deg, #1a3e8c 0%, #0d1f4d 100%);
+}
+
+/* Efecto de brillo al pasar el ratón */
+.jugador-card:hover::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at center, rgba(255, 255, 255, 0.15) 0%, transparent 70%);
+    pointer-events: none;
 }
