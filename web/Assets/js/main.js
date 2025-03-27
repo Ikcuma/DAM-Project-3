@@ -1,11 +1,11 @@
 document.addEventListener('DOMContentLoaded', function() {
     // Lista de equipos con sus escudos
     const equipos = [
-        { nombre: 'Deportivo Alavés', escudo: 'alaves.png', pagina: 'alaves.html' },
-        { nombre: 'Athletic Club', escudo: 'athletic.png', pagina: 'athletic.html' },
-        { nombre: 'Atlético Madrid', escudo: 'atlmadrid.png', pagina: 'atletico.html' },
+        { nombre: 'Deportivo Alavés', escudo: 'alaves.png', pagina: 'Deportivo_alaves.html' },
+        { nombre: 'Athletic Club', escudo: 'athletic.png', pagina: 'Athletic_club.html' },
+        { nombre: 'Atlético Madrid', escudo: 'atlmadrid.png', pagina: 'Atletico_de_madrid.html' },
         { nombre: 'FC Barcelona', escudo: 'barcelona.png', pagina: 'Barcelona.html' },
-        { nombre: 'Real Betis', escudo: 'betis.png', pagina: 'betis.html' },
+        { nombre: 'Real Betis', escudo: 'betis.png', pagina: 'Real_betis.html' },
         { nombre: 'Celta de Vigo', escudo: 'celta.png', pagina: 'celta.html' },
         { nombre: 'Espanyol', escudo: 'espanyol.png', pagina: 'espanyol.html' },
         { nombre: 'Getafe CF', escudo: 'getafe.png', pagina: 'getafe.html' },
