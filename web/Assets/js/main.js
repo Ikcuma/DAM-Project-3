@@ -1,28 +1,29 @@
 document.addEventListener('DOMContentLoaded', function() {
     // Lista de equipos con sus escudos
     const equipos = [
-        { nombre: 'Deportivo Alavés', escudo: 'alaves.png', pagina: 'alaves.html' },
-        { nombre: 'Athletic Club', escudo: 'athletic.png', pagina: 'athletic.html' },
-        { nombre: 'Atlético Madrid', escudo: 'atlmadrid.png', pagina: 'atletico.html' },
+        { nombre: 'Deportivo Alavés', escudo: 'alaves.png', pagina: 'Deportivo_Alavéz.html' },
+        { nombre: 'Athletic Club', escudo: 'athletic.png', pagina: 'Athletic_Club.html' },
+        { nombre: 'Atlético Madrid', escudo: 'atlmadrid.png', pagina: 'Atlético_Madrid.html' },
         { nombre: 'FC Barcelona', escudo: 'barcelona.png', pagina: 'Barcelona.html' },
-        { nombre: 'Real Betis', escudo: 'betis.png', pagina: 'betis.html' },
-        { nombre: 'Celta de Vigo', escudo: 'celta.png', pagina: 'celta.html' },
-        { nombre: 'Espanyol', escudo: 'espanyol.png', pagina: 'espanyol.html' },
-        { nombre: 'Getafe CF', escudo: 'getafe.png', pagina: 'getafe.html' },
-        { nombre: 'Girona FC', escudo: 'girona.png', pagina: 'girona.html' },
-        { nombre: 'CD Leganés', escudo: 'leganes.png', pagina: 'leganes.html' },
-        { nombre: 'RCD Mallorca', escudo: 'mallorca.png', pagina: 'mallorca.html' },
-        { nombre: 'CA Osasuna', escudo: 'osasuna.png', pagina: 'osasuna.html' },
-        { nombre: 'Rayo Vallecano', escudo: 'rayovallecano.png', pagina: 'rayo.html' },
+        { nombre: 'Real Betis', escudo: 'betis.png', pagina: 'Real_Betis.html' },
+        { nombre: 'Celta de Vigo', escudo: 'celta.png', pagina: 'Celta_de_Vigo.html' },
+        { nombre: 'Espanyol', escudo: 'espanyol.png', pagina: 'Espanyol.html' },
+        { nombre: 'Getafe CF', escudo: 'getafe.png', pagina: 'Getafe_CF.html' },
+        { nombre: 'Girona FC', escudo: 'girona.png', pagina: 'Girona_FC.html' },
+        { nombre: 'CD Leganés', escudo: 'leganes.png', pagina: 'CD_Leganes.html' },
+        { nombre: 'RCD Mallorca', escudo: 'mallorca.png', pagina: 'RCD_Mallorca.html' },
+        { nombre: 'CA Osasuna', escudo: 'osasuna.png', pagina: 'CA_Osasuna.html' },
+        { nombre: 'Rayo Vallecano', escudo: 'rayovallecano.png', pagina: 'Rayo_Vallecano.html' },
         { nombre: 'Real Madrid', escudo: 'realmadrid.png', pagina: 'Real_Madrid.html' },
-        { nombre: 'Sevilla FC', escudo: 'sevilla.png', pagina: 'sevilla.html' },
-        { nombre: 'UD Las Palmas', escudo: 'udlaspalmas.png', pagina: 'laspalmas.html' },
-        { nombre: 'Valencia CF', escudo: 'valencia.png', pagina: 'valencia.html' },
-        { nombre: 'Real Valladolid', escudo: 'valladolid.png', pagina: 'valladolid.html' },
-        { nombre: 'Villarreal CF', escudo: 'villarreal.png', pagina: 'villarreal.html' }
+        { nombre: 'Real Sociedad', escudo: 'realsociedad.png', pagina: 'Real_Sociedad.html' }, // Nuevo equipo añadido
+        { nombre: 'Sevilla FC', escudo: 'sevilla.png', pagina: 'Sevilla_FC.html' },
+        { nombre: 'UD Las Palmas', escudo: 'udlaspalmas.png', pagina: 'UD_Las_Palmas.html' },
+        { nombre: 'Valencia CF', escudo: 'valencia.png', pagina: 'Valencia_CF.html' },
+        { nombre: 'Real Valladolid', escudo: 'valladolid.png', pagina: 'Real_Valladolid.html' },
+        { nombre: 'Villarreal CF', escudo: 'villarreal.png', pagina: 'Villarreal.html' }
     ];
 
-    // Colores para cada equipo
+    // Colores para cada equipo (añadido color para Real Sociedad)
     const teamColors = {
         'Deportivo Alavés': { bg: '#005bab', text: '#005bab' },
         'Athletic Club': { bg: '#ed1c24', text: '#ed1c24' },
@@ -38,6 +39,7 @@ document.addEventListener('DOMContentLoaded', function() {
         'CA Osasuna': { bg: '#0a3a8a', text: '#0a3a8a' },
         'Rayo Vallecano': { bg: '#c60c30', text: '#c60c30' },
         'Real Madrid': { bg: '#00529f', text: '#00529f' },
+        'Real Sociedad': { bg: '#0073bc', text: '#ffffff' }, // Color azul característico de la Real
         'Sevilla FC': { bg: '#d81e05', text: '#d81e05' },
         'UD Las Palmas': { bg: '#0077c8', text: '#0077c8' },
         'Valencia CF': { bg: '#f7a11a', text: '#f7a11a' },
@@ -49,9 +51,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Generar tarjetas de equipos dinámicamente
     equipos.forEach(equipo => {
-        const cardLink = document.createElement('a'); // Creamos un enlace <a>
-        cardLink.href = equipo.pagina; // Asignamos la página correspondiente
-        cardLink.className = 'equipo-card'; // Mantenemos las clases CSS
+        const cardLink = document.createElement('a');
+        cardLink.href = equipo.pagina;
+        cardLink.className = 'equipo-card';
         
         const color = teamColors[equipo.nombre] || { bg: '#f5f5f5', text: '#333333' };
         cardLink.style.setProperty('--team-color', color.bg);
