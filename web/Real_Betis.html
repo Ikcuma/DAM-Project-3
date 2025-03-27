@@ -3,14 +3,261 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Real Betis - Elite League</title>
+    <title>FC Barcelona - Elite league</title>
     <link rel="stylesheet" href="Assets/css/equipos.css">
     <link rel="stylesheet" href="Assets/css/styles.css">
 </head>
 <body>
-    <div id="equipo-container" data-equipo="Real Betis">
-        <!-- Todo se cargará dinámicamente -->
-    </div>
+    <header>
+        <div class="escudos-container">
+            <div class="escudos-scroll">
+                <img src="assets/img/Escudos/alaves.png" alt="Deportivo Alavés">
+                <img src="assets/img/Escudos/athletic.png" alt="Athletic Club" >
+                <img src="assets/img/Escudos/atlmadrid.png" alt="Atlético Madrid">
+                <img src="assets/img/Escudos/barcelona.png" alt="FC Barcelona">
+                <img src="assets/img/Escudos/betis.png" alt="Real Betis">
+                <img src="assets/img/Escudos/celta.png" alt="Celta de Vigo">
+                <img src="assets/img/Escudos/espanyol.png" alt="Espanyol">
+                <img src="assets/img/Escudos/getafe.png" alt="Getafe CF">
+                <img src="assets/img/Escudos/girona.png" alt="Girona FC">
+                <img src="assets/img/Escudos/leganes.png" alt="CD Leganés">
+                <img src="assets/img/Escudos/mallorca.png" alt="RCD Mallorca">
+                <img src="assets/img/Escudos/osasuna.png" alt="CA Osasuna">
+                <img src="assets/img/Escudos/rayovallecano.png" alt="Rayo Vallecano">
+                <img src="assets/img/Escudos/realmadrid.png" alt="Real Madrid">
+                <img src="assets/img/Escudos/sevilla.png" alt="Sevilla FC">
+                <img src="assets/img/Escudos/udlaspalmas.png" alt="UD Las Palmas">
+                <img src="assets/img/Escudos/valencia.png" alt="Valencia CF">
+                <img src="assets/img/Escudos/valladolid.png" alt="Real Valladolid">
+                <img src="assets/img/Escudos/villarreal.png" alt="Villarreal CF">
+            </div>
+        </div>
+
+        <div class="logo">
+            <img src="assets/img/Escudos/logo_sin_fondo.png" alt="Logo Fútbol Stats">
+            <h1>Elite League</h1>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="main.html">Inicio</a></li>
+                <li><a href="equipos.html" class="active">Equipos</a></li>
+                <li><a href="clasificacion.html">Clasificación</a></li>
+                <li><a href="formulario.html">Alta Jugadores</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="equipo-container">
+        <div class="equipo-header">
+            <h1>Real Betis</h1>
+            <div class="equipo-info">
+                <p><strong>Fundación:</strong> 1907</p>
+                <p><strong>Estadio:</strong> Estadio Benito Vilamarín</p>
+                <p><strong>Ciudad:</strong> Sevilla</p>
+            </div>
+            <img src="Assets/img/Stadiuns/Stadium_betis.jpg" alt="Escudo FC Barcelona" class="equipo-escudo-grande">
+
+        </div>
+
+        <section class="plantilla">
+            <h2>Plantilla 2024/2025</h2>
+            
+            <div class="categorias-jugadores">
+                <button class="categoria-btn active" data-categoria="porteros">Porteros</button>
+                <button class="categoria-btn" data-categoria="defensas">Defensas</button>
+                <button class="categoria-btn" data-categoria="centrocampistas">Centrocampistas</button>
+                <button class="categoria-btn" data-categoria="delanteros">Delanteros</button>
+                <button class="categoria-btn" data-categoria="entrenador">Entrenador</button>
+            </div>
+
+            <!-- Porteros -->
+            <div class="jugadores-categoria active" id="porteros">
+                <div class="jugador-card">
+                    <span class="dorsal">13</span>
+                    <div class="jugador-img">
+                        <img src="Assets/img/Jugadores/Real_betis/Adrián, State=Default, Posicion=portero, Dorsal=Default.png" alt="Marc-André ter Stegen">
+                    </div>
+                    <div class="jugador-info">
+                        <p class="posicion">PORTERO</p>
+                        <p class="nombre">ADRIÁN</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Defensas -->
+            <div class="jugadores-categoria" id="defensas">
+                <div class="jugador-card">
+                    <span class="dorsal">2</span>
+                    <div class="jugador-img">
+                        <img src="Assets/img/Jugadores/Real_betis/Hector Bellerin, State=Default, Posicion=defensa, Dorsal=2.png" alt="Pau Cubarsí">
+                    </div>
+                    <div class="jugador-info">
+                        <p class="posicion">DEFENSA</p>
+                        <p class="nombre">BELLERÍN</p>
+                    </div>
+                </div>
+                <div class="jugador-card">
+                    <span class="dorsal">4</span>
+                    <div class="jugador-img">
+                        <img src="Assets/img/Jugadores/Real_betis/Diego Llorente, State=Default, Posicion=defensa, Dorsal=3.png" alt="Ronald Araújo">
+                    </div>
+                    <div class="jugador-info">
+                        <p class="posicion">DEFENSA</p>
+                        <p class="nombre">DIEGO LLORENTE</p>
+                    </div>
+                </div>
+
+                <div class="jugador-card">
+                    <span class="dorsal">12</span>
+                    <div class="jugador-img">
+                        <img src="Assets/img/Jugadores/Real_betis/Ricardo Rodriguez, State=Default, Posicion=defensa, Dorsal=12.png" alt="Iñigo Martínez">
+                    </div>
+                    <div class="jugador-info">
+                        <p class="posicion">DEFENSA</p>
+                        <p class="nombre">RODRIGUEZ</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Centrocampistas -->
+            <div class="jugadores-categoria" id="centrocampistas">
+                <div class="jugador-card">
+                    <span class="dorsal">4</span>
+                    <div class="jugador-img">
+                        <img src="Assets/img/Jugadores/Real_betis/jhonny Cardoso, State=Default, Posicion=medio, Dorsal=4.png" alt="Dani Olmo">
+                    </div>
+                    <div class="jugador-info">
+                        <p class="posicion">CENTROCAMPISTA</p>
+                        <p class="nombre">JOHNNY CARDOSO</p>
+                    </div>
+                </div>
+                
+                <div class="jugador-card">
+                    <span class="dorsal">5</span>
+                    <div class="jugador-img">
+                        <img src="Assets/img/Jugadores/Real_betis/Marc Bartra, State=Default, Posicion=defensa, Dorsal=5.png" alt="Gavi">
+                    </div>
+                    <div class="jugador-info">
+                        <p class="posicion">CENTROCAMPISTA</p>
+                        <p class="nombre">MARC BARTRA</p>
+                    </div>
+                </div>
+                <div class="jugador-card">
+                    <span class="dorsal">14</span>
+                    <div class="jugador-img">
+                        <img src="Assets/img/Jugadores/Real_betis/Carvalho, State=Default, Posicion=medio, Dorsal=14.png" alt="Gavi">
+                    </div>
+                    <div class="jugador-info">
+                        <p class="posicion">CENTROCAMPISTA</p>
+                        <p class="nombre">WILLIAM</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Delanteros -->
+            <div class="jugadores-categoria" id="delanteros">
+                <div class="jugador-card">
+                    <span class="dorsal">7</span>
+                    <div class="jugador-img">
+                        <img src="Assets/img/Jugadores/Real_betis/Antony, State=Default, Posicion=delantero, Dorsal=7.png" alt="Robert Lewandowski">
+                    </div>
+                    <div class="jugador-info">
+                        <p class="posicion">DELANTERO</p>
+                        <p class="nombre">ANTONY</p>
+                    </div>
+                </div>
+                
+                <div class="jugador-card">
+                    <span class="dorsal">9</span>
+                    <div class="jugador-img">
+                        <img src="Assets/img/Jugadores/Real_betis/Chimy, State=Default, Posicion=delantero, Dorsal=9.png" alt="Lamine Yamal">
+                    </div>
+                    <div class="jugador-info">
+                        <p class="posicion">DELANTERO</p>
+                        <p class="nombre">CHIMY</p>
+                    </div>
+                </div>
+                <div class="jugador-card">
+                    <span class="dorsal">10</span>
+                    <div class="jugador-img">
+                        <img src="Assets/img/Jugadores/Real_betis/Abde, State=Default, Posicion=delantero, Dorsal=10.png" alt="Lamine Yamal">
+                    </div>
+                    <div class="jugador-info">
+                        <p class="posicion">DELANTERO</p>
+                        <p class="nombre">EZ ABDE</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Entrenador -->
+            <div class="jugadores-categoria" id="entrenador">
+                <div class="jugador-card">
+                    <div class="jugador-img">
+                        <img src="Assets/img/Jugadores/Real_betis/Manuel_Pellegrini.png" alt="Hansi Flick">
+                    </div>
+                    <div class="jugador-info">
+                        <p class="posicion">ENTRENADOR</p>
+                        <p class="nombre">manuel pellegrini</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-grid">
+                <div class="footer-logo">
+                    <img src="Assets/img/Escudos/logo_sin_fondo.png" alt="Fútbol Stats Logo">
+                    <h3>Fútbol Stats</h3>
+                    <p>La mejor fuente de estadísticas y noticias de fútbol</p>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Enlaces Rápidos</h4>
+                    <ul>
+                        <li><a href="../main.html">Inicio</a></li>
+                        <li><a href="../equipos.html">Equipos</a></li>
+                        <li><a href="../clasificacion.html">Clasificación</a></li>
+                        <li><a href="../formulario.html">Alta Jugadores</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-contact">
+                    <h4>Contacto</h4>
+                    <p><i class="fas fa-envelope"></i> info@futbolstats.com</p>
+                    <p><i class="fas fa-phone"></i> +34 123 456 789</p>
+                </div>
+                
+                <div class="footer-social">
+                    <h4>Síguenos</h4>
+                    <div class="social-icons">
+                        <a href="#" aria-label="Facebook">
+                            <img src="https://cdn-icons-png.flaticon.com/512/124/124010.png" alt="Facebook">
+                        </a>
+                        <a href="#" aria-label="Twitter">
+                            <img src="https://cdn-icons-png.flaticon.com/512/733/733579.png" alt="Twitter">
+                        </a>
+                        <a href="#" aria-label="Instagram">
+                            <img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" alt="Instagram">
+                        </a>
+                        <a href="#" aria-label="YouTube">
+                            <img src="https://cdn-icons-png.flaticon.com/512/733/733646.png" alt="YouTube">
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2024 Fútbol Stats - Todos los derechos reservados</p>
+                <div class="legal-links">
+                    <a href="#">Política de Privacidad</a>
+                    <a href="#">Términos de Servicio</a>
+                    <a href="#">Cookies</a>
+                </div>
+            </div>
+        </div>
+    </footer>
 
     <script src="Assets/js/equipo.js"></script>
 </body>
