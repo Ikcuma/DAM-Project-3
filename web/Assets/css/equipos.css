@@ -98,16 +98,7 @@
     height: 100%;
 }
 
-.jugador-card::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 4px;
-    background: linear-gradient(90deg, #0056FF, #1a3e8c);
-    z-index: 1;
-}
+
 
 /* Contenedor de imagen */
 .jugador-img {
@@ -123,9 +114,8 @@
 
 .jugador-img img {
     width: auto;
-    height: 100%;
+    height: 330px;
     max-width: 100%;
-    object-fit: contain;
 }
 
 /* Estilo para imágenes faltantes */
@@ -164,9 +154,8 @@
     align-items: center;
     justify-content: center;
     font-weight: bold;
-    font-size: 1.8rem;
+    font-size: 2.5rem;
     z-index: 2;
-    background: rgba(0, 0, 0, 0.3);
     backdrop-filter: blur(2px);
 }
 

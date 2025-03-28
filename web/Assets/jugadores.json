@@ -301,7 +301,7 @@
                 "dorsal": 13,
                 "posicio": "Porter",
                 "qualitat": 88,
-                "nomPersona": "Ørjan Nyland"
+                "nomPersona": "Orjan Nyland"
             }
         ],
         "entrenador": {
@@ -396,11 +396,11 @@
                 "nomPersona": "Yeremy Pino"
             },
             {
-                "foto": "Assets/img/Jugadores/Villareal/Baena.png",
+                "foto": "Assets/img/Jugadores/Villareal/Buchanan.png",
                 "dorsal": 11,
                 "posicio": "Davanter",
                 "qualitat": 78,
-                "nomPersona": "Álex Baena"
+                "nomPersona": "Buchanan"
             },
             {
                 "foto": "Assets/img/Jugadores/Villareal/Conde.png",
@@ -442,11 +442,11 @@
                 "nomPersona": "Javi Guerra"
             },
             {
-                "foto": "Assets/img/Jugadores/Valencia/Gaya.png",
+                "foto": "Assets/img/Jugadores/Valencia/Max.png",
                 "dorsal": 19,
                 "posicio": "Defensa",
                 "qualitat": 73,
-                "nomPersona": "José Gayà"
+                "nomPersona": "Max"
             },
             {
                 "foto": "Assets/img/Jugadores/Valencia/Almeida.png",
@@ -502,11 +502,11 @@
                 "nomPersona": "Óscar Mingueza"
             },
             {
-                "foto": "Assets/img/Jugadores/Celta_de_vigo/De_la_Torre.png",
+                "foto": "Assets/img/Jugadores/Celta_de_vigo/Hugo.png",
                 "dorsal": 4,
                 "posicio": "Migcampista",
                 "qualitat": 84,
-                "nomPersona": "Luca de la Torre"
+                "nomPersona": "Hugo"
             },
             {
                 "foto": "Assets/img/Jugadores/Celta_de_vigo/Guaita.png",
@@ -562,11 +562,11 @@
                 "nomPersona": "Pablo Maffeo"
             },
             {
-                "foto": "Assets/img/Jugadores/Mallorca/Rajkovic.png",
+                "foto": "Assets/img/Jugadores/Mallorca/Greif.png",
                 "dorsal": 1,
                 "posicio": "Porter",
                 "qualitat": 84,
-                "nomPersona": "Predrag Rajković"
+                "nomPersona": "Greif"
             }
         ],
         "entrenador": {
@@ -714,11 +714,11 @@
                 "nomPersona": "Djene Dakonam"
             },
             {
-                "foto": "Assets/img/Jugadores/Getafe/Dominguez.png",
+                "foto": "Assets/img/Jugadores/Getafe/Berrocal.png",
                 "dorsal": 4,
                 "posicio": "Defensa",
                 "qualitat": 80,
-                "nomPersona": "Domínguez"
+                "nomPersona": "Berrocal"
             },
             {
                 "foto": "Assets/img/Jugadores/Getafe/Soria.png",
@@ -792,42 +792,42 @@
         "escut": "Assets/img/Escudos/espanyol.png",
         "jugadors": [
             {
-                "foto": "Assets/img/Jugadores/Espanyol/Puado.png",
+                "foto": "Assets/img/Jugadores/Español/Puado.png",
                 "dorsal": 7,
                 "posicio": "Davanter",
                 "qualitat": 82,
                 "nomPersona": "Javier Puado"
             },
             {
-                "foto": "Assets/img/Jugadores/Espanyol/Milla.png",
+                "foto": "Assets/img/Jugadores/Español/Milla.png",
                 "dorsal": 11,
                 "posicio": "Davanter",
                 "qualitat": 78,
                 "nomPersona": "Pere Milla"
             },
             {
-                "foto": "Assets/img/Jugadores/Espanyol/Gragera.png",
+                "foto": "Assets/img/Jugadores/Español/Gragera.png",
                 "dorsal": 15,
                 "posicio": "Migcampista",
                 "qualitat": 79,
                 "nomPersona": "José Gragera"
             },
             {
-                "foto": "Assets/img/Jugadores/Espanyol/Cabrera.png",
+                "foto": "Assets/img/Jugadores/Español/Cabrera.png",
                 "dorsal": 6,
                 "posicio": "Defensa",
                 "qualitat": 81,
                 "nomPersona": "Leandro Cabrera"
             },
             {
-                "foto": "Assets/img/Jugadores/Espanyol/Veliz.png",
+                "foto": "Assets/img/Jugadores/Español/Veliz.png",
                 "dorsal": 9,
                 "posicio": "Davanter",
                 "qualitat": 77,
                 "nomPersona": "Alejo Véliz"
             },
             {
-                "foto": "Assets/img/Jugadores/Espanyol/Garcia.png",
+                "foto": "Assets/img/Jugadores/Español/Garcia.png",
                 "dorsal": 1,
                 "posicio": "Porter",
                 "qualitat": 80,
@@ -835,7 +835,7 @@
             }
         ],
         "entrenador": {
-            "foto": "Assets/img/Jugadores/Espanyol/Gonzalez.png",
+            "foto": "Assets/img/Jugadores/Español/Gonzalez.png",
             "nomPersona": "Manolo González",
             "esSeleccionador": 0
         }
@@ -951,18 +951,18 @@
         "escut": "Assets/img/Escudos/rayovallecano.png",
         "jugadors": [
             {
-                "foto": "Assets/img/Jugadores/Rayo_vallecano/Palazon.png",
+                "foto": "Assets/img/Jugadores/Rayo_vallecano/Trejo.png",
                 "dorsal": 7,
                 "posicio": "Migcampista",
                 "qualitat": 84,
-                "nomPersona": "Isaac Palazón"
+                "nomPersona": "Trejo"
             },
             {
-                "foto": "Assets/img/Jugadores/Rayo_vallecano/Trejo.png",
+                "foto": "Assets/img/Jugadores/Rayo_vallecano/Unai.png",
                 "dorsal": 8,
                 "posicio": "Migcampista",
                 "qualitat": 80,
-                "nomPersona": "Óscar Trejo"
+                "nomPersona": "Unai"
             },
             {
                 "foto": "Assets/img/Jugadores/Rayo_vallecano/De_Tomas.png",
@@ -1047,8 +1047,8 @@
             }
         ],
         "entrenador": {
-            "foto": "Assets/img/Jugadores/Deportivo_Alaves/Garcia_Plaza.png",
-            "nomPersona": "Luis García Plaza",
+            "foto": "Assets/img/Jugadores/Deportivo_Alaves/Coudet.png",
+            "nomPersona": "Coudet",
             "esSeleccionador": 0
         }
     }

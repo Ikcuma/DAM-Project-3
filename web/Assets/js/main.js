@@ -3,18 +3,18 @@ document.addEventListener('DOMContentLoaded', function() {
     const equipos = [
         { nombre: 'Deportivo Alavés', escudo: 'alaves.png' },
         { nombre: 'Athletic Club', escudo: 'athletic.png' },
-        { nombre: 'Atlético Madrid', escudo: 'atlmadrid.png' },
+        { nombre: 'Atlético de Madrid', escudo: 'atlmadrid.png' },
         { nombre: 'FC Barcelona', escudo: 'barcelona.png' },
         { nombre: 'Real Betis', escudo: 'betis.png' },
-        { nombre: 'Celta de Vigo', escudo: 'celta.png' },
-        { nombre: 'Espanyol', escudo: 'espanyol.png' },
+        { nombre: 'RC Celta de Vigo', escudo: 'celta.png' },
+        { nombre: 'RCD Espanyol', escudo: 'espanyol.png' },
         { nombre: 'Getafe CF', escudo: 'getafe.png' },
         { nombre: 'Girona FC', escudo: 'girona.png' },
         { nombre: 'CD Leganés', escudo: 'leganes.png' },
         { nombre: 'RCD Mallorca', escudo: 'mallorca.png' },
         { nombre: 'CA Osasuna', escudo: 'osasuna.png' },
         { nombre: 'Rayo Vallecano', escudo: 'rayovallecano.png' },
-        { nombre: 'Real Madrid', escudo: 'realmadrid.png' },
+        { nombre: 'Real Madrid CF', escudo: 'realmadrid.png' },
         { nombre: 'Real Sociedad', escudo: 'realsociedad.png' },
         { nombre: 'Sevilla FC', escudo: 'sevilla.png' },
         { nombre: 'UD Las Palmas', escudo: 'udlaspalmas.png' },
@@ -27,18 +27,18 @@ document.addEventListener('DOMContentLoaded', function() {
     const teamColors = {
         'Deportivo Alavés': '#005bab',
         'Athletic Club': '#ed1c24',
-        'Atlético Madrid': '#cb3524',
+        'Atlético de Madrid': '#cb3524',
         'FC Barcelona': '#a50044',
         'Real Betis': '#00954e',
-        'Celta de Vigo': '#aaddff',
-        'Espanyol': '#0060a8',
+        'RC Celta de Vigo': '#aaddff',
+        'RCD Espanyol': '#0060a8',
         'Getafe CF': '#2c5ba8',
         'Girona FC': '#ff0000',
         'CD Leganés': '#00a8e1',
         'RCD Mallorca': '#ff0000',
         'CA Osasuna': '#0a3a8a',
         'Rayo Vallecano': '#c60c30',
-        'Real Madrid': '#00529f',
+        'Real Madrid CF': '#00529f',
         'Real Sociedad': '#0073bc',
         'Sevilla FC': '#d81e05',
         'UD Las Palmas': '#0077c8',
@@ -146,8 +146,22 @@ document.addEventListener('DOMContentLoaded', function() {
             'Atlético Madrid': { fundacion: '1903', estadio: 'Metropolitano', ciudad: 'Madrid', capacidad: '68,456', estadioImg: 'Stadium_AtleticoMadrid.jpg' },
             'FC Barcelona': { fundacion: '1899', estadio: 'Camp Nou', ciudad: 'Barcelona', capacidad: '99,354', estadioImg: 'Stadium_Barcelona.webp' },
             'Real Madrid': { fundacion: '1902', estadio: 'Santiago Bernabéu', ciudad: 'Madrid', capacidad: '85,000', estadioImg: 'Stadium_RealMadrid.jpg' },
-            // ... (agrega el resto de equipos)
-            'Deportivo Alavés': { fundacion: '1921', estadio: 'Mendizorrotza', ciudad: 'Vitoria', capacidad: '19,840', estadioImg: 'Stadium_Deportivo_Alavez.jpg' }
+            'Deportivo Alavés': { fundacion: '1921', estadio: 'Mendizorrotza', ciudad: 'Vitoria', capacidad: '19,840', estadioImg: 'Stadium_Deportivo_Alavez.jpg' },
+            'Real Sociedad': { fundacion: '1909', estadio: 'Anoeta', ciudad: 'San Sebastián', capacidad: '39,500', estadioImg: 'Stadium_RealSociedad.jpg' },
+            'Sevilla FC': { fundacion: '1890', estadio: 'Ramón Sánchez-Pizjuán', ciudad: 'Sevilla', capacidad: '43,883', estadioImg: 'Stadium_Sevilla.jpg' },
+            'Real Betis': { fundacion: '1907', estadio: 'Benito Villamarín', ciudad: 'Sevilla', capacidad: '60,720', estadioImg: 'Stadium_RealBetis.jpg' },
+            'Villarreal CF': { fundacion: '1923', estadio: 'Estadio de la Cerámica', ciudad: 'Villarreal', capacidad: '23,500', estadioImg: 'Stadium_Villarreal.jpg' },
+            'Valencia CF': { fundacion: '1919', estadio: 'Mestalla', ciudad: 'Valencia', capacidad: '49,430', estadioImg: 'Stadium_Valencia.jpg' },
+            'RC Celta de Vigo': { fundacion: '1923', estadio: 'Balaídos', ciudad: 'Vigo', capacidad: '29,000', estadioImg: 'Stadium_Celta.jpg' },
+            'RCD Mallorca': { fundacion: '1916', estadio: 'Visit Mallorca Stadium', ciudad: 'Palma', capacidad: '23,142', estadioImg: 'Stadium_Mallorca.jpg' },
+            'Girona FC': { fundacion: '1930', estadio: 'Montilivi', ciudad: 'Girona', capacidad: '14,624', estadioImg: 'Stadium_Girona.jpg' },
+            'CA Osasuna': { fundacion: '1920', estadio: 'El Sadar', ciudad: 'Pamplona', capacidad: '23,576', estadioImg: 'Stadium_Osasuna.jpg' },
+            'Getafe CF': { fundacion: '1983', estadio: 'Coliseum Alfonso Pérez', ciudad: 'Getafe', capacidad: '17,393', estadioImg: 'Stadium_Getafe.jpg' },
+            'UD Las Palmas': { fundacion: '1949', estadio: 'Gran Canaria', ciudad: 'Las Palmas', capacidad: '32,400', estadioImg: 'Stadium_LasPalmas.jpg' },
+            'RCD Espanyol': { fundacion: '1900', estadio: 'RCDE Stadium', ciudad: 'Barcelona', capacidad: '40,000', estadioImg: 'Stadium_Espanyol.jpg' },
+            'CD Leganés': { fundacion: '1928', estadio: 'Butarque', ciudad: 'Leganés', capacidad: '12,450', estadioImg: 'Stadium_Leganes.jpg' },
+            'Real Valladolid': { fundacion: '1928', estadio: 'José Zorrilla', ciudad: 'Valladolid', capacidad: '27,846', estadioImg: 'Stadium_Valladolid.jpg' },
+            'Rayo Vallecano': { fundacion: '1924', estadio: 'Vallecas', ciudad: 'Madrid', capacidad: '14,708', estadioImg: 'Stadium_RayoVallecano.jpg' }
         };
         
         return infoEquipos[nombreEquipo] || {};
@@ -183,7 +197,7 @@ document.addEventListener('DOMContentLoaded', function() {
             <div class="jugador-card">
                 ${jugador.dorsal ? `<span class="dorsal">${jugador.dorsal}</span>` : ''}
                 <div class="jugador-img">
-                    <img src="${jugador.foto}" alt="${jugador.nomPersona}">
+                    <img src="${jugador.foto}" alt="${jugador.nomPersona}" onerror="this.src='Assets/img/Jugadores/default_player.png'">
                 </div>
                 <div class="jugador-info">
                     <p class="posicion">${formatearPosicion(jugador.posicio)}</p>
@@ -205,7 +219,7 @@ document.addEventListener('DOMContentLoaded', function() {
         contenedor.innerHTML = `
             <div class="jugador-card entrenador">
                 <div class="jugador-img">
-                    <img src="${entrenador.foto}" alt="${entrenador.nomPersona}">
+                    <img src="${entrenador.foto}" alt="${entrenador.nomPersona}" onerror="this.src='Assets/img/Jugadores/default_coach.png'">
                 </div>
                 <div class="jugador-info">
                     <p class="posicion">ENTRENADOR</p>
