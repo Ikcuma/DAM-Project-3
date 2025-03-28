@@ -1,7 +1,4 @@
-
-
-
-/* Estilos para la página de equipo */
+/* ===== ESTILOS GENERALES ===== */
 .equipo-container {
     max-width: 1200px;
     margin: 0 auto;
@@ -9,10 +6,10 @@
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
+/* ===== HEADER DEL EQUIPO ===== */
 .equipo-header {
     text-align: center;
     margin-bottom: 3rem;
-    position: relative;
 }
 
 .equipo-header::after {
@@ -25,16 +22,14 @@
 }
 
 .equipo-escudo-grande {
-    width: 40rem;
+    width: 15rem;
     height: auto;
     margin-bottom: 1rem;
-    transition: transform 0.3s ease;
     border-radius: 2rem;
     margin-top: 3rem;
-}
-
-.equipo-escudo-grande:hover {
-    transform: scale(1.05);
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .equipo-info {
@@ -50,9 +45,10 @@
     padding: 0.5rem 1rem;
     border-radius: 20px;
     font-weight: 500;
+    margin: 0;
 }
 
-/* Estilos para las categorías */
+/* ===== CATEGORÍAS ===== */
 .categorias-jugadores {
     display: flex;
     justify-content: center;
@@ -62,7 +58,6 @@
     padding: 1rem;
     background: rgba(245, 245, 245, 0.8);
     border-radius: 15px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
 .categoria-btn {
@@ -70,25 +65,16 @@
     background-color: #f0f0f0;
     border: none;
     border-radius: 20px;
-    cursor: pointer;
-    transition: all 0.3s ease;
     font-weight: 600;
     letter-spacing: 0.5px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-.categoria-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
 
 .categoria-btn.active {
     background: linear-gradient(135deg, #1a3e8c, #0056FF);
     color: white;
-    box-shadow: 0 4px 8px rgba(26, 62, 140, 0.3);
 }
 
-/* Estilos para las tarjetas de jugadores */
+/* ===== CONTENEDOR DE JUGADORES ===== */
 .jugadores-categoria {
     display: none;
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
@@ -98,28 +84,18 @@
 
 .jugadores-categoria.active {
     display: grid;
-    animation: fadeIn 0.5s ease-out;
 }
 
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-/* Estilo de las cards */
+/* ===== TARJETAS DE JUGADORES - ESTILOS BASE ===== */
 .jugador-card {
     position: relative;
     border-radius: 12px;
     overflow: hidden;
     background: linear-gradient(180deg, #A50044 0%, #8A0038 100%);
-    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    border: none;
-}
-
-.jugador-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 12px 20px rgba(0, 86, 255, 0.2);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    display: flex;
+    flex-direction: column;
+    height: 100%;
 }
 
 .jugador-card::before {
@@ -130,54 +106,50 @@
     right: 0;
     height: 4px;
     background: linear-gradient(90deg, #0056FF, #1a3e8c);
+    z-index: 1;
 }
 
-/* Agrega esto a tu CSS */
+/* Contenedor de imagen */
 .jugador-img {
     position: relative;
-    background-color: #f0f0f0; /* Fondo para cuando falla la imagen */
+    width: 100%;
+    height: 320px;
+    background-color: #f5f5f5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .jugador-img img {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
+    width: auto;
     height: 100%;
-    object-fit: cover;
+    max-width: 100%;
+    object-fit: contain;
 }
 
-/* Estilo para cuando falla la imagen */
-.jugador-img::after {
+/* Estilo para imágenes faltantes */
+.jugador-img:not(:has(img[src]))::after,
+.jugador-img img[src=""]::after {
     content: "Imagen no disponible";
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
     color: #666;
     font-size: 0.9rem;
     text-align: center;
-    display: none;
-}
-
-.jugador-img img[src*="default_player.png"] + .jugador-info,
-.jugador-img img[src*="default_coach.png"] + .jugador-info {
-    background: #f8f8f8;
-}
-
-.jugador-card:hover .jugador-img img {
-    transform: scale(1.05);
+    position: absolute;
+    width: 100%;
 }
 
 /* Información del jugador */
 .jugador-info {
-    padding: 1.2rem;
+    padding: 1.5rem 1rem;
     background: linear-gradient(180deg, #001F54 0%, #000D2B 100%);
     text-align: center;
-    position: relative;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
-
-
 
 /* Dorsal */
 .dorsal {
@@ -192,13 +164,15 @@
     align-items: center;
     justify-content: center;
     font-weight: bold;
-    font-size: 2.9rem;
+    font-size: 1.8rem;
     z-index: 2;
+    background: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(2px);
 }
 
 /* Textos */
 .posicion {
-    font-size: 12px;
+    font-size: 0.75rem;
     color: rgba(255, 255, 255, 0.8);
     margin: 0;
     text-transform: uppercase;
@@ -207,53 +181,41 @@
 }
 
 .nombre {
-    font-size: 1.1rem;
+    font-size: 1.2rem;
     font-weight: 700;
     color: white;
     margin: 8px 0 0 0;
     letter-spacing: 0.5px;
     position: relative;
     display: inline-block;
+    padding-bottom: 5px;
 }
 
 .nombre::after {
     content: "";
     position: absolute;
-    bottom: -5px;
+    bottom: 0;
     left: 0;
     width: 100%;
     height: 2px;
-
-    opacity: 0;
-    transition: opacity 0.3s ease;
+    background: rgba(255, 255, 255, 0.3);
 }
 
-.jugador-card:hover .nombre::after {
-    opacity: 1;
-}
-
-/* Estilo especial para entrenador */
+/* ===== ESTILOS ESPECIALES PARA ENTRENADOR ===== */
 .entrenador .jugador-img {
-    height: 320px;
+    height: 300px;
 }
 
 .entrenador .jugador-info {
     background: linear-gradient(180deg, #1a3e8c 0%, #0d1f4d 100%);
 }
 
-/* Efecto de brillo al pasar el ratón */
-.jugador-card:hover::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: radial-gradient(circle at center, rgba(255, 255, 255, 0.15) 0%, transparent 70%);
-    pointer-events: none;
+.entrenador .posicion {
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.9);
 }
 
-/* Estilos para la página de equipos */
+/* ===== ESTILOS PARA LISTA DE EQUIPOS ===== */
 .equipos-container {
     max-width: 1200px;
     margin: 2rem auto;
@@ -271,33 +233,67 @@
     background: white;
     border-radius: 10px;
     overflow: hidden;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.equipo-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border: 1px solid #eaeaea;
 }
 
 .equipo-card a {
     text-decoration: none;
     color: inherit;
     display: block;
+    text-align: center;
 }
 
 .equipo-escudo {
     width: 100%;
     height: 200px;
     object-fit: contain;
-    padding: 1rem;
-    
+    padding: 1.5rem;
 }
 
 .equipo-card h3 {
-    text-align: center;
     padding: 1rem;
     margin: 0;
     color: #001F54;
     font-size: 1.2rem;
+    font-weight: 600;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+    .jugador-img {
+        height: 220px;
+    }
+    
+    .entrenador .jugador-img {
+        height: 250px;
+    }
+    
+    .jugadores-categoria {
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+        gap: 15px;
+    }
+    
+    .equipos-grid {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    }
+}
+
+@media (max-width: 480px) {
+    .jugadores-categoria {
+        grid-template-columns: 1fr;
+    }
+    
+    .jugador-img {
+        height: 250px;
+    }
+    
+    .equipo-escudo {
+        height: 150px;
+    }
+    
+    .equipo-info {
+        flex-direction: column;
+        align-items: center;
+    }
 }
