@@ -158,7 +158,7 @@
     {
         "equip": "Athletic Club",
         "escut": "Assets/img/Escudos/athletic.png",
-        "estadi":"",
+        "estadi":"Assets/img/Estadios/San_Manes_Athletic_Club.png",
         "jugadors": [
             {
                 "foto": "Assets/img/Jugadores/Athletic_club/Nico_Williams.png",
@@ -212,7 +212,7 @@
     {
         "equip": "Real Sociedad",
         "escut": "Assets/img/Escudos/realsociedad.png",
-        "estadi":"",
+        "estadi":"Assets/img/Estadios/Anoeta_Sociedad.png",
         "jugadors": [
             {
                 "foto": "Assets/img/Jugadores/Real_sociedad/Oyarzabal.png",
@@ -266,7 +266,7 @@
     {
         "equip": "Sevilla FC",
         "escut": "Assets/img/Escudos/sevilla.png",
-        "estadi":"",
+        "estadi":"Assets/img/Estadios/Pizjuan_Sevilla.png",
         "jugadors": [
             {
                 "foto": "Assets/img/Jugadores/Sevilla/Romero.png",
@@ -320,7 +320,7 @@
     {
         "equip": "Real Betis",
         "escut": "Assets/img/Escudos/betis.png",
-        "estadi":"",
+        "estadi":"Assets/img/Estadios/Villamarin_Betis.png",
         "jugadors": [
             {
                 "foto": "Assets/img/Jugadores/Real_betis/Abde.png",
@@ -374,7 +374,7 @@
     {
         "equip": "Villarreal CF",
         "escut": "Assets/img/Escudos/villarreal.png",
-        "estadi":"",
+        "estadi":"Assets/img/Estadios/Ceramica_Villareal.png",
         "jugadors": [
             {
                 "foto": "Assets/img/Jugadores/Villareal/Moreno.png",
@@ -428,7 +428,7 @@
     {
         "equip": "Valencia CF",
         "escut": "Assets/img/Escudos/valencia.png",
-        "estadi":"",
+        "estadi":"Assets/img/Estadios/Maestalla_Valencia.png",
         "jugadors": [
             {
                 "foto": "Assets/img/Jugadores/Valencia/Duro.png",
@@ -482,7 +482,7 @@
     {
         "equip": "RC Celta de Vigo",
         "escut": "Assets/img/Escudos/celta.png",
-        "estadi":"",
+        "estadi":"Assets/img/Estadios/Abanca_Balaidos_Vigo.png",
         "jugadors": [
             {
                 "foto": "Assets/img/Jugadores/Celta_de_vigo/Aspas.png",
@@ -536,7 +536,7 @@
     {
         "equip": "RCD Mallorca",
         "escut": "Assets/img/Escudos/mallorca.png",
-        "estadi":"",
+        "estadi":"Assets/img/Estadios/Son_Moix_MAllorca.png",
         "jugadors": [
             {
                 "foto": "Assets/img/Jugadores/Mallorca/Muriqi.png",
@@ -590,7 +590,7 @@
     {
         "equip": "Girona FC",
         "escut": "Assets/img/Escudos/girona.png",
-        "estadi":"",
+        "estadi":"Assets/img/Estadios/Montilivi_Girona.png",
         "jugadors": [
             {
                 "foto": "Assets/img/Jugadores/Girona/Ruiz.png",
@@ -644,7 +644,7 @@
     {
         "equip": "CA Osasuna",
         "escut": "Assets/img/Escudos/osasuna.png",
-        "estadi":"",
+        "estadi":"Assets/img/Estadios/El_Sadar_Osasuna.png",
         "jugadors": [
             {
                 "foto": "Assets/img/Jugadores/Osasuna/Oroz.png",
@@ -698,7 +698,7 @@
     {
         "equip": "Getafe CF",
         "escut": "Assets/img/Escudos/getafe.png",
-        "estadi":"",
+        "estadi":"Assets/img/Estadios/Coliseum_Getafe.png",
         "jugadors": [
             {
                 "foto": "Assets/img/Jugadores/Getafe/Mayoral.png",
@@ -752,7 +752,7 @@
     {
         "equip": "UD Las Palmas",
         "escut": "Assets/img/Escudos/udlaspalmas.png",
-        "estadi":"",
+        "estadi":"Assets/img/Estadios/Gran_canaria_Palmas.png",
         "jugadors": [
             {
                 "foto": "Assets/img/Jugadores/Las_palmas/Sandro.png",
@@ -806,7 +806,7 @@
     {
         "equip": "RCD Espanyol",
         "escut": "Assets/img/Escudos/espanyol.png",
-        "estadi":"",
+        "estadi":"Assets/img/Estadios/RCD_Español.png",
         "jugadors": [
             {
                 "foto": "Assets/img/Jugadores/Español/Puado.png",
@@ -860,7 +860,7 @@
     {
         "equip": "CD Leganés",
         "escut": "Assets/img/Escudos/leganes.png",
-        "estadi":"",
+        "estadi":"Assets/img/Estadios/Municipal_Butarque_Leganes.png",
         "jugadors": [
             {
                 "foto": "Assets/img/Jugadores/Leganes/Hernandez.png",
@@ -914,7 +914,7 @@
     {
         "equip": "Real Valladolid CF",
         "escut": "Assets/img/Escudos/valladolid.png",
-        "estadi":"",
+        "estadi":"Assets/img/Estadios/Zorilla_Valladolid.png",
         "jugadors": [
             {
                 "foto": "Assets/img/Jugadores/Real_valladolid/Andre.png",
@@ -968,7 +968,7 @@
     {
         "equip": "Rayo Vallecano",
         "escut": "Assets/img/Escudos/rayovallecano.png",
-        "estadi":"",
+        "estadi":"Assets/img/Estadios/Vallecas_Vallecano.png",
         "jugadors": [
             {
                 "foto": "Assets/img/Jugadores/Rayo_vallecano/Trejo.png",
@@ -1022,7 +1022,7 @@
     {
         "equip": "Deportivo Alavés",
         "escut": "Assets/img/Escudos/alaves.png",
-        "estadi":"",
+        "estadi":"Assets/img/Estadios/Mendizorroza_Alaves.png",
         "jugadors": [
             {
                 "foto": "Assets/img/Jugadores/Deportivo_Alaves/Villalibre.png",
