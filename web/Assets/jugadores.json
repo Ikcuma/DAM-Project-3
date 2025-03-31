@@ -2,7 +2,7 @@
     {
         "equip": "FC Barcelona",
         "escut": "Assets/img/Escudos/barcelona.png",
-        "estadi":"",
+        "estadi":"Assets/img/Estadios/Camp_nou.png",
         "jugadors": [
             {
                 "foto": "Assets/img/Jugadores/Barcelona/Ter_Stegen.png",
@@ -51,6 +51,7 @@
         "escut": "Assets/img/Escudos/realmadrid.png",
         "estadi":"",
         "jugadors": [
+
             {
                 "foto": "Assets/img/Jugadores/Real_madrid/Vinicius_Junior.png",
                 "dorsal": 7,
@@ -103,7 +104,7 @@
     {
         "equip": "Atlético de Madrid",
         "escut": "Assets/img/Escudos/atlmadrid.png",
-        "estadi":"",
+        "estadi":"Assets/img/Estadios/Metropolitano_Atletico_Madrid",
         "jugadors": [
             {
                 "foto": "Assets/img/Jugadores/Atletico_de_madrid/Griezmann.png",
