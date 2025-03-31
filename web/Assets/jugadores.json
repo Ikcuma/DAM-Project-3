@@ -2,6 +2,7 @@
     {
         "equip": "FC Barcelona",
         "escut": "Assets/img/Escudos/barcelona.png",
+        "estadi":"",
         "jugadors": [
             {
                 "foto": "Assets/img/Jugadores/Barcelona/Ter_Stegen.png",
@@ -48,6 +49,7 @@
     {
         "equip": "Real Madrid CF",
         "escut": "Assets/img/Escudos/realmadrid.png",
+        "estadi":"",
         "jugadors": [
             {
                 "foto": "Assets/img/Jugadores/Real_madrid/Vinicius_Junior.png",
@@ -101,6 +103,7 @@
     {
         "equip": "Atlético de Madrid",
         "escut": "Assets/img/Escudos/atlmadrid.png",
+        "estadi":"",
         "jugadors": [
             {
                 "foto": "Assets/img/Jugadores/Atletico_de_madrid/Griezmann.png",
@@ -154,6 +157,7 @@
     {
         "equip": "Athletic Club",
         "escut": "Assets/img/Escudos/athletic.png",
+        "estadi":"",
         "jugadors": [
             {
                 "foto": "Assets/img/Jugadores/Athletic_club/Nico_Williams.png",
@@ -207,6 +211,7 @@
     {
         "equip": "Real Sociedad",
         "escut": "Assets/img/Escudos/realsociedad.png",
+        "estadi":"",
         "jugadors": [
             {
                 "foto": "Assets/img/Jugadores/Real_sociedad/Oyarzabal.png",
@@ -260,6 +265,7 @@
     {
         "equip": "Sevilla FC",
         "escut": "Assets/img/Escudos/sevilla.png",
+        "estadi":"",
         "jugadors": [
             {
                 "foto": "Assets/img/Jugadores/Sevilla/Romero.png",
@@ -313,6 +319,7 @@
     {
         "equip": "Real Betis",
         "escut": "Assets/img/Escudos/betis.png",
+        "estadi":"",
         "jugadors": [
             {
                 "foto": "Assets/img/Jugadores/Real_betis/Abde.png",
@@ -366,6 +373,7 @@
     {
         "equip": "Villarreal CF",
         "escut": "Assets/img/Escudos/villarreal.png",
+        "estadi":"",
         "jugadors": [
             {
                 "foto": "Assets/img/Jugadores/Villareal/Moreno.png",
@@ -419,6 +427,7 @@
     {
         "equip": "Valencia CF",
         "escut": "Assets/img/Escudos/valencia.png",
+        "estadi":"",
         "jugadors": [
             {
                 "foto": "Assets/img/Jugadores/Valencia/Duro.png",
@@ -472,6 +481,7 @@
     {
         "equip": "RC Celta de Vigo",
         "escut": "Assets/img/Escudos/celta.png",
+        "estadi":"",
         "jugadors": [
             {
                 "foto": "Assets/img/Jugadores/Celta_de_vigo/Aspas.png",
@@ -525,6 +535,7 @@
     {
         "equip": "RCD Mallorca",
         "escut": "Assets/img/Escudos/mallorca.png",
+        "estadi":"",
         "jugadors": [
             {
                 "foto": "Assets/img/Jugadores/Mallorca/Muriqi.png",
@@ -578,6 +589,7 @@
     {
         "equip": "Girona FC",
         "escut": "Assets/img/Escudos/girona.png",
+        "estadi":"",
         "jugadors": [
             {
                 "foto": "Assets/img/Jugadores/Girona/Ruiz.png",
@@ -631,6 +643,7 @@
     {
         "equip": "CA Osasuna",
         "escut": "Assets/img/Escudos/osasuna.png",
+        "estadi":"",
         "jugadors": [
             {
                 "foto": "Assets/img/Jugadores/Osasuna/Oroz.png",
@@ -684,6 +697,7 @@
     {
         "equip": "Getafe CF",
         "escut": "Assets/img/Escudos/getafe.png",
+        "estadi":"",
         "jugadors": [
             {
                 "foto": "Assets/img/Jugadores/Getafe/Mayoral.png",
@@ -737,6 +751,7 @@
     {
         "equip": "UD Las Palmas",
         "escut": "Assets/img/Escudos/udlaspalmas.png",
+        "estadi":"",
         "jugadors": [
             {
                 "foto": "Assets/img/Jugadores/Las_palmas/Sandro.png",
@@ -790,6 +805,7 @@
     {
         "equip": "RCD Espanyol",
         "escut": "Assets/img/Escudos/espanyol.png",
+        "estadi":"",
         "jugadors": [
             {
                 "foto": "Assets/img/Jugadores/Español/Puado.png",
@@ -843,6 +859,7 @@
     {
         "equip": "CD Leganés",
         "escut": "Assets/img/Escudos/leganes.png",
+        "estadi":"",
         "jugadors": [
             {
                 "foto": "Assets/img/Jugadores/Leganes/Hernandez.png",
@@ -896,6 +913,7 @@
     {
         "equip": "Real Valladolid CF",
         "escut": "Assets/img/Escudos/valladolid.png",
+        "estadi":"",
         "jugadors": [
             {
                 "foto": "Assets/img/Jugadores/Real_valladolid/Andre.png",
@@ -949,6 +967,7 @@
     {
         "equip": "Rayo Vallecano",
         "escut": "Assets/img/Escudos/rayovallecano.png",
+        "estadi":"",
         "jugadors": [
             {
                 "foto": "Assets/img/Jugadores/Rayo_vallecano/Trejo.png",
@@ -1002,6 +1021,7 @@
     {
         "equip": "Deportivo Alavés",
         "escut": "Assets/img/Escudos/alaves.png",
+        "estadi":"",
         "jugadors": [
             {
                 "foto": "Assets/img/Jugadores/Deportivo_Alaves/Villalibre.png",
