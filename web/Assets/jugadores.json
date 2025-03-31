@@ -312,7 +312,7 @@
             }
         ],
         "entrenador": {
-            "foto": "Assets/img/Jugadores/Sevilla/Pimienta.png",
+            "foto": "Assets/img/Jugadores/Sevilla/Garcia.png",
             "nomPersona": "García Pimienta",
             "esSeleccionador": 0
         }
@@ -421,7 +421,7 @@
         ],
         "entrenador": {
             "foto": "Assets/img/Jugadores/Villareal/Marcelino.png",
-            "nomPersona": "Marcelino García Toral",
+            "nomPersona": "Marcelino García",
             "esSeleccionador": 0
         }
     },
@@ -474,8 +474,8 @@
             }
         ],
         "entrenador": {
-            "foto": "Assets/img/Jugadores/Valencia/Baraja.png",
-            "nomPersona": "Rubén Baraja",
+            "foto": "Assets/img/Jugadores/Valencia/Carlos.png",
+            "nomPersona": "Carlos Corberán",
             "esSeleccionador": 0
         }
     },
@@ -528,7 +528,7 @@
             }
         ],
         "entrenador": {
-            "foto": "Assets/img/Jugadores/Celta_de_vigo/Giraldez.png",
+            "foto": "Assets/img/Jugadores/Celta_de_vigo/Claudio.png",
             "nomPersona": "Claudio Giráldez",
             "esSeleccionador": 0
         }
@@ -744,7 +744,7 @@
             }
         ],
         "entrenador": {
-            "foto": "Assets/img/Jugadores/Getafe/Bordalas.png",
+            "foto": "Assets/img/Jugadores/Getafe/José.png",
             "nomPersona": "José Bordalás",
             "esSeleccionador": 0
         }
@@ -798,8 +798,8 @@
             }
         ],
         "entrenador": {
-            "foto": "Assets/img/Jugadores/Las_palmas/Carrion.png",
-            "nomPersona": "Luis Carrión",
+            "foto": "Assets/img/Jugadores/Las_palmas/Diego.png",
+            "nomPersona": "Diego Martínez",
             "esSeleccionador": 0
         }
     },
@@ -906,7 +906,7 @@
             }
         ],
         "entrenador": {
-            "foto": "Assets/img/Jugadores/Leganes/Jimenez.png",
+            "foto": "Assets/img/Jugadores/Leganes/Borja.png",
             "nomPersona": "Borja Jiménez",
             "esSeleccionador": 0
         }
@@ -960,8 +960,8 @@
             }
         ],
         "entrenador": {
-            "foto": "Assets/img/Jugadores/Real_valladolid/Pezzolano.png",
-            "nomPersona": "Paulo Pezzolano",
+            "foto": "Assets/img/Jugadores/Real_valladolid/Alvaro.png",
+            "nomPersona": "Álvaro Rubio",
             "esSeleccionador": 0
         }
     },
@@ -1006,11 +1006,11 @@
                 "nomPersona": "Andrei Ratiu"
             },
             {
-                "foto": "Assets/img/Jugadores/Rayo_vallecano/Batalla.png",
+                "foto": "Assets/img/Jugadores/Rayo_vallecano/Perez.png",
                 "dorsal": 13,
                 "posicio": "Porter",
                 "qualitat": 82,
-                "nomPersona": "Augusto Batalla"
+                "nomPersona": "Iñigo Perez"
             }
         ],
         "entrenador": {

@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', function() {
         { nombre: 'Sevilla FC', escudo: 'sevilla.png' },
         { nombre: 'UD Las Palmas', escudo: 'udlaspalmas.png' },
         { nombre: 'Valencia CF', escudo: 'valencia.png' },
-        { nombre: 'Real Valladolid', escudo: 'valladolid.png' },
+        { nombre: 'Real Valladolid CF', escudo: 'valladolid.png' },
         { nombre: 'Villarreal CF', escudo: 'villarreal.png' }
     ];
 
@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', function() {
         'Sevilla FC': '#d81e05',
         'UD Las Palmas': '#0077c8',
         'Valencia CF': '#f7a11a',
-        'Real Valladolid': '#5a2894',
+        'Real Valladolid CF': '#5a2894',
         'Villarreal CF': '#ffcd00'
     };
 
