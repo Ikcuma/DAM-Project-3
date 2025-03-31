@@ -99,44 +99,50 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // Generar HTML del equipo
-    function generarHTMLEquipo(equipo) {
-        const info = obtenerInfoEquipo(equipo.equip);
+    // Generar HTML del equipo   
+function generarHTMLEquipo(equipo) {
+    const info = obtenerInfoEquipo(equipo.equip);
+    
+    return `
+        <button id="volver-equipos" class="btn-volver">← Volver</button>
         
-        return `
-            <button id="volver-equipos" class="btn-volver">← Volver</button>
+        <div class="equipo-header">
+            <h1>${equipo.equip}</h1>
+            <div class="equipo-info">
+                <p><strong>Fundación:</strong> ${info.fundacion || 'N/A'}</p>
+                <p><strong>Estadio:</strong> ${info.estadio || 'N/A'}</p>
+                <p><strong>Ciudad:</strong> ${info.ciudad || 'N/A'}</p>
+                ${info.capacidad ? `<p><strong>Capacidad:</strong> ${info.capacidad}</p>` : ''}
+            </div>
             
-            <div class="equipo-header">
-                <h1>${equipo.equip}</h1>
-                <div class="equipo-info">
-                    <p><strong>Fundación:</strong> ${info.fundacion || 'N/A'}</p>
-                    <p><strong>Estadio:</strong> ${info.estadio || 'N/A'}</p>
-                    <p><strong>Ciudad:</strong> ${info.ciudad || 'N/A'}</p>
-                    ${info.capacidad ? `<p><strong>Capacidad:</strong> ${info.capacidad}</p>` : ''}
-                </div>
-                
-                <img src="${equipo.escut}" alt="${equipo.equip}" class="equipo-escudo-grande">
+                    <div class="equipo-imagenes">
+            <img src="${equipo.escut}" alt="${equipo.equip}" class="equipo-escudo-grande">
+            ${equipo.estadi ? `
+            <div class="estadio-fixed-width">
+                <img src="${equipo.estadi}" alt="Estadio ${equipo.equip}" class="equipo-estadio">
+            </div>
+            ` : ''}
+        </div>
+
+        <section class="plantilla">
+            <h2>Plantilla 2023/2024</h2>
+            
+            <div class="categorias-jugadores">
+                <button class="categoria-btn active" data-categoria="porteros">Porteros</button>
+                <button class="categoria-btn" data-categoria="defensas">Defensas</button>
+                <button class="categoria-btn" data-categoria="centrocampistas">Centrocampistas</button>
+                <button class="categoria-btn" data-categoria="delanteros">Delanteros</button>
+                <button class="categoria-btn" data-categoria="entrenador">Entrenador</button>
             </div>
 
-            <section class="plantilla">
-                <h2>Plantilla 2023/2024</h2>
-                
-                <div class="categorias-jugadores">
-                    <button class="categoria-btn active" data-categoria="porteros">Porteros</button>
-                    <button class="categoria-btn" data-categoria="defensas">Defensas</button>
-                    <button class="categoria-btn" data-categoria="centrocampistas">Centrocampistas</button>
-                    <button class="categoria-btn" data-categoria="delanteros">Delanteros</button>
-                    <button class="categoria-btn" data-categoria="entrenador">Entrenador</button>
-                </div>
-
-                <div class="jugadores-categoria active" id="porteros"></div>
-                <div class="jugadores-categoria" id="defensas"></div>
-                <div class="jugadores-categoria" id="centrocampistas"></div>
-                <div class="jugadores-categoria" id="delanteros"></div>
-                <div class="jugadores-categoria" id="entrenador"></div>
-            </section>
-        `;
-    }
+            <div class="jugadores-categoria active" id="porteros"></div>
+            <div class="jugadores-categoria" id="defensas"></div>
+            <div class="jugadores-categoria" id="centrocampistas"></div>
+            <div class="jugadores-categoria" id="delanteros"></div>
+            <div class="jugadores-categoria" id="entrenador"></div>
+        </section>
+    `;
+}
 
     // Información de equipos
     function obtenerInfoEquipo(nombreEquipo) {

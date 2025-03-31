@@ -48,6 +48,35 @@
     margin: 0;
 }
 
+/* Estilo para el escudo */
+.equipo-escudo-grande {
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+    margin: 1rem auto;
+    display: block;
+    transition: all 0.3s ease;
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
+}
+
+/* Animación al hacer clic en el escudo */
+.equipo-escudo-grande:active {
+    transform: scale(0.95);
+    filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.6));
+}
+
+/* Imagen del estadio - MISMO ANCHO PARA TODOS */
+.equipo-estadio {
+    width: 100%; /* 400px del contenedor padre */
+    height: auto; /* Altura proporcional */
+    max-height: 700px; /* Altura máxima opcional */
+    border-radius: 10px;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+    border: 3px solid white;
+    display: block;
+    background: rgba(0,0,0,0.05); /* Fondo para imágenes con transparencia */
+}
+
 /* ===== CATEGORÍAS ===== */
 .categorias-jugadores {
     display: flex;
@@ -344,5 +373,24 @@
     
     .categorias-jugadores {
         padding: 0.5rem;
+    }
+}
+
+
+@media (max-width: 768px) {
+    .estadio-fixed-width {
+        width: 100%;
+        max-width: 400px;
+        padding: 0 15px;
+    }
+}
+
+
+
+
+@media (max-width: 480px) {
+    .equipo-estadio {
+        border-width: 2px;
+        max-height: 250px;
     }
 }
