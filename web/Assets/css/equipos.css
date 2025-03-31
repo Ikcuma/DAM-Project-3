@@ -25,7 +25,7 @@
     width: 15rem;
     height: auto;
     margin-bottom: 1rem;
-    border-radius: 2rem;
+    
     margin-top: 3rem;
     display: block;
     margin-left: auto;
@@ -61,7 +61,7 @@
 }
 
 .btn-volver {
-    position: absolute;
+    position: fixed;
     left: 3rem;
     color: #fdfdfbfa;
     background: #0c0c46;
@@ -76,6 +76,7 @@
     letter-spacing: 1px;
     display: inline-block;
     text-align: center;
+
 }
 
 .btn-volver:hover {
@@ -194,10 +195,9 @@
     align-items: center;
     justify-content: center;
     font-weight: bold;
-    font-size: 1.5rem;
+    font-size: 3rem;
     z-index: 2;
-    background: rgba(0, 0, 0, 0.3);
-    backdrop-filter: blur(2px);
+    
 }
 
 /* Textos */

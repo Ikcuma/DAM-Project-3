@@ -128,7 +128,7 @@
                 "nomPersona": "José María Giménez"
             },
             {
-                "foto": "Assets/img/Jugadores/Atletico_de_madrid/Alvarez.png",
+                "foto": "Assets/img/Jugadores/Atletico_de_madrid/Julian.png",
                 "dorsal": 9,
                 "posicio": "Davanter",
                 "qualitat": 80,
@@ -168,7 +168,7 @@
                 "nomPersona": "Nico Williams"
             },
             {
-                "foto": "Assets/img/Jugadores/Athletic_club/Inaki_Williams.png",
+                "foto": "Assets/img/Jugadores/Athletic_club/Willians.png",
                 "dorsal": 9,
                 "posicio": "Davanter",
                 "qualitat": 84,
@@ -353,7 +353,7 @@
             {
                 "foto": "Assets/img/Jugadores/Real_betis/Rodriguez.png",
                 "dorsal": 12,
-                "posicio": "Defensa",
+                "posicio": "Migcampista",
                 "qualitat": 82,
                 "nomPersona": "Ricardo Rodríguez"
             },
@@ -621,14 +621,14 @@
                 "nomPersona": "Daley Blind"
             },
             {
-                "foto": "Assets/img/Jugadores/Girona/Tsygankov.png",
+                "foto": "Assets/img/Jugadores/Girona/Viktor.png",
                 "dorsal": 8,
                 "posicio": "Davanter",
                 "qualitat": 80,
                 "nomPersona": "Viktor Tsygankov"
             },
             {
-                "foto": "Assets/img/Jugadores/Girona/Juan_Carlos.png",
+                "foto": "Assets/img/Jugadores/Girona/Juan.png",
                 "dorsal": 18,
                 "posicio": "Porter",
                 "qualitat": 82,
@@ -1006,16 +1006,16 @@
                 "nomPersona": "Andrei Ratiu"
             },
             {
-                "foto": "Assets/img/Jugadores/Rayo_vallecano/Perez.png",
+                "foto": "Assets/img/Jugadores/Rayo_vallecano/Batalla.png",
                 "dorsal": 13,
                 "posicio": "Porter",
                 "qualitat": 82,
-                "nomPersona": "Iñigo Perez"
+                "nomPersona": "Batalla"
             }
         ],
         "entrenador": {
-            "foto": "Assets/img/Jugadores/Rayo_vallecano/Rodriguez.png",
-            "nomPersona": "Francisco Rodríguez",
+            "foto": "Assets/img/Jugadores/Rayo_vallecano/Perez.png",
+            "nomPersona": "Iñigo Perez",
             "esSeleccionador": 0
         }
     },
