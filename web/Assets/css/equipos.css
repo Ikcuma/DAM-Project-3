@@ -48,12 +48,12 @@
     margin: 0;
 }
 
-/* Estilo para el escudo */
+/* Estilo para el escudo 2 */
 .equipo-escudo-grande {
-    width: 100px;
+    width: auto;
     height: 100px;
     object-fit: contain;
-    margin: 1rem auto;
+    margin: 3rem auto;
     display: block;
     transition: all 0.3s ease;
     filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
@@ -65,16 +65,25 @@
     filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.6));
 }
 
-/* Imagen del estadio - MISMO ANCHO PARA TODOS */
+/* Imagen del estadio */
 .equipo-estadio {
     width: 100%; /* 400px del contenedor padre */
     height: auto; /* Altura proporcional */
-    max-height: 700px; /* Altura máxima opcional */
+    max-width: 600px; /* Altura máxima opcional */
+    margin-bottom: 20px;
     border-radius: 10px;
     box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
     border: 3px solid white;
-    display: block;
     background: rgba(0,0,0,0.05); /* Fondo para imágenes con transparencia */
+}
+
+/* Contenedor para centrar la imagen*/
+.estadio-container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    padding: 0 20px;
+    box-sizing: border-box;
 }
 
 /* ===== CATEGORÍAS ===== */
