@@ -60,6 +60,33 @@
     border-radius: 15px;
 }
 
+.btn-volver {
+    position: absolute;
+    left: 3rem;
+    color: #fdfdfbfa;
+    background: #0c0c46;
+    border-radius: 1rem;
+    padding: 0.5rem 0.9rem;
+    font-weight: 900;
+    font-size: 1rem;
+    border: 2px solid transparent;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease-in-out;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    display: inline-block;
+    text-align: center;
+}
+
+.btn-volver:hover {
+    color: #2ecc71;
+    background: #fdfdfbfa;
+    border: 2px solid #2ecc71;
+    box-shadow: 0px 6px 15px rgba(46, 204, 113, 0.4);
+    transform: translateY(-2px);
+    cursor: pointer;
+}
+
 .categoria-btn {
     padding: 0.5rem 1.5rem;
     background-color: #f0f0f0;
