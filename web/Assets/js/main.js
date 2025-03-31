@@ -114,6 +114,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     <p><strong>Ciudad:</strong> ${info.ciudad || 'N/A'}</p>
                     ${info.capacidad ? `<p><strong>Capacidad:</strong> ${info.capacidad}</p>` : ''}
                 </div>
+                
                 <img src="${equipo.escut}" alt="${equipo.equip}" class="equipo-escudo-grande">
             </div>
 

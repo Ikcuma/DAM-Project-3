@@ -113,7 +113,7 @@
     display: grid;
 }
 
-/* ===== TARJETAS DE JUGADORES - ESTILOS BASE ===== */
+/* ===== TARJETAS DE JUGADORES - MEJORADO PARA IMÁGENES ===== */
 .jugador-card {
     position: relative;
     border-radius: 12px;
@@ -123,26 +123,36 @@
     display: flex;
     flex-direction: column;
     height: 100%;
+    transition: transform 0.3s ease;
 }
 
+.jugador-card:hover {
+    transform: translateY(-5px);
+}
 
-
-/* Contenedor de imagen */
+/* Contenedor de imagen - MEJORADO */
 .jugador-img {
     position: relative;
     width: 100%;
-    height: 320px;
+    height: 0;
+    padding-bottom: 120%; /* Proporción 5:6 para las fotos de jugadores */
     background-color: #f5f5f5;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    overflow: hidden;
 }
 
 .jugador-img img {
-    width: auto;
-    height: 330px;
-    max-width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top center;
+    transition: transform 0.3s ease;
+}
+
+.jugador-card:hover .jugador-img img {
+    transform: scale(1.03);
 }
 
 /* Estilo para imágenes faltantes */
@@ -153,7 +163,10 @@
     font-size: 0.9rem;
     text-align: center;
     position: absolute;
-    width: 100%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%;
 }
 
 /* Información del jugador */
@@ -181,8 +194,9 @@
     align-items: center;
     justify-content: center;
     font-weight: bold;
-    font-size: 2.5rem;
+    font-size: 1.5rem;
     z-index: 2;
+    background: rgba(0, 0, 0, 0.3);
     backdrop-filter: blur(2px);
 }
 
@@ -219,7 +233,7 @@
 
 /* ===== ESTILOS ESPECIALES PARA ENTRENADOR ===== */
 .entrenador .jugador-img {
-    height: 300px;
+    padding-bottom: 100%; /* Proporción 1:1 para entrenadores */
 }
 
 .entrenador .jugador-info {
@@ -251,6 +265,11 @@
     overflow: hidden;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     border: 1px solid #eaeaea;
+    transition: transform 0.3s ease;
+}
+
+.equipo-card:hover {
+    transform: translateY(-5px);
 }
 
 .equipo-card a {
@@ -278,11 +297,11 @@
 /* ===== RESPONSIVE ===== */
 @media (max-width: 768px) {
     .jugador-img {
-        height: 220px;
+        padding-bottom: 110%; /* Ajuste para móviles */
     }
     
     .entrenador .jugador-img {
-        height: 250px;
+        padding-bottom: 90%;
     }
     
     .jugadores-categoria {
@@ -293,6 +312,12 @@
     .equipos-grid {
         grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     }
+    
+    .btn-volver {
+        position: relative;
+        left: auto;
+        margin-bottom: 1rem;
+    }
 }
 
 @media (max-width: 480px) {
@@ -301,7 +326,7 @@
     }
     
     .jugador-img {
-        height: 250px;
+        padding-bottom: 100%;
     }
     
     .equipo-escudo {
@@ -311,5 +336,13 @@
     .equipo-info {
         flex-direction: column;
         align-items: center;
+    }
+    
+    .equipo-container {
+        padding: 1rem;
+    }
+    
+    .categorias-jugadores {
+        padding: 0.5rem;
     }
 }
