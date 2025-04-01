@@ -49,7 +49,7 @@
     {
         "equip": "Real Madrid CF",
         "escut": "Assets/img/Escudos/realmadrid.png",
-        "estadi":"",
+        "estadi":"Assets/img/Estadios/Santiago_Bernabeu.png",
         "jugadors": [
 
             {

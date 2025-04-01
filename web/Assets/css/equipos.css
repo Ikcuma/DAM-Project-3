@@ -69,7 +69,6 @@
 .equipo-estadio {
     width: 100%; /* 400px del contenedor padre */
     height: auto; /* Altura proporcional */
-    max-width: 600px; /* Altura máxima opcional */
     margin-bottom: 20px;
     border-radius: 10px;
     box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
