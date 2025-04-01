@@ -677,7 +677,7 @@ footer {
 .footer-contact p {
     color: rgba(255,255,255,0.7);
     margin-bottom: 1rem;
-    display: flex;
+    display: block;
     align-items: center;
     font-size: 0.95rem;
 }
