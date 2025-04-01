@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const equipos = [
         { nombre: 'Deportivo Alavés', escudo: 'alaves.png' },
         { nombre: 'Athletic Club', escudo: 'athletic.png' },
-        { nombre: 'Atlético de Madrid', escudo: 'atlmadrid.png' },
+        { nombre: 'Atletico de Madrid', escudo: 'atlmadrid.png' },
         { nombre: 'FC Barcelona', escudo: 'barcelona.png' },
         { nombre: 'Real Betis', escudo: 'betis.png' },
         { nombre: 'RC Celta de Vigo', escudo: 'celta.png' },
@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const teamColors = {
         'Deportivo Alavés': '#005bab',
         'Athletic Club': '#ed1c24',
-        'Atlético de Madrid': '#cb3524',
+        'Atletico de Madrid': '#cb3524',
         'FC Barcelona': '#a50044',
         'Real Betis': '#00954e',
         'RC Celta de Vigo': '#aaddff',
@@ -148,7 +148,7 @@ function generarHTMLEquipo(equipo) {
     function obtenerInfoEquipo(nombreEquipo) {
         const infoEquipos = {
             'Athletic Club': { fundacion: '1898', estadio: 'San Mamés', ciudad: 'Bilbao', capacidad: '53,289', estadioImg: 'Stadium_AthleticClub.jpg' },
-            'Atlético Madrid': { fundacion: '1903', estadio: 'Metropolitano', ciudad: 'Madrid', capacidad: '68,456', estadioImg: 'Stadium_AtleticoMadrid.jpg' },
+            'Atletico de Madrid': { fundacion: '1903', estadio: 'Metropolitano', ciudad: 'Madrid', capacidad: '68,456', estadioImg: 'Stadium_AtleticoMadrid.jpg' },
             'FC Barcelona': { fundacion: '1899', estadio: 'Camp Nou', ciudad: 'Barcelona', capacidad: '99,354', estadioImg: 'Stadium_Barcelona.webp' },
             'Real Madrid': { fundacion: '1902', estadio: 'Santiago Bernabéu', ciudad: 'Madrid', capacidad: '85,000', estadioImg: 'Stadium_RealMadrid.jpg' },
             'Deportivo Alavés': { fundacion: '1921', estadio: 'Mendizorrotza', ciudad: 'Vitoria', capacidad: '19,840', estadioImg: 'Stadium_Deportivo_Alavez.jpg' },

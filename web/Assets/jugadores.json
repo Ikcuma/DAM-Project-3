@@ -102,9 +102,9 @@
         }
     },
     {
-        "equip": "Atlético de Madrid",
+        "equip": "Atletico de Madrid",
         "escut": "Assets/img/Escudos/atlmadrid.png",
-        "estadi":"Assets/img/Estadios/Metropolitano_Atletico_Madrid",
+        "estadi":"Assets/img/Estadios/AMadrid.png",
         "jugadors": [
             {
                 "foto": "Assets/img/Jugadores/Atletico_de_madrid/Griezmann.png",
