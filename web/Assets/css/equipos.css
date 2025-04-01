@@ -401,22 +401,3 @@
         padding: 0.5rem;
     }
 }
-
-
-@media (max-width: 768px) {
-    .estadio-fixed-width {
-        width: 100%;
-        max-width: 400px;
-        padding: 0 15px;
-    }
-}
-
-
-
-
-@media (max-width: 480px) {
-    .equipo-estadio {
-        border-width: 2px;
-        max-height: 250px;
-    }
-}
