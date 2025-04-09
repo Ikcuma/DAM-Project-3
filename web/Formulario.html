@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alta Jugadores - Elite League</title>
+    <link rel="stylesheet" href="Assets/css/styles.css">
+    <link rel="stylesheet" href="Assets/css/formulario.css">
+</head>
+<body>
+    <header>
+        <div class="escudos-container">
+            <div class="escudos-scroll">
+                <img src="assets/img/Escudos/alaves.png" alt="Deportivo Alavés">
+                <img src="assets/img/Escudos/athletic.png" alt="Athletic Club">
+                <img src="assets/img/Escudos/atlmadrid.png" alt="Atlético Madrid">
+                <img src="assets/img/Escudos/barcelona.png" alt="FC Barcelona">
+                <img src="assets/img/Escudos/betis.png" alt="Real Betis">
+                <img src="assets/img/Escudos/celta.png" alt="Celta de Vigo">
+                <img src="assets/img/Escudos/espanyol.png" alt="Espanyol">
+                <img src="assets/img/Escudos/getafe.png" alt="Getafe CF">
+                <img src="assets/img/Escudos/girona.png" alt="Girona FC">
+                <img src="assets/img/Escudos/leganes.png" alt="CD Leganés">
+                <img src="assets/img/Escudos/mallorca.png" alt="RCD Mallorca">
+                <img src="assets/img/Escudos/osasuna.png" alt="CA Osasuna">
+                <img src="assets/img/Escudos/rayovallecano.png" alt="Rayo Vallecano">
+                <img src="assets/img/Escudos/realmadrid.png" alt="Real Madrid">
+                <img src="assets/img/Escudos/sevilla.png" alt="Sevilla FC">
+                <img src="assets/img/Escudos/udlaspalmas.png" alt="UD Las Palmas">
+                <img src="assets/img/Escudos/valencia.png" alt="Valencia CF">
+                <img src="assets/img/Escudos/valladolid.png" alt="Real Valladolid">
+                <img src="assets/img/Escudos/villarreal.png" alt="Villarreal CF">
+            </div>
+        </div>
+
+        <div class="logo">
+            <img src="assets/img/Escudos/logo_sin_fondo.png" alt="Logo Fútbol Stats">
+            <h1>Elite League</h1>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="main.html">Inicio</a></li>
+                <li><a href="equipos.html">Equipos</a></li>
+                <li><a href="clasificacion.html">Clasificación</a></li>
+                <li><a href="formulario.html" class="active">Alta Jugadores</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <div class="formulario-container">
+            <h2 class="formulario-titulo">Alta de Nuevo Jugador</h2>
+            
+            <form class="formulario" id="formulario-jugador">
+                <div class="campo-formulario">
+                    <label for="nombre">Nombre</label>
+                    <input type="text" id="nombre" name="nombre" required>
+                </div>
+                
+                <div class="campo-formulario">
+                    <label for="apellido">Apellido</label>
+                    <input type="text" id="apellido" name="apellido" required>
+                </div>
+                
+                <div class="campo-formulario">
+                    <label for="altura">Altura (cm)</label>
+                    <input type="number" id="altura" name="altura" min="150" max="220" required>
+                </div>
+                
+                <div class="campo-formulario">
+                    <label for="peso">Peso (kg)</label>
+                    <input type="number" id="peso" name="peso" min="50" max="120" step="0.1" required>
+                </div>
+                
+                <div class="campo-formulario">
+                    <label for="edad">Edad</label>
+                    <input type="number" id="edad" name="edad" min="16" max="45" required>
+                </div>
+                
+                <div class="campo-formulario">
+                    <label for="posicion">Posición</label>
+                    <select id="posicion" name="posicion" required>
+                        <option value="">Seleccione una posición</option>
+                        <option value="portero">Portero</option>
+                        <option value="defensa">Defensa</option>
+                        <option value="lateral">Lateral</option>
+                        <option value="centrocampista">Centrocampista</option>
+                        <option value="mediapunta">Mediapunta</option>
+                        <option value="delantero">Delantero</option>
+                        <option value="extremo">Extremo</option>
+                    </select>
+                </div>
+                
+                <div class="campo-formulario">
+                    <label for="equipo">Equipo</label>
+                    <select id="equipo" name="equipo" required>
+                        <option value="">Seleccione un equipo</option>
+                        <option value="alaves">Deportivo Alavés</option>
+                        <option value="athletic">Athletic Club</option>
+                        <option value="atlmadrid">Atlético Madrid</option>
+                        <option value="barcelona">FC Barcelona</option>
+                        <option value="betis">Real Betis</option>
+                        <option value="celta">Celta de Vigo</option>
+                        <option value="espanyol">Espanyol</option>
+                        <option value="getafe">Getafe CF</option>
+                        <option value="girona">Girona FC</option>
+                        <option value="leganes">CD Leganés</option>
+                        <option value="mallorca">RCD Mallorca</option>
+                        <option value="osasuna">CA Osasuna</option>
+                        <option value="rayovallecano">Rayo Vallecano</option>
+                        <option value="realmadrid">Real Madrid</option>
+                        <option value="sevilla">Sevilla FC</option>
+                        <option value="udlaspalmas">UD Las Palmas</option>
+                        <option value="valencia">Valencia CF</option>
+                        <option value="valladolid">Real Valladolid</option>
+                        <option value="villarreal">Villarreal CF</option>
+                    </select>
+                </div>
+                
+                <div class="campo-formulario campo-completo">
+                    <label for="foto">Foto del Jugador</label>
+                    <input type="file" id="foto" name="foto" accept="image/*">
+                </div>
+                
+                <button type="submit" class="boton-enviar">Registrar Jugador</button>
+            </form>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-grid">
+                <div class="footer-logo">
+                    <img src="assets/img/Escudos/logo_sin_fondo.png" alt="Fútbol Stats Logo">
+                    <h3>Elite League</h3>
+                    <p>La mejor fuente de estadísticas y noticias de fútbol</p>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Enlaces Rápidos</h4>
+                    <ul>
+                        <li><a href="main.html">Inicio</a></li>
+                        <li><a href="equipos.html">Equipos</a></li>
+                        <li><a href="clasificacion.html">Clasificación</a></li>
+                        <li><a href="formulario.html" class="active">Alta Jugadores</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-contact">
+                    <h4>Contacto</h4>
+                    <p>ElitLeague@Elite.com</p>
+                    <p>+34 888 888 88</p>
+                </div>
+                
+                <div class="footer-social">
+                    <h4>Síguenos</h4>
+                    <div class="social-icons">
+                        <a href="#" aria-label="Facebook">
+                            <img src="https://cdn-icons-png.flaticon.com/512/124/124010.png" alt="Facebook">
+                        </a>
+                        <a href="#" aria-label="Twitter">
+                            <img src="https://cdn-icons-png.flaticon.com/512/733/733579.png" alt="Twitter">
+                        </a>
+                        <a href="#" aria-label="Instagram">
+                            <img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" alt="Instagram">
+                        </a>
+                        <a href="#" aria-label="YouTube">
+                            <img src="https://cdn-icons-png.flaticon.com/512/733/733646.png" alt="YouTube">
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2024 Elite League - Todos los derechos reservados</p>
+                <div class="legal-links">
+                    <a href="#">Política de Privacidad</a>
+                    <a href="#">Términos de Servicio</a>
+                    <a href="#">Cookies</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="Assets/js/formulario.js"></script>
+</body>
+</html>

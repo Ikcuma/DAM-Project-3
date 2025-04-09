@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fútbol Stats - Inicio</title>
+    <link rel="stylesheet" href="Assets/css/styles.css">
+</head>
+<body>
+    <header>
+        <div class="escudos-container">
+            <div class="escudos-scroll">
+                <img src="assets/img/Escudos/alaves.png" alt="Escudo 1">
+                <img src="assets/img/Escudos/athletic.png" alt="Escudo 2">
+                <img src="assets/img/Escudos/atlmadrid.png" alt="Escudo 3">
+                <img src="assets/img/Escudos/barcelona.png" alt="Escudo 4">
+                <img src="assets/img/Escudos/betis.png" alt="Escudo 5">
+                <img src="assets/img/Escudos/celta.png" alt="Escudo 6">
+                <img src="assets/img/Escudos/espanyol.png" alt="Escudo 7">
+                <img src="assets/img/Escudos/getafe.png" alt="Escudo 8">
+                <img src="assets/img/Escudos/girona.png" alt="Escudo 9">
+                <img src="assets/img/Escudos/leganes.png" alt="Escudo 10">
+                <img src="assets/img/Escudos/mallorca.png" alt="Escudo 11">
+                <img src="assets/img/Escudos/osasuna.png" alt="Escudo 12">
+                <img src="assets/img/Escudos/rayovallecano.png" alt="Escudo 13">
+                <img src="assets/img/Escudos/realmadrid.png" alt="Escudo 14">
+                <img src="assets/img/Escudos/sevilla.png" alt="Escudo 15">
+                <img src="assets/img/Escudos/udlaspalmas.png" alt="Escudo 16">
+                <img src="assets/img/Escudos/valencia.png" alt="Escudo 17">
+                <img src="assets/img/Escudos/valladolid.png" alt="Escudo 18">
+                <img src="assets/img/Escudos/villarreal.png" alt="Escudo 19">
+            </div>
+        </div>
+
+
+        <div class="logo">
+            <img src="assets/img/Escudos/logo_sin_fondo.png" alt="Logo Fútbol Stats">
+            <h1>Elite League</h1>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="main.html" class="active">Inicio</a></li>
+                <li><a href="equipos.html">Equipos</a></li>
+                <li><a href="clasificacion.html">Clasificación</a></li>
+                <li><a href="formulario.html">Alta Jugadores</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <h2>Próximos Partidos</h2>
+            <div class="partidos-container" id="proximos-partidos">
+                <!-- Partido 1 -->
+                <div class="partido-card">
+                    <img src="assets/img/Escudos/logo_sin_fondo.png" alt="Logo" class="logo-partido">
+                    <div class="equipos-partido">
+                        <img src="assets/img/Escudos/barcelona.png" alt="FC Barcelona" class="escudo-equipo">
+                        <span class="vs">vs</span>
+                        <img src="assets/img/Escudos/realmadrid.png" alt="Real Madrid" class="escudo-equipo">
+                    </div>
+                    <div class="fecha-partido">Sábado, 15 Abril 2024 - 20:45</div>
+                    <button class="btn-match">Match Center</button>
+                </div>
+        
+                <!-- Partido 2 -->
+                <div class="partido-card">
+                    <img src="assets/img/Escudos/logo_sin_fondo.png" alt="Logo" class="logo-partido">
+
+                    <div class="equipos-partido">
+                        <img src="assets/img/Escudos/atlmadrid.png" alt="Atlético Madrid" class="escudo-equipo">
+                        <span class="vs">vs</span>
+                        <img src="assets/img/Escudos/sevilla.png" alt="Sevilla FC" class="escudo-equipo">
+                    </div>                    <div class="fecha-partido">Domingo, 16 Abril 2024 - 18:30</div>
+                    <button class="btn-match">Match Center</button>
+                </div>
+        
+                <!-- Partido 3 -->
+                <div class="partido-card">
+                    <img src="assets/img/Escudos/logo_sin_fondo.png" alt="Logo" class="logo-partido">
+
+                    <div class="equipos-partido">
+                        <img src="assets/img/Escudos/valencia.png" alt="Valencia CF" class="escudo-equipo">
+                        <span class="vs">vs</span>
+                        <img src="assets/img/Escudos/villarreal.png" alt="Villarreal CF" class="escudo-equipo">
+                    </div>
+                    <div class="fecha-partido">Viernes, 14 Abril 2024 - 21:00</div>
+                    <button class="btn-match">Match Center</button>
+                </div>
+        
+                <!-- Partido 4 -->
+                <div class="partido-card">
+                    <img src="assets/img/Escudos/logo_sin_fondo.png" alt="Logo" class="logo-partido">
+
+                    <div class="equipos-partido">
+                        <img src="assets/img/Escudos/athletic.png" alt="Athletic Club" class="escudo-equipo">
+                        <span class="vs">vs</span>
+                        <img src="assets/img/Escudos/betis.png" alt="Real Betis" class="escudo-equipo">
+                    </div>
+                    <div class="fecha-partido">Sábado, 15 Abril 2024 - 16:15</div>
+                    <button class="btn-match">Match Center</button>
+                </div>
+            </div>
+        </section>
+
+        <section class="stats">
+            <h2>Estadísticas Destacadas</h2>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <h3>Máximo goleador</h3>
+                    <div class="stat-number">48</div>
+                    <div class="stat-label">GOLES</div>
+                    <div class="player-info">
+                        <img src="assets/img/Jugadores/Barcelona/Robert_Lewandowski.png" alt="Mandoviski">
+                            <h4>Mandoviski</h4>
+                            <p>FC BARCELONA</p>
+                            <div class="trophies">1 liga</div>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <h3>Máximo asistidor</h3>
+                    <div class="stat-number">11</div>
+                    <div class="stat-label">ASISTENCIAS</div>
+                    <div class="player-info">
+                        <img src="assets/img/Jugadores/Barcelona/Lamine_Yamal.png" alt="Lamine Yamal">
+                        <h4>Lamine Yamal</h4>
+                        <p>FC BARCELONA</p>
+                        <div class="trophies">1 liga</div>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <h3>Máximo parador</h3>
+                    <div class="stat-number">101</div>
+                    <div class="stat-label">PARADAS</div>
+                    <div class="player-info">
+                        <img src="assets/img/Jugadores/Real_madrid/Courtois.png" alt="Joan Garcia">
+                        <h4>Courtois</h4>
+                        <p>Real Madrid</p>
+                        <div class="trophies">1 liga</div>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <h3>Disparos</h3>
+                    <div class="stat-number">62</div>
+                    <div class="stat-label">DISPAROS</div>
+                    <div class="player-info">
+                        <img src="assets/img/Jugadores/Real_madrid/Bellingham.png" alt="Mbappé">
+                        <h4>Bellingham</h4>
+                        <p>Real Madrid</p>
+                        <div class="trophies">1 liga</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="noticias">
+            <h2>Últimas Noticias</h2>
+            <div class="noticias-container">
+                <article class="noticia">
+                    <div class="noticia-imagen">
+                        <img src="Assets/img/News/estadium.jpg" alt="FC Barcelona en Champions">
+                    </div>
+                    <div class="noticia-contenido">
+                        <h3>El FC Barcelona ya está en cuartos de Champions!</h3>
+                        <div class="noticia-meta">
+                            <span class="noticia-fecha">15 Abril 2024</span>
+                            <span class="noticia-categoria">Champions League</span>
+                        </div>
+                        <p>El FC Barcelona logró una victoria histórica ante el PSG (3-2) que los clasifica para los cuartos de final de la Champions League. Un hat-trick de Lewandowski y destacadas actuaciones de Gavi y Ter Stegen fueron clave para el triunfo culé.</p>
+                        <a href="#" class="noticia-enlace">Leer más →</a>
+                    </div>
+                </article>
+        
+                <article class="noticia">
+                    <div class="noticia-imagen">
+                        <img src="Assets/img/News/bolaPie.jpg" alt="Alcalde con trofeo">
+                    </div>
+                    <div class="noticia-contenido">
+                        <h3>El Alcalde gana su primera final en su cuenta a su anhelo</h3>
+                        <div class="noticia-meta">
+                            <span class="noticia-fecha">14 Abril 2024</span>
+                            <span class="noticia-categoria">Copa del Rey</span>
+                        </div>
+                        <p>En un emocionante partido que se decidió en la prórroga, el Alcalá CF se proclamó campeón de la Copa Federación ante el Racing de Ferrol. El gol de la victoria llegó en el minuto 112 de parte del delantero local Mario Fernández.</p>
+                        <a href="#" class="noticia-enlace">Leer más →</a>
+                    </div>
+                </article>
+        
+                <article class="noticia">
+                    <div class="noticia-imagen">
+                        <img src="Assets/img/News/bola.jpg" alt="Estadio de fútbol">
+                    </div>
+                    <div class="noticia-contenido">
+                        <h3>Nuevo estadio aprobado: El proyecto C1-50 será una realidad</h3>
+                        <div class="noticia-meta">
+                            <span class="noticia-fecha">12 Abril 2024</span>
+                            <span class="noticia-categoria">Infraestructura</span>
+                        </div>
+                        <p>El ayuntamiento ha aprobado por mayoría el proyecto para el nuevo estadio municipal C1-50, que contará con capacidad para 25,000 espectadores y será sede del equipo local. La construcción comenzará en junio y se espera esté listo para la temporada 2025-2026.</p>
+                        <a href="#" class="noticia-enlace">Leer más →</a>
+                    </div>
+                </article>
+        
+                <article class="noticia">
+                    <div class="noticia-imagen">
+                        <img src="Assets/img/News/entrenador.avif" alt="Entrenador nuevo">
+                    </div>
+                    <div class="noticia-contenido">
+                        <h3>El Villarreal presenta a su nuevo entrenador</h3>
+                        <div class="noticia-meta">
+                            <span class="noticia-fecha">10 Abril 2024</span>
+                            <span class="noticia-categoria">Mercado</span>
+                        </div>
+                        <p>El Villarreal CF ha hecho oficial el fichaje de Marcelo Gallardo como nuevo entrenador para las próximas dos temporadas. El técnico argentino llega tras su exitoso paso por River Plate y buscará devolver al equipo a puestos europeos.</p>
+                        <a href="#" class="noticia-enlace">Leer más →</a>
+                    </div>
+                </article>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-grid">
+                <div class="footer-logo">
+                    <img src="assets/img/Escudos/logo_sin_fondo.png" alt="Fútbol Stats Logo">
+                    <h3>Elite League</h3>
+                    <p>La mejor fuente de estadísticas y noticias de fútbol</p>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Enlaces Rápidos</h4>
+                    <ul>
+                        <li><a href="main.html">Inicio</a></li>
+                        <li><a href="equipos.html">Equipos</a></li>
+                        <li><a href="clasificacion.html">Clasificación</a></li>
+                        <li><a href="formulario.html">Alta Jugadores</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-contact">
+                    <h4>Contacto</h4>
+                    <p>ElitLeague@Elite.com</p>
+                    <p>+34 888 888 88</p>
+                </div>
+                
+                <div class="footer-social">
+                    <h4>Síguenos</h4>
+                    <div class="social-icons">
+                        <a href="#" aria-label="Facebook">
+                            <img src="https://cdn-icons-png.flaticon.com/512/124/124010.png" alt="Facebook">
+                        </a>
+                        <a href="#" aria-label="Twitter">
+                            <img src="https://cdn-icons-png.flaticon.com/512/733/733579.png" alt="Twitter">
+                        </a>
+                        <a href="#" aria-label="Instagram">
+                            <img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" alt="Instagram">
+                        </a>
+                        <a href="#" aria-label="YouTube">
+                            <img src="https://cdn-icons-png.flaticon.com/512/733/733646.png" alt="YouTube">
+                        </a>
+                        <a href="#" aria-label="TikTok">
+                            <img src="https://cdn-icons-png.flaticon.com/512/3046/3046127.png" alt="TikTok">
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2024 Fútbol Stats - Todos los derechos reservados</p>
+                <div class="legal-links">
+                    <a href="#">Política de Privacidad</a>
+                    <a href="#">Términos de Servicio</a>
+                    <a href="#">Cookies</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="assets/js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,87 @@
+
+        /* Estilos adicionales específicos para la página de clasificación */
+        .clasificacion-container {
+            background-color: white;
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            margin-bottom: 3rem;
+        }
+
+        .tabla-clasificacion {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1.5rem;
+            font-size: 0.95rem;
+        }
+
+        .tabla-clasificacion thead {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .tabla-clasificacion th {
+            padding: 1rem;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .tabla-clasificacion td {
+            padding: 0.8rem;
+            text-align: center;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .tabla-clasificacion tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        .tabla-clasificacion tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        .posicion {
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        .equipo-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            justify-content: flex-start;
+        }
+
+        .escudo-tabla {
+            width: 30px;
+            height: 30px;
+            object-fit: contain;
+        }
+
+        .nombre-equipo {
+            font-weight: 500;
+            text-align: left;
+        }
+
+        .positivo {
+            color: var(--success-color);
+            font-weight: 600;
+        }
+
+        .negativo {
+            color: var(--secondary-color);
+            font-weight: 600;
+        }
+
+        @media (max-width: 768px) {
+            .tabla-clasificacion {
+                display: block;
+                overflow-x: auto;
+                white-space: nowrap;
+            }
+            
+            .nombre-equipo {
+                min-width: 120px;
+            }
+        }
+    

@@ -31,7 +31,7 @@ grant select on football_manager.* to 'periodista';
 -- PERIODISTAS
 -- Periodista Sport
 create user 'periodistaSport'@'localhost' identified by 'periodistaSport12345';
-grant 'periodista' to 'periodistaSport'@'localhost';
+grant 'periodista' to 'periodistaSport'@'local  host';
 
 -- Periodista AS
 create user 'periodistaAS'@'localhost' identified by 'periodistaAS12345';

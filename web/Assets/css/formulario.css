@@ -1,0 +1,87 @@
+/* Estilos específicos para la página de formulario */
+.formulario-container {
+    background-color: white;
+    border-radius: 10px;
+    padding: 2rem;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    margin-bottom: 3rem;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.formulario-titulo {
+    color: var(--primary-color);
+    margin-bottom: 1.5rem;
+    text-align: center;
+    font-size: 1.8rem;
+    border-bottom: 2px solid var(--accent-color);
+    padding-bottom: 0.5rem;
+}
+
+.formulario {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+}
+
+.campo-formulario {
+    margin-bottom: 1rem;
+}
+
+.campo-formulario label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: var(--dark-color);
+}
+
+.campo-formulario input,
+.campo-formulario select {
+    width: 100%;
+    padding: 0.8rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.campo-formulario input:focus,
+.campo-formulario select:focus {
+    border-color: var(--primary-color);
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(26, 62, 140, 0.2);
+}
+
+.campo-completo {
+    grid-column: span 2;
+}
+
+.boton-enviar {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 0.8rem 1.5rem;
+    border-radius: 4px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    grid-column: span 2;
+    justify-self: center;
+    margin-top: 1rem;
+}
+
+.boton-enviar:hover {
+    background-color: var(--secondary-color);
+    transform: translateY(-2px);
+}
+
+@media (max-width: 768px) {
+    .formulario {
+        grid-template-columns: 1fr;
+    }
+    
+    .campo-completo {
+        grid-column: span 1;
+    }
+}
