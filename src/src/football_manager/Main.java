@@ -9,12 +9,14 @@ public class Main {
 
     public static void main(String[] args) {
         //Variables
+
         String filePathTeam = "resources/team_files.txt";
         String filePathMarket = "resources/market_files.txt";
         ArrayList<Person> peopleList = new ArrayList<>();
         ArrayList<Team> teams = new ArrayList<>();
         HashMap<String, Person> hashMapPeople = new HashMap<>();
         //Cargar info
+
         try {
             loadFileToListMarket(peopleList, filePathMarket);
             Person.loadHashmaps(hashMapPeople, peopleList);
@@ -24,8 +26,10 @@ public class Main {
             return;
         }
         //Menu
-        chooseOptionMenu1(teams, hashMapPeople, peopleList, filePathMarket, filePathTeam);
+
+        chooseOptionMenu1(teams, hashMapPeople, peopleList);
         //Guardar Info
+
         try {
             loadListToFileMarket(peopleList, filePathMarket);
             loadListToFileTeam(teams, filePathTeam);
@@ -34,7 +38,7 @@ public class Main {
         }
     }
 
-    private static void chooseOptionMenu1(ArrayList<Team> teams, HashMap<String, Person> hashMapPeople, ArrayList<Person> peopleList, String filePathMarket, String filePathTeam) {
+    private static void chooseOptionMenu1(ArrayList<Team> teams, HashMap<String, Person> hashMapPeople, ArrayList<Person> peopleList) {
         Scanner scanner = new Scanner(System.in);
         int option;
         boolean loop = false;
@@ -75,7 +79,7 @@ public class Main {
         sc.nextLine();
 
         switch (option) {
-            case 0 -> chooseOptionMenu1(new ArrayList<>(),new HashMap<>(), new ArrayList<>(),"","");
+            case 0 -> chooseOptionMenu1(new ArrayList<>(),new HashMap<>(), new ArrayList<>());
             case 1 -> Team.deregisterTeam(teams, sc);
             case 2 -> Person.modifyPresident(teams, sc);
             case 3 -> Coach.dismissCoach(teams, sc);
@@ -127,7 +131,7 @@ public class Main {
         sc.nextLine();
 
         switch (option) {
-            case 0 -> chooseOptionMenu1(listTeam, hashPersons, listPersons, "","");
+            case 0 -> chooseOptionMenu1(listTeam, hashPersons, listPersons);
             case 1 -> transferPlayerOrCoach(listTeam);
             case 2 -> conductTrainingSession(hashPersons, listPersons);
             default -> System.out.println("❌ Invalid option. Please try again.");
@@ -214,19 +218,15 @@ public class Main {
                 System.out.println("💰 Annual Salary: " + team.getOwner().getAnualSalary());
 
                 System.out.println("🎽 Players:");
-                for (Person p : team.getPlayers()) {
-                    if (p instanceof Player) {
-                        Player player = (Player) p;
-                        // Filtrar jugadores con datos nulos o inválidos
-                        if (player.getName() != null && !player.getName().isEmpty() &&
-                                player.getSurName() != null && !player.getSurName().isEmpty() &&
-                                player.getPosition() != null && !player.getPosition().isEmpty()) {
-                            System.out.println("   - " + player.getName() + " " + player.getSurName() +
-                                    " | Position: " + player.getPosition() +
-                                    " | Quality Points: " + player.getCualityPoints() +
-                                    " | Motivation: " + player.getMotivation() +
-                                    " | Salary: " + player.getAnualSalary());
-                        }
+                for (Person person : team.getPlayers()) {
+                    if (person instanceof Player player) {
+                            System.out.printf("   - %s %s | Position: %s | Quality: %d | Motivation: %d | Salary: %d%n",
+                                    player.getName(),
+                                    player.getSurName(),
+                                    player.getPosition(),
+                                    player.getCualityPoints(),
+                                    player.getMotivation(),
+                                    player.getAnualSalary());
                     }
                 }
 

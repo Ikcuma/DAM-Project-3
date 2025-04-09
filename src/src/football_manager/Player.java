@@ -99,11 +99,7 @@ public class Player extends Person {
                 ", position='" + this.position +
                 "', cualityPoints=" + this.cualityPoints + "}";
     }
-    public static String extractPlayerData(String data) {
-        Pattern pattern = Pattern.compile("Player\\{[^}]+\\}");
-        Matcher matcher = pattern.matcher(data);
-        return matcher.find() ? matcher.group(0) : "";
-    }
+
 
     public static Player parse(String data) {
         if (data.isEmpty()) {
