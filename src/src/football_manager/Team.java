@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
 
+import static football_manager.Main.capitalizeFirstLetterNames;
+
 
 public class Team {
     private String name;
@@ -92,14 +94,19 @@ public class Team {
         return null;
     }
 
-    public String toFileFormat(){
+    public String toFileFormat() {
         StringBuilder sb = new StringBuilder();
 
         sb.append(this.name).append(";")
                 .append(this.birthDate).append(";")
                 .append(this.city).append(";");
 
-        sb.append(coach.toFileFormatTeam()).append(";");
+        // Manejar coach null
+        if (coach != null) {
+            sb.append(coach.toFileFormatTeam()).append(";");
+        } else {
+            sb.append("null;");
+        }
 
         sb.append(owner.toFileFormatTeam()).append(";");
 
@@ -107,7 +114,10 @@ public class Team {
             sb.append(player.toFileFormatTeam()).append(";");
         }
 
-        sb.deleteCharAt(sb.length() - 1);
+        // Eliminar el último ";" si hay elementos
+        if (!players.isEmpty()) {
+            sb.deleteCharAt(sb.length() - 1);
+        }
 
         return sb.toString();
     }
@@ -115,7 +125,7 @@ public class Team {
     public static void registerTeam(HashMap<String, Person> hashMapPeople, ArrayList<Team> teams) {
         Scanner sc = new Scanner(System.in);
         System.out.println("What would be the name of the team?");
-        String teamName = sc.nextLine();
+        String teamName = capitalizeFirstLetterNames(sc.nextLine());
         System.out.println("What would be the birth date of the team?");
         String birthDate = sc.nextLine();
 

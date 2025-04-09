@@ -8,23 +8,33 @@ import java.util.regex.Pattern;
 public class Main {
 
     public static void main(String[] args) {
-
+        //Variables
+        String filePathTeam = "resources/team_files.txt";
+        String filePathMarket = "resources/market_files.txt";
         ArrayList<Person> peopleList = new ArrayList<>();
         ArrayList<Team> teams = new ArrayList<>();
         HashMap<String, Person> hashMapPeople = new HashMap<>();
-
+        //Cargar info
         try {
-            loadFileToListMarket(peopleList);
+            loadFileToListMarket(peopleList, filePathMarket);
             Person.loadHashmaps(hashMapPeople, peopleList);
-            loadFileToListTeam(teams);
+            loadFileToListTeam(teams, filePathTeam);
         } catch (IOException e) {
             System.err.println("❌ Error loading data: " + e.getMessage());
             return;
         }
-        chooseOptionMenu1(teams, hashMapPeople, peopleList);
+        //Menu
+        chooseOptionMenu1(teams, hashMapPeople, peopleList, filePathMarket, filePathTeam);
+        //Guardar Info
+        try {
+            loadListToFileMarket(peopleList, filePathMarket);
+            loadListToFileTeam(teams, filePathTeam);
+        } catch (IOException e) {
+            System.err.println("❌ Error saving data: " + e.getMessage());
+        }
     }
 
-    private static void chooseOptionMenu1(ArrayList<Team> teams, HashMap<String, Person> hashMapPeople, ArrayList<Person> peopleList) {
+    private static void chooseOptionMenu1(ArrayList<Team> teams, HashMap<String, Person> hashMapPeople, ArrayList<Person> peopleList, String filePathMarket, String filePathTeam) {
         Scanner scanner = new Scanner(System.in);
         int option;
         boolean loop = false;
@@ -34,15 +44,7 @@ public class Main {
             scanner.nextLine();
 
                 switch (option) {
-                    case 0 -> {
-                        try {
-                            loadListToFileMarket(peopleList);
-                            loadListToFileTeam(teams);
-                        } catch (IOException e) {
-                            System.err.println("❌ Error saving data: " + e.getMessage());
-                        }
-                        System.exit(0);
-                    }
+                    case 0 -> loop = true;
                     case 1 -> System.out.println("\n🏆 View current league standings 🏆");
                     case 2 -> manageTeamMenu(teams);
                     case 3 -> Team.registerTeam(hashMapPeople, teams);
@@ -54,7 +56,6 @@ public class Main {
                 }
             }while (!loop);
     }
-// comprobar si lee bien lo de esa classe porque es polimorfismo
     public static void conductTrainingSession(HashMap<String, Person> hashPersons, ArrayList<Person> listPersons) {
         for (Person p : listPersons){
             if(p instanceof Coach){
@@ -74,7 +75,7 @@ public class Main {
         sc.nextLine();
 
         switch (option) {
-            case 0 -> chooseOptionMenu1(new ArrayList<>(),new HashMap<>(), new ArrayList<>());
+            case 0 -> chooseOptionMenu1(new ArrayList<>(),new HashMap<>(), new ArrayList<>(),"","");
             case 1 -> Team.deregisterTeam(teams, sc);
             case 2 -> Person.modifyPresident(teams, sc);
             case 3 -> Coach.dismissCoach(teams, sc);
@@ -126,7 +127,7 @@ public class Main {
         sc.nextLine();
 
         switch (option) {
-            case 0 -> chooseOptionMenu1(listTeam, hashPersons, listPersons);
+            case 0 -> chooseOptionMenu1(listTeam, hashPersons, listPersons, "","");
             case 1 -> transferPlayerOrCoach(listTeam);
             case 2 -> conductTrainingSession(hashPersons, listPersons);
             default -> System.out.println("❌ Invalid option. Please try again.");
@@ -196,8 +197,8 @@ public class Main {
             } else {
                 System.out.println("No coach found in team '" + fromTeamName + "'.");
             }
-        } else {
-            System.out.println("Invalid choice. Please enter 'player' or 'coach'.");
+        }  else {
+            System.out.println("No coach found in team '" + fromTeamName + "'.");
         }
     }
 
@@ -282,15 +283,8 @@ public class Main {
         System.out.print("Choose an option: ");
     }
 
-    public static String capitalizeFirstLetterNames(String name) {
-        if (name == null || name.isEmpty()) {
-            return name;
-        }
-        return name.substring(0, 1).toUpperCase() + name.substring(1).toLowerCase();
-    }
+    private static void loadListToFileTeam(ArrayList<Team> teams,String filePath) throws IOException {
 
-    private static void loadListToFileTeam(ArrayList<Team> teams) throws IOException {
-        String filePath = "C:\\Users\\dunkl\\IdeaProjects\\DAM-Project-3\\src\\src\\football_manager\\resources\\team_files.txt";
         try (BufferedWriter w = new BufferedWriter(new FileWriter(filePath))) {
             for (Team t : teams) {
 
@@ -314,45 +308,56 @@ public class Main {
         }
     }
 
-    private static void loadFileToListMarket(ArrayList<Person> peopleList)throws IOException{
-        String filePath = "C:\\Users\\dunkl\\IdeaProjects\\DAM-Project-3\\src\\src\\football_manager\\resources\\market_files.txt";
-        ArrayList<String> brutePersonData = new ArrayList<String>();
+    private static void loadFileToListMarket(ArrayList<Person> peopleList, String filePath) throws IOException {
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             String line;
             while ((line = reader.readLine()) != null) {
-                brutePersonData.add(line);
-            }
-        }
-        for (String personLine : brutePersonData) {
-            String[] personData = personLine.split(";");
-            if (personData.length >= 6) {
-                if (personData[0].equals("J")) {
-                    Person player = new Player(personData[1], personData[2], personData[3], Integer.parseInt(personData[4]),
-                            Integer.parseInt(personData[5]), Integer.parseInt(personData[6]), personData[7], Integer.parseInt(personData[8]));
-                    peopleList.add(player);
-                } else if (personData[0].equals("E")) {
-                    if (personData.length >= 8) {
-                        Person coach = new Coach(personData[1], personData[2], personData[3], Integer.parseInt(personData[4]),
-                                Integer.parseInt(personData[5]), Integer.parseInt(personData[6]), Boolean.parseBoolean(personData[7]));
-                        peopleList.add(coach);
-                    }
-                } else if (personData[0].equals("O")) {
-                    if (personData.length >= 6) {
-                        Person owner = new Person(personData[1], personData[2], personData[3],
-                                Integer.parseInt(personData[4]), Integer.parseInt(personData[5]));
-                        peopleList.add(owner);
-                    }
+                String[] personData = line.split(";");
+                if (personData.length < 6) {
+                    System.out.println("Línea inválida (menos de 6 campos): " + line);
                 }
-            } else {
-                System.out.println("Línea inválida (menos de 6 campos): " + personLine);
+                try {
+                    switch (personData[0]) {
+                        case "J":
+                            if (personData.length >= 9) {
+                                Player player = new Player(
+                                        personData[1], personData[2], personData[3],
+                                        Integer.parseInt(personData[4]), Integer.parseInt(personData[5]),
+                                        Integer.parseInt(personData[6]), personData[7], Integer.parseInt(personData[8])
+                                );
+                                peopleList.add(player);
+                            }
+                            break;
+                        case "E":
+                            if (personData.length >= 8) {
+                                Coach coach = new Coach(
+                                        personData[1], personData[2], personData[3],
+                                        Integer.parseInt(personData[4]), Integer.parseInt(personData[5]),
+                                        Integer.parseInt(personData[6]), Boolean.parseBoolean(personData[7])
+                                );
+                                peopleList.add(coach);
+                            }
+                            break;
+                        case "O":
+                            if (personData.length >= 6) {
+                                Person owner = new Person(
+                                        personData[1], personData[2], personData[3],
+                                        Integer.parseInt(personData[4]), Integer.parseInt(personData[5])
+                                );
+                                peopleList.add(owner);
+                            }
+                            break;
+
+                        default:
+                            System.out.println("Tipo de persona no reconocido: " + personData[0]);
+                    }
+                } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
+                    System.out.println("Error al procesar la línea: " + line + " - " + e.getMessage());
+                }
             }
         }
-        System.out.println(peopleList);
     }
-
-    //test
-    public static void loadListToFileMarket(ArrayList<Person> peopleList) throws IOException {
-        String filePath = "/Users/CEP-MATI/Desktop/DAM-Project-3/src/src/football_manager/resources/market_files.txt";
+    public static void loadListToFileMarket(ArrayList<Person> peopleList, String filePath) throws IOException {
         try(BufferedWriter w = new BufferedWriter(new FileWriter(filePath))){
             for (Person p : peopleList) {
                 w.write(p.toFileFormat());
@@ -361,9 +366,7 @@ public class Main {
             System.out.println("✅ Team data saved successfully!");
         }
     }
-
-    public static void loadFileToListTeam(ArrayList<Team> teams) throws IOException {
-        String filePath = "C:\\Users\\dunkl\\IdeaProjects\\DAM-Project-3\\src\\src\\football_manager\\resources\\team_files.txt";
+    public static void loadFileToListTeam(ArrayList<Team> teams, String filePath) throws IOException {
         ArrayList<String> bruteTeamData = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             String line;
@@ -385,17 +388,25 @@ public class Main {
             String rest = parts[3];
 
 
-            Person coach = Coach.parse(Coach.extractCoachData(rest));
+            Person coach = null;
+            String coachData = Coach.extractCoachData(rest);
+            if (!coachData.equals("null") && !coachData.isEmpty()) {
+                coach = Coach.parse(coachData);
+            }
+
             Person owner = Person.parse(Person.extractPersonData(rest));
 
-            if (coach == null || owner == null) {
-                System.out.println("Error: Entrenador o dueño no válido para el equipo: " + teamName);
+            if (owner == null) {
+                System.out.println("Error: Dueño no válido para el equipo: " + teamName);
                 continue;
             }
 
-
             List<Person> teamPlayers = new ArrayList<>();
-            String playersData = rest.substring(Coach.extractCoachData(rest).length() + Person.extractPersonData(rest).length());
+            String playersData = rest.substring(
+                    Coach.extractCoachData(rest).length() +
+                            Person.extractPersonData(rest).length() + 2
+            );
+
             Matcher playerMatcher = Pattern.compile("Player\\{[^}]+\\}").matcher(playersData);
             while (playerMatcher.find()) {
                 Player player = Player.parse(playerMatcher.group());
@@ -413,6 +424,12 @@ public class Main {
                 System.out.println("Error: " + e.getMessage() + " para el equipo: " + teamName);
             }
         }
+    }
+    public static String capitalizeFirstLetterNames(String name) {
+        if (name == null || name.isEmpty()) {
+            return name;
+        }
+        return name.substring(0, 1).toUpperCase() + name.substring(1).toLowerCase();
     }
 }
 

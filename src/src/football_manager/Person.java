@@ -52,9 +52,7 @@ public class Person {
     }
 
     // Methods
-    public void train() {
-
-    }
+    public void train() {}
 
     public static void createNewPerson(String option, HashMap<String, Person> hashPersons, ArrayList<Person> listPersons) {
         Scanner scanner = new Scanner(System.in);
@@ -124,9 +122,7 @@ public class Person {
             System.out.println("\u001B[31m❌ Error: Invalid option! Please choose 'Player', 'Coach', or 'Owner'.\u001B[0m");
         }
     }
-    public void printPersonData(){
-
-    }
+    public void printPersonData(){}
 
     public static int validateIntegerInput(Scanner scanner) {
         while (true) {
