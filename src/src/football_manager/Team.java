@@ -51,6 +51,8 @@ public class Team {
         return (coach instanceof Coach) ? (Coach) coach : null;
     }
 
+    //public Person getCoach() {return this.coach;}
+
     public Person getOwner() {
         return owner;
     }
@@ -73,10 +75,6 @@ public class Team {
     }
 
     public void setCoach(Coach coach) {
-        if (coach == null) {
-            System.out.println("Error: Coach no válido para el equipo: " + this.name);
-            return;
-        }
         this.coach = coach;
     }
 
@@ -86,7 +84,6 @@ public class Team {
 
     // Methods
     public Player getSpecificPlayer(String player) {
-        Person newPlayer = null;
         for (Person p : players){
             if (p.getName().equals(player) && p instanceof Player) {
                 return (Player) p;

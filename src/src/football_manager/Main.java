@@ -187,8 +187,8 @@ public class Main {
             Coach coachToTransfer = fromTeam.getCoach();
 
             if (coachToTransfer != null) {
-                toTeam.setCoach(coachToTransfer);
                 fromTeam.setCoach(null);
+                toTeam.setCoach(coachToTransfer);
                 System.out.println("Coach has been transferred successfully.");
             } else {
                 System.out.println("No coach found in team '" + fromTeamName + "'.");
@@ -312,7 +312,7 @@ public class Main {
     }
 
     private static void loadFileToListMarket(ArrayList<Person> peopleList)throws IOException{
-        String filePath = "C:/Users/CEP-MATI/Desktop/DAM-Project-3/src/src/football_manager/resources/market_files.txt";
+        String filePath = "C:\\Users\\dunkl\\IdeaProjects\\DAM-Project-3\\src\\src\\football_manager\\resources\\market_files.txt";
         ArrayList<String> brutePersonData = new ArrayList<String>();
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             String line;
@@ -360,7 +360,7 @@ public class Main {
     }
 
     public static void loadFileToListTeam(ArrayList<Team> teams) throws IOException {
-        String filePath = "C:/Users/CEP-MATI/Desktop/DAM-Project-3/src/src/football_manager/resources/team_files.txt";
+        String filePath = "C:\\Users\\dunkl\\IdeaProjects\\DAM-Project-3\\src\\src\\football_manager\\resources\\team_files.txt";
         ArrayList<String> bruteTeamData = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             String line;
