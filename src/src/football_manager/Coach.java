@@ -1,8 +1,6 @@
 package football_manager;
 
-import java.io.*;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.util.regex.Matcher;
@@ -39,8 +37,12 @@ public class Coach extends Person {
 
     // Methods
     public void train() {
-            int newSalary = (int) (super.anualSalary * 1.05);
-            System.out.println("Salary increased for coach: " + super.name);
+        this.anualSalary = (int) (this.anualSalary * 1.05);
+
+        System.out.printf("🏆 %s %s trained! New salary: $%,d",
+                this.name,
+                this.surName,
+                this.anualSalary);
     }
 
     public void printPersonData() {

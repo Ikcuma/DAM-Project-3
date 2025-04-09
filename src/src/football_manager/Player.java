@@ -55,7 +55,6 @@ public class Player extends Person {
 
     //Methods
 
-
     public  void train() {
         String[] options = {"DEF", "MIG", "DAV", "POR"};
         Random random = new Random();
