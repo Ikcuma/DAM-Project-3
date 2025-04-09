@@ -51,8 +51,8 @@ public class Main {
                 default -> System.out.println("❌ Invalid option. Please try again.");
             }
     }
-
-    private static void conductTrainingSession(HashMap<String, Person> hashPersons, ArrayList<Person> listPersons) {
+// comprobar si lee bien lo de esa classe porque es polimorfismo
+    public static void conductTrainingSession(HashMap<String, Person> hashPersons, ArrayList<Person> listPersons) {
         for (Person p : listPersons){
             if(p instanceof Coach){
                 p.train();
@@ -97,8 +97,8 @@ public class Main {
         input = capitalizeFirstLetterNames(input);
         printTeamData(input, teams);
     }
-
-    private static void viewPersonDataMenu(HashMap<String, Person> hashPersons) {
+    // Comprobar que se lee bien las classes
+    public static void viewPersonDataMenu(HashMap<String, Person> hashPersons) {
         Scanner sc = new Scanner(System.in);
         System.out.println("\n👤 View Person Data 👤");
         System.out.println("=====================");
@@ -312,7 +312,7 @@ public class Main {
     }
 
     private static void loadFileToListMarket(ArrayList<Person> peopleList)throws IOException{
-        String filePath = "C:\\Users\\dunkl\\IdeaProjects\\DAM-Project-3\\src\\src\\football_manager\\resources\\market_files.txt";
+        String filePath = "C:/Users/CEP-MATI/Desktop/DAM-Project-3/src/src/football_manager/resources/market_files.txt";
         ArrayList<String> brutePersonData = new ArrayList<String>();
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             String line;
@@ -347,8 +347,9 @@ public class Main {
         System.out.println(peopleList);
     }
 
+    //test
     public static void loadListToFileMarket(ArrayList<Person> peopleList) throws IOException {
-        String filePath = "C:\\Users\\dunkl\\IdeaProjects\\DAM-Project-3\\src\\src\\football_manager\\resources\\market_files.txt";
+        String filePath = "/Users/CEP-MATI/Desktop/DAM-Project-3/src/src/football_manager/resources/market_files.txt";
         try(BufferedWriter w = new BufferedWriter(new FileWriter(filePath))){
             for (Person p : peopleList) {
                 w.write(p.toFileFormat());
@@ -359,7 +360,7 @@ public class Main {
     }
 
     public static void loadFileToListTeam(ArrayList<Team> teams) throws IOException {
-        String filePath = "C:\\Users\\dunkl\\IdeaProjects\\DAM-Project-3\\src\\src\\football_manager\\resources\\team_files.txt";
+        String filePath = "C:/Users/CEP-MATI/Desktop/DAM-Project-3/src/src/football_manager/resources/team_files.txt";
         ArrayList<String> bruteTeamData = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             String line;
