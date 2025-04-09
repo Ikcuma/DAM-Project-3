@@ -83,7 +83,7 @@ public class Person {
         if (option.equalsIgnoreCase("Player")) {
             System.out.println("\u001B[34m🔙 Back number:\u001B[0m");
             int back = validateIntegerInput(scanner);
-
+            scanner.nextLine();
             System.out.println("\u001B[34m⚽ Position (DAV, POR, DEF, MIG):\u001B[0m");
             String position = scanner.nextLine().toUpperCase();
 

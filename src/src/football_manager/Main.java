@@ -27,29 +27,32 @@ public class Main {
     private static void chooseOptionMenu1(ArrayList<Team> teams, HashMap<String, Person> hashMapPeople, ArrayList<Person> peopleList) {
         Scanner scanner = new Scanner(System.in);
         int option;
+        boolean loop = false;
+        do{
             printWelcome();
             option = scanner.nextInt();
             scanner.nextLine();
 
-            switch (option) {
-                case 0 -> {
-                    try {
-                        loadListToFileMarket(peopleList);
-                        loadListToFileTeam(teams);
-                    } catch (IOException e) {
-                        System.err.println("❌ Error saving data: " + e.getMessage());
+                switch (option) {
+                    case 0 -> {
+                        try {
+                            loadListToFileMarket(peopleList);
+                            loadListToFileTeam(teams);
+                        } catch (IOException e) {
+                            System.err.println("❌ Error saving data: " + e.getMessage());
+                        }
+                        System.exit(0);
                     }
-                    System.exit(0);
+                    case 1 -> System.out.println("\n🏆 View current league standings 🏆");
+                    case 2 -> manageTeamMenu(teams);
+                    case 3 -> Team.registerTeam(hashMapPeople, teams);
+                    case 4 -> createNewPersonMenu(hashMapPeople, peopleList);
+                    case 5 -> viewTeamDataMenu(teams);
+                    case 6 -> viewPersonDataMenu(hashMapPeople);
+                    case 7 -> manageMarketMenu(teams, peopleList, hashMapPeople);
+                    default -> System.out.println("❌ Invalid option. Please try again.");
                 }
-                case 1 -> System.out.println("\n🏆 View current league standings 🏆");
-                case 2 -> manageTeamMenu(teams);
-                case 3 -> Team.registerTeam(hashMapPeople, teams);
-                case 4 -> createNewPersonMenu(hashMapPeople, peopleList);
-                case 5 -> viewTeamDataMenu(teams);
-                case 6 -> viewPersonDataMenu(hashMapPeople);
-                case 7 -> manageMarketMenu(teams, peopleList, hashMapPeople);
-                default -> System.out.println("❌ Invalid option. Please try again.");
-            }
+            }while (!loop);
     }
 // comprobar si lee bien lo de esa classe porque es polimorfismo
     public static void conductTrainingSession(HashMap<String, Person> hashPersons, ArrayList<Person> listPersons) {
