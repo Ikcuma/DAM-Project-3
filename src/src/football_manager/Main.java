@@ -73,18 +73,21 @@ public class Main {
     }
 
     private static void manageTeamMenu(ArrayList<Team> teams) {
+        Boolean exit = false;
         Scanner sc = new Scanner(System.in);
         printManageTeam();
         int option = sc.nextInt();
         sc.nextLine();
-
-        switch (option) {
-            case 0 -> chooseOptionMenu1(new ArrayList<>(),new HashMap<>(), new ArrayList<>());
-            case 1 -> Team.deregisterTeam(teams, sc);
-            case 2 -> Person.modifyPresident(teams, sc);
-            case 3 -> Coach.dismissCoach(teams, sc);
-            default -> System.out.println("❌ Invalid option. Please try again.");
-        }
+        do {
+            switch (option) {
+                case 0 -> exit = true;
+                case 1 -> Team.deregisterTeam(teams, sc);
+                case 2 -> Person.modifyPresident(teams, sc);
+                case 3 -> Coach.dismissCoach(teams, sc);
+                default -> System.out.println("❌ Invalid option. Please try again.");
+            }
+        }while(!exit);
+        chooseOptionMenu1(new ArrayList<>(),new HashMap<>(), new ArrayList<>());
     }
 
     private static void createNewPersonMenu(HashMap<String, Person> hashPersons, ArrayList<Person> peopleList) {
@@ -125,18 +128,20 @@ public class Main {
     }
 
     private static void manageMarketMenu(ArrayList<Team> listTeam, ArrayList<Person> listPersons, HashMap<String, Person> hashPersons) {
+        Boolean exit = false;
         Scanner sc = new Scanner(System.in);
         printTraining();
         int option = sc.nextInt();
         sc.nextLine();
-
-        switch (option) {
-            case 0 -> chooseOptionMenu1(listTeam, hashPersons, listPersons);
-            case 1 -> transferPlayerOrCoach(listTeam);
-            case 2 -> conductTrainingSession(hashPersons, listPersons);
-            default -> System.out.println("❌ Invalid option. Please try again.");
-        }
-
+        do{
+            switch (option) {
+                case 0 -> exit = true;
+                case 1 -> transferPlayerOrCoach(listTeam);
+                case 2 -> conductTrainingSession(hashPersons, listPersons);
+                default -> System.out.println("❌ Invalid option. Please try again.");
+            }
+        }while(!exit);
+        chooseOptionMenu1(listTeam, hashPersons, listPersons);
     }
 
     public static void transferPlayerOrCoach(ArrayList<Team> teams) {
