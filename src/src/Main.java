@@ -1,4 +1,4 @@
-package football_manager;
+import football_manager.*;
 
 import java.io.*;
 import java.util.*;
@@ -6,7 +6,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Main {
-
+    private static League currentLeague = null;
     public static void main(String[] args) {
         //Variables
         Scanner sc = new Scanner(System.in);
@@ -38,26 +38,94 @@ public class Main {
         }
     }
 
-    private static void chooseOptionMenu1(ArrayList<Team> teams, HashMap<String, Person> hashMapPeople, ArrayList<Person> peopleList, Scanner sc) {
+    private static void chooseOptionMenu1(ArrayList<Team> teams, HashMap<String, Person> hashMapPeople,
+                                          ArrayList<Person> peopleList, Scanner sc) {
         int option;
         boolean exit = false;
-        do{
+        do {
             printWelcome();
             option = sc.nextInt();
             sc.nextLine();
 
-                switch (option) {
-                    case 0 -> exit = true;
-                    case 1 -> System.out.println("\n🏆 View current league standings 🏆");
-                    case 2 -> manageTeamMenu(teams, sc);
-                    case 3 -> Team.registerTeam(hashMapPeople, teams, sc);
-                    case 4 -> Person.createNewPersonMenu(hashMapPeople, peopleList, sc);
-                    case 5 -> viewTeamDataMenu(teams, sc);
-                    case 6 -> viewPersonDataMenu(hashMapPeople,sc);
-                    case 7 -> manageMarketMenu(teams, peopleList, hashMapPeople, sc);
-                    default -> System.out.println("❌ Invalid option. Please try again.");
+            switch (option) {
+                case 0 -> exit = true;
+                case 1 -> viewLeagueStandings();
+                case 2 -> manageTeamMenu(teams, peopleList, sc);
+                case 3 -> Team.registerTeam(hashMapPeople, teams, sc);
+                case 4 -> Person.createNewPersonMenu(hashMapPeople, peopleList, sc);
+                case 5 -> viewTeamDataMenu(teams, sc);
+                case 6 -> viewPersonDataMenu(hashMapPeople, sc);
+                case 7 -> manageLeagueMenu(teams, sc);
+                case 8 -> manageMarketMenu(teams, peopleList, hashMapPeople, sc);
+                case 9 -> transferPlayerOrCoach(teams);
+                default -> System.out.println("❌ Invalid option. Please try again.");
+            }
+        } while (!exit);
+    }
+    private static void manageLeagueMenu(ArrayList<Team> teams, Scanner sc) {
+        if (currentLeague == null) {
+            System.out.println("No active league. Would you like to create one? (yes/no)");
+            String response = sc.nextLine().trim().toLowerCase();
+            if (response.equals("yes")) {
+                currentLeague = League.createNewLeague(teams, sc);
+            } else {
+                return;
+            }
+        }
+
+        boolean exit = false;
+        do {
+            printLeagueMenu();
+            int option = sc.nextInt();
+            sc.nextLine();
+
+            switch (option) {
+                case 0 -> exit = true;
+                case 1 -> currentLeague.showStandings();
+                case 2 -> {
+                    currentLeague.playAllMatches();
+                    System.out.println("All matches have been played!");
                 }
-            }while (!exit);
+                case 3 -> currentLeague.showAllMatches();
+                case 4 -> currentLeague.showMatchResults();
+                case 5 -> {
+                    Team topScorer = currentLeague.getTeamWithMostGoalsFor();
+                    System.out.println("Top scoring team: " + topScorer.getName() +
+                            " with " + currentLeague.getGoalsFor(topScorer) + " goals");
+                }
+                case 6 -> {
+                    Team worstDefense = currentLeague.getTeamWithMostGoalsAgainst();
+                    System.out.println("Team with most goals conceded: " + worstDefense.getName() +
+                            " with " + currentLeague.getGoalsAgainst(worstDefense) + " goals");
+                }
+                case 7 -> {
+                    currentLeague = League.createNewLeague(teams, sc);
+                    System.out.println("New league created!");
+                }
+                default -> System.out.println("❌ Invalid option. Please try again.");
+            }
+        } while (!exit);
+    }
+    private static void viewLeagueStandings() {
+        if (currentLeague == null) {
+            System.out.println("No active league. Please create a new league first.");
+            return;
+        }
+        currentLeague.showStandings();
+    }
+
+    private static void printLeagueMenu() {
+        System.out.println("\n🏆 League Management 🏆");
+        System.out.println("======================");
+        System.out.println("1️⃣ - View Standings");
+        System.out.println("2️⃣ - Play All Matches");
+        System.out.println("3️⃣ - View All Matches");
+        System.out.println("4️⃣ - View Match Results");
+        System.out.println("5️⃣ - View Top Scoring Team");
+        System.out.println("6️⃣ - View Worst Defense");
+        System.out.println("0️⃣ - Back to Main Menu");
+        System.out.println("======================");
+        System.out.print("Choose an option: ");
     }
     private static void conductTrainingSession(HashMap<String, Person> hashPersons, ArrayList<Person> listPersons) {
         for (Person p : listPersons){
@@ -71,22 +139,24 @@ public class Main {
         }
     }
 
-    private static void manageTeamMenu(ArrayList<Team> teams, Scanner sc) {
+    private static void manageTeamMenu(ArrayList<Team> teams,ArrayList<Person> people, Scanner sc) {
         Boolean exit = false;
-        printManageTeam();
-        int option = sc.nextInt();
-        sc.nextLine();
         do {
+            printManageTeam();
+            int option = sc.nextInt();
+            sc.nextLine();
             switch (option) {
                 case 0 -> exit = true;
                 case 1 -> Team.deregisterTeam(teams, sc);
                 case 2 -> Person.modifyPresident(teams, sc);
                 case 3 -> Coach.dismissCoach(teams, sc);
+                case 4 -> addPersonToTeam(teams,people, sc);
                 default -> System.out.println("❌ Invalid option. Please try again.");
             }
         }while(!exit);
         //chooseOptionMenu1(new ArrayList<>(),new HashMap<>(), new ArrayList<>());
     }
+
 
     private static void viewTeamDataMenu(ArrayList<Team> teams,Scanner sc) {
         System.out.println("\n📊 View Team Data 📊");
@@ -116,10 +186,10 @@ public class Main {
 
     private static void manageMarketMenu(ArrayList<Team> listTeam, ArrayList<Person> listPersons, HashMap<String, Person> hashPersons,Scanner sc) {
         Boolean exit = false;
-        printTraining();
-        int option = sc.nextInt();
-        sc.nextLine();
         do{
+            printTraining();
+            int option = sc.nextInt();
+            sc.nextLine();
             switch (option) {
                 case 0 -> exit = true;
                 case 1 -> transferPlayerOrCoach(listTeam);
@@ -138,16 +208,16 @@ public class Main {
             System.out.println("Enter the name of the team from which you want to transfer:");
             String fromTeamName = sc.nextLine();
 
-            Team fromTeam = findFromTeam(teams, fromTeamName);
-            if(isNull(fromTeam, fromTeamName)==true){return;}
+            Team fromTeam = findTeam(teams, fromTeamName);
+            if(isNull(fromTeam)==true){return;}
 
 
 
             System.out.println("Enter the name of the team to which you want to transfer:");
             String toTeamName = sc.nextLine();
 
-            Team toTeam = findToTeam(teams, toTeamName);
-            if(isNull(toTeam, toTeamName)==true){return;}
+            Team toTeam = findTeam(teams, toTeamName);
+            if(isNull(toTeam)==true){return;}
 
 
         System.out.println("Are you transferring a player or a coach? (Enter 'player' or 'coach'):");
@@ -182,29 +252,35 @@ public class Main {
             System.out.println("No coach found in team '" + fromTeamName + "'.");
         }
     }
-    private static Boolean isNull(Team team, String name){
+    private static Boolean isNull(Team team){
         if (team == null) {
-            System.out.println("Team '" + name + "' not found.");
+            System.out.println("Equipo no encontrado vuelve a escribir");
+            return true;
+        }
+        return false;
+    }
+    private static Boolean isNull(Person person){
+        if (person == null){
             return true;
         }
         return false;
     }
 
-    private static Team findToTeam(ArrayList<Team> teams, String toTeamName) {
+    private static Team findTeam(ArrayList<Team> teams, String name) {
         for (Team team : teams) {
-            if (team.getName().equalsIgnoreCase(toTeamName)) {
+            if (team.getName().equalsIgnoreCase(name)) {
                 return team;
             }
         }
         return null;
     }
-
-    private static Team findFromTeam(ArrayList<Team> teams, String fromTeamName) {
-        for (Team team : teams) {
-            if (team.getName().equalsIgnoreCase(fromTeamName)) {
-                return team;
+    private static Person findPerson(ArrayList<Person> people, String name){
+        for (Person person : people) {
+            if (person.getName().equalsIgnoreCase(name)) {
+                return person;
             }
         }
+        System.out.println(name+" not found.");
         return null;
     }
 
@@ -255,6 +331,7 @@ public class Main {
         System.out.println("1️⃣ - Deregister team ❌");
         System.out.println("2️⃣ - Modify president 👔");
         System.out.println("3️⃣ - Dismiss coach 🛑");
+        System.out.println("4️⃣ - Add (Player | Coach | Owner) to team");
         System.out.println("0️⃣ - Exit 🚪");
         System.out.println("=================");
         System.out.print("Choose an option: ");
@@ -269,7 +346,9 @@ public class Main {
         System.out.println("4️⃣ - Register a new player, coach, or owner 👥");
         System.out.println("5️⃣ - View team data 📊");
         System.out.println("6️⃣ - View player or coach data 👤");
-        System.out.println("7️⃣ - Manage market ⚡...");
+        System.out.println("7️⃣ - Manage league 🏆...");
+        System.out.println("8️⃣ - Transfer market ⚡...");
+        System.out.println("9️⃣ - Transfer player");
         System.out.println("0️⃣ - Exit 🚪");
         System.out.println("============================================");
         System.out.print("Choose an option: ");
@@ -427,6 +506,66 @@ public class Main {
             }
         }
     }
+    private static void addPersonToTeam(ArrayList<Team> teams,ArrayList<Person> people, Scanner sc) {
+        Boolean exit = false;
+        String classChosed;
+        System.out.println("What team would you like to choose?");
+        String teamChosed = capitalizeFirstLetterNames(sc.nextLine());
+
+        Team team = findTeam(teams,teamChosed);
+        if (isNull(team) == true){
+            System.out.println("team not found try again");
+            return;
+        }
+
+        do {
+            System.out.println("What would you like to choose to add to the team?(Owner | Player | Coach)");
+            classChosed = capitalizeFirstLetterNames(sc.nextLine());
+            exit = verifyIfClassisNull(team, classChosed);
+        } while(!exit);
+
+
+        System.out.println("What is the name of your "+classChosed+"?");
+        String name = capitalizeFirstLetterNames(sc.nextLine());
+
+        Person person = findPerson(people,name);
+        if (classChosed.equals("Player") && isNull(team.getSpecificPlayer(name)) == false) {
+            System.out.println("Player already exists try another one");
+            return;
+        }
+
+        if (person instanceof Coach){
+            Coach c = (Coach) person;
+            team.setCoach(c);
+            System.out.println("Coach added succesfully");
+        } else if (person instanceof Player) {
+            Player p = (Player) person;
+            team.addSpecificPlayer(p);
+            System.out.println("Player added succesfully");
+        }else {
+            team.setOwner(person);
+            System.out.println("Owner added succesfully");
+        }
+    }
+
+    private static Boolean verifyIfClassisNull(Team team, String classChosed) {
+        switch (classChosed){
+            case "Owner" -> {if(isNull(team.getOwner()) == false){
+                System.out.println("The team Already have a owner");
+                return false;
+            }return true;}
+            case "Player" -> {return true;}
+            case "Coach" ->{if(isNull(team.getCoach()) == false){
+                System.out.println("The team Aleready have a Coach");
+                return false;
+            }return true;}
+            default -> {
+                System.out.println("Wrong input please try again");
+                return false;
+            }
+        }
+    }
+
     public static String capitalizeFirstLetterNames(String name) {
         if (name == null || name.isEmpty()) {
             return name;

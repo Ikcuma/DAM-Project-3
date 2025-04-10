@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
 
-import static football_manager.Main.capitalizeFirstLetterNames;
+import static football_manager.Person.capitalizeFirstLetterNames;
 
 
 public class Team {
@@ -29,6 +29,8 @@ public class Team {
         this.owner = owner;
         this.players = players;
     }
+
+
 
 
     // Getters
@@ -85,13 +87,17 @@ public class Team {
     }
 
     // Methods
-    public Player getSpecificPlayer(String player) {
+    public Player getSpecificPlayer(String name) {
         for (Person p : players){
-            if (p.getName().equals(player) && p instanceof Player) {
+            if (p.getName().equals(name) && p instanceof Player) {
                 return (Player) p;
             }
         }
         return null;
+    }
+    public void addSpecificPlayer(Player p) {
+        Person newPlayer = (Person) p;
+        this.players.add(newPlayer);
     }
 
     public String toFileFormat() {
@@ -200,4 +206,5 @@ public class Team {
             System.out.println("Team '" + teamName + "' not found.");
         }
     }
+
 }
