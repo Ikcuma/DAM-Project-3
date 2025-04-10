@@ -132,25 +132,23 @@ public class Main {
 
     public static void transferPlayerOrCoach(ArrayList<Team> teams) {
         Scanner sc = new Scanner(System.in);
-        System.out.println("Enter the name of the team from which you want to transfer:");
-        String fromTeamName = sc.nextLine();
 
-        Team fromTeam = findFromTeam(teams,fromTeamName);
 
-        if (fromTeam == null) {
-            System.out.println("Team '" + fromTeamName + "' not found.");
-            return;
-        }
 
-        System.out.println("Enter the name of the team to which you want to transfer:");
-        String toTeamName = sc.nextLine();
+            System.out.println("Enter the name of the team from which you want to transfer:");
+            String fromTeamName = sc.nextLine();
 
-        Team toTeam = findToTeam(teams,toTeamName);
+            Team fromTeam = findFromTeam(teams, fromTeamName);
+            if(isNull(fromTeam, fromTeamName)==true){return;}
 
-        if (toTeam == null) {
-            System.out.println("Team '" + toTeamName + "' not found.");
-            return;
-        }
+
+
+            System.out.println("Enter the name of the team to which you want to transfer:");
+            String toTeamName = sc.nextLine();
+
+            Team toTeam = findToTeam(teams, toTeamName);
+            if(isNull(toTeam, toTeamName)==true){return;}
+
 
         System.out.println("Are you transferring a player or a coach? (Enter 'player' or 'coach'):");
         String choice = sc.nextLine().trim().toLowerCase();
@@ -180,9 +178,16 @@ public class Main {
             } else {
                 System.out.println("No coach found in team '" + fromTeamName + "'.");
             }
-        }  else {
+        } else {
             System.out.println("No coach found in team '" + fromTeamName + "'.");
         }
+    }
+    private static Boolean isNull(Team team, String name){
+        if (team == null) {
+            System.out.println("Team '" + name + "' not found.");
+            return true;
+        }
+        return false;
     }
 
     private static Team findToTeam(ArrayList<Team> teams, String toTeamName) {
@@ -191,6 +196,7 @@ public class Main {
                 return team;
             }
         }
+        return null;
     }
 
     private static Team findFromTeam(ArrayList<Team> teams, String fromTeamName) {
@@ -199,6 +205,7 @@ public class Main {
                 return team;
             }
         }
+        return null;
     }
 
     public static void printTeamData(String teamName, ArrayList<Team> teams) {
