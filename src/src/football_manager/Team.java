@@ -122,8 +122,7 @@ public class Team {
         return sb.toString();
     }
 
-    public static void registerTeam(HashMap<String, Person> hashMapPeople, ArrayList<Team> teams) {
-        Scanner sc = new Scanner(System.in);
+    public static void registerTeam(HashMap<String, Person> hashMapPeople, ArrayList<Team> teams, Scanner sc) {
         System.out.println("What would be the name of the team?");
         String teamName = capitalizeFirstLetterNames(sc.nextLine());
         System.out.println("What would be the birth date of the team?");

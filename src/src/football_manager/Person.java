@@ -220,6 +220,13 @@ public class Person {
         }
         return null;
     }
+    public static void createNewPersonMenu(HashMap<String, Person> hashPersons, ArrayList<Person> peopleList, Scanner sc) {
+        System.out.println("\n👤 Register a New Person 👤");
+        System.out.println("=========================");
+        System.out.println("Choose between Player, Coach, and Owner:");
+        String optionPCO = capitalizeFirstLetterNames(sc.nextLine());
+        Person.createNewPerson(optionPCO, hashPersons, peopleList);
+    }
 
 
     @Override

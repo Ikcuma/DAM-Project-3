@@ -9,7 +9,7 @@ public class Main {
 
     public static void main(String[] args) {
         //Variables
-
+        Scanner sc = new Scanner(System.in);
         String filePathTeam = "resources/team_files.txt";
         String filePathMarket = "resources/market_files.txt";
         ArrayList<Person> peopleList = new ArrayList<>();
@@ -27,7 +27,7 @@ public class Main {
         }
         //Menu
 
-        chooseOptionMenu1(teams, hashMapPeople, peopleList);
+        chooseOptionMenu1(teams, hashMapPeople, peopleList,sc);
         //Guardar Info
 
         try {
@@ -38,29 +38,28 @@ public class Main {
         }
     }
 
-    private static void chooseOptionMenu1(ArrayList<Team> teams, HashMap<String, Person> hashMapPeople, ArrayList<Person> peopleList) {
-        Scanner scanner = new Scanner(System.in);
+    private static void chooseOptionMenu1(ArrayList<Team> teams, HashMap<String, Person> hashMapPeople, ArrayList<Person> peopleList, Scanner sc) {
         int option;
-        boolean loop = false;
+        boolean exit = false;
         do{
             printWelcome();
-            option = scanner.nextInt();
-            scanner.nextLine();
+            option = sc.nextInt();
+            sc.nextLine();
 
                 switch (option) {
-                    case 0 -> loop = true;
+                    case 0 -> exit = true;
                     case 1 -> System.out.println("\n🏆 View current league standings 🏆");
-                    case 2 -> manageTeamMenu(teams);
-                    case 3 -> Team.registerTeam(hashMapPeople, teams);
-                    case 4 -> createNewPersonMenu(hashMapPeople, peopleList);
-                    case 5 -> viewTeamDataMenu(teams);
-                    case 6 -> viewPersonDataMenu(hashMapPeople);
-                    case 7 -> manageMarketMenu(teams, peopleList, hashMapPeople);
+                    case 2 -> manageTeamMenu(teams, sc);
+                    case 3 -> Team.registerTeam(hashMapPeople, teams, sc);
+                    case 4 -> Person.createNewPersonMenu(hashMapPeople, peopleList, sc);
+                    case 5 -> viewTeamDataMenu(teams, sc);
+                    case 6 -> viewPersonDataMenu(hashMapPeople,sc);
+                    case 7 -> manageMarketMenu(teams, peopleList, hashMapPeople, sc);
                     default -> System.out.println("❌ Invalid option. Please try again.");
                 }
-            }while (!loop);
+            }while (!exit);
     }
-    public static void conductTrainingSession(HashMap<String, Person> hashPersons, ArrayList<Person> listPersons) {
+    private static void conductTrainingSession(HashMap<String, Person> hashPersons, ArrayList<Person> listPersons) {
         for (Person p : listPersons){
             if(p instanceof Coach){
                 p.train();
@@ -72,9 +71,8 @@ public class Main {
         }
     }
 
-    private static void manageTeamMenu(ArrayList<Team> teams) {
+    private static void manageTeamMenu(ArrayList<Team> teams, Scanner sc) {
         Boolean exit = false;
-        Scanner sc = new Scanner(System.in);
         printManageTeam();
         int option = sc.nextInt();
         sc.nextLine();
@@ -87,20 +85,10 @@ public class Main {
                 default -> System.out.println("❌ Invalid option. Please try again.");
             }
         }while(!exit);
-        chooseOptionMenu1(new ArrayList<>(),new HashMap<>(), new ArrayList<>());
+        //chooseOptionMenu1(new ArrayList<>(),new HashMap<>(), new ArrayList<>());
     }
 
-    private static void createNewPersonMenu(HashMap<String, Person> hashPersons, ArrayList<Person> peopleList) {
-        Scanner sc = new Scanner(System.in);
-        System.out.println("\n👤 Register a New Person 👤");
-        System.out.println("=========================");
-        System.out.println("Choose between Player, Coach, and Owner:");
-        String optionPCO = capitalizeFirstLetterNames(sc.nextLine());
-        Person.createNewPerson(optionPCO, hashPersons, peopleList);
-    }
-
-    private static void viewTeamDataMenu(ArrayList<Team> teams) {
-        Scanner sc = new Scanner(System.in);
+    private static void viewTeamDataMenu(ArrayList<Team> teams,Scanner sc) {
         System.out.println("\n📊 View Team Data 📊");
         System.out.println("===================");
         System.out.println("Enter the name of the team you want to check:");
@@ -109,8 +97,7 @@ public class Main {
         printTeamData(input, teams);
     }
     // Comprobar que se lee bien las classes
-    public static void viewPersonDataMenu(HashMap<String, Person> hashPersons) {
-        Scanner sc = new Scanner(System.in);
+    private static void viewPersonDataMenu(HashMap<String, Person> hashPersons, Scanner sc) {
         System.out.println("\n👤 View Person Data 👤");
         System.out.println("=====================");
         System.out.println("Enter 'Player' or 'Coach' to view their data:");
@@ -127,9 +114,8 @@ public class Main {
         }
     }
 
-    private static void manageMarketMenu(ArrayList<Team> listTeam, ArrayList<Person> listPersons, HashMap<String, Person> hashPersons) {
+    private static void manageMarketMenu(ArrayList<Team> listTeam, ArrayList<Person> listPersons, HashMap<String, Person> hashPersons,Scanner sc) {
         Boolean exit = false;
-        Scanner sc = new Scanner(System.in);
         printTraining();
         int option = sc.nextInt();
         sc.nextLine();
@@ -141,7 +127,7 @@ public class Main {
                 default -> System.out.println("❌ Invalid option. Please try again.");
             }
         }while(!exit);
-        chooseOptionMenu1(listTeam, hashPersons, listPersons);
+        //chooseOptionMenu1(listTeam, hashPersons, listPersons);
     }
 
     public static void transferPlayerOrCoach(ArrayList<Team> teams) {
@@ -149,13 +135,7 @@ public class Main {
         System.out.println("Enter the name of the team from which you want to transfer:");
         String fromTeamName = sc.nextLine();
 
-        Team fromTeam = null;
-        for (Team team : teams) {
-            if (team.getName().equalsIgnoreCase(fromTeamName)) {
-                fromTeam = team;
-                break;
-            }
-        }
+        Team fromTeam = findFromTeam(teams,fromTeamName);
 
         if (fromTeam == null) {
             System.out.println("Team '" + fromTeamName + "' not found.");
@@ -165,13 +145,7 @@ public class Main {
         System.out.println("Enter the name of the team to which you want to transfer:");
         String toTeamName = sc.nextLine();
 
-        Team toTeam = null;
-        for (Team team : teams) {
-            if (team.getName().equalsIgnoreCase(toTeamName)) {
-                toTeam = team;
-                break;
-            }
-        }
+        Team toTeam = findToTeam(teams,toTeamName);
 
         if (toTeam == null) {
             System.out.println("Team '" + toTeamName + "' not found.");
@@ -208,6 +182,22 @@ public class Main {
             }
         }  else {
             System.out.println("No coach found in team '" + fromTeamName + "'.");
+        }
+    }
+
+    private static Team findToTeam(ArrayList<Team> teams, String toTeamName) {
+        for (Team team : teams) {
+            if (team.getName().equalsIgnoreCase(toTeamName)) {
+                return team;
+            }
+        }
+    }
+
+    private static Team findFromTeam(ArrayList<Team> teams, String fromTeamName) {
+        for (Team team : teams) {
+            if (team.getName().equalsIgnoreCase(fromTeamName)) {
+                return team;
+            }
         }
     }
 
