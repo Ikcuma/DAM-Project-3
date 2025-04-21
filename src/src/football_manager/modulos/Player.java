@@ -3,9 +3,13 @@ package football_manager.modulos;
 
 import football_manager.controladores.Player_controller;
 
+import java.util.Comparator;
+import java.util.Objects;
 import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import static football_manager.controladores.Player_controller.printDuplicateError;
 
 
 public class Player extends Person {
@@ -22,6 +26,10 @@ public class Player extends Person {
         this.cualityPoints = cualityPoints;
     }
 
+    public Player(String name, int back) {
+        super(name, "", "", 0, 0);
+        this.back = back;
+    }
 
     //Getters
 
@@ -53,16 +61,55 @@ public class Player extends Person {
     }
 
     //Methods
-    public static void printPersonData(Player player){
-        Player_controller.printPersonData(player);
-    }
 
-    public void train() {
-        Player_controller.train(this);
+    public static boolean train(Player player) {
+        Random random = new Random();
+        String[] positions = {"DEF", "MIG", "DAV", "POR"};
+        String newPosition = positions[random.nextInt(positions.length)];
+
+        boolean shouldChange = Math.random() < 0.05;
+
+        if (shouldChange) {
+            player.setPosition(newPosition);
+        }
+
+        return shouldChange;
     }
 
     public static Player parse(String data) {
-        return Player_controller.parse(data);
+        if (data == null || data.isEmpty()) {
+            return null;
+        }
+
+        Pattern pattern = Pattern.compile(
+                "Player\\{name='(.*?)', surName='(.*?)', birthDay='(.*?)', motivation=(\\d+), anualSalary=(\\d+), back=(\\d+), position='(.*?)', cualityPoints=(\\d+)\\}"
+        );
+        Matcher matcher = pattern.matcher(data);
+
+        if (matcher.find()) {
+            String name = matcher.group(1);
+            String surName = matcher.group(2);
+            String birthDay = matcher.group(3);
+            String position = matcher.group(7);
+
+            if (name == null || name.isEmpty() || surName == null || surName.isEmpty() ||
+                    birthDay == null || birthDay.isEmpty() || position == null || position.isEmpty()) {
+                return null;
+            }
+
+            return new Player(
+                    name,
+                    surName,
+                    birthDay,
+                    Integer.parseInt(matcher.group(4)),
+                    Integer.parseInt(matcher.group(5)),
+                    Integer.parseInt(matcher.group(6)),
+                    position,
+                    Integer.parseInt(matcher.group(8))
+            );
+        }
+
+        return null;
     }
 
     public String toFileFormat() {
@@ -92,5 +139,20 @@ public class Player extends Person {
                 ", motivation=" + motivation +
                 ", anualSalary=" + anualSalary +
                 '}';
+    }
+
+    // equals() para comparar solo nombre y dorsal
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Player player = (Player) o;
+        return back == player.back && Objects.equals(name, player.name);
+    }
+
+    // hashCode() para generar un hashcode basado solo en nombre y dorsal
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, back);
     }
 }

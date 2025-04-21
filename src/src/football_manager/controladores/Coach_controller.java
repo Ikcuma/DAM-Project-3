@@ -8,18 +8,11 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Coach_controller {
-    public static void dismissCoach(ArrayList<Team> teams, Scanner scanner) {
+    public static void dismissCoach(ArrayList<Team> teams, Scanner sc) {
         System.out.println("Enter the name of the team whose coach you want to dismiss:");
-        String teamName = scanner.nextLine();
+        String teamName = sc.nextLine();
 
-        Team teamToModify = null;
-        for (Team team : teams) {
-            if (team.getName().equalsIgnoreCase(teamName)) {
-                teamToModify = team;
-                break;
-            }
-        }
-
+        Team teamToModify = Coach.findTeamByName(teams, teamName);
         if (teamToModify == null) {
             System.out.println("Team '" + teamName + "' not found.");
             return;
@@ -34,40 +27,22 @@ public class Coach_controller {
         System.out.println("Do you want to (1) Remove coach or (2) Replace coach?");
         int option;
         try {
-            option = scanner.nextInt();
-            scanner.nextLine();
+            option = sc.nextInt();
+            sc.nextLine();
         } catch (InputMismatchException e) {
             System.out.println("Invalid input. Please enter 1 or 2.");
-            scanner.nextLine();
+            sc.nextLine();
             return;
         }
 
-        if (option == 1) {
-
-            teamToModify.setCoach(null);
-            System.out.println("Coach has been dismissed from team '" + teamName + "'.");
-        } else if (option == 2) {
-
+        String newCoachName = null;
+        if (option == 2) {
             System.out.println("Enter the name of the new coach:");
-            String newCoachName = scanner.nextLine();
-
-            Coach newCoach = null;
-            for (Team team : teams) {
-                if (team.getCoach() != null && team.getCoach().getName().equalsIgnoreCase(newCoachName)) {
-                    newCoach = team.getCoach();
-                    break;
-                }
-            }
-
-            if (newCoach != null) {
-                teamToModify.setCoach(newCoach);
-                System.out.println("Coach of team '" + teamName + "' has been replaced with " + newCoach.getName());
-            } else {
-                System.out.println("Coach '" + newCoachName + "' not found in any team.");
-            }
-        } else {
-            System.out.println("Invalid option. Please choose 1 or 2.");
+            newCoachName = sc.nextLine();
         }
+
+        String result = Coach.dismissOrReplaceCoach(teams, teamName, option, newCoachName);
+        System.out.println(result);
     }
 
     public static void printPersonData(Coach coach) {
@@ -84,8 +59,8 @@ public class Coach_controller {
         System.out.println("════════════════════════════════════════════");
     }
 
-    public static void train(Coach coach) {
-        coach.setAnualSalary((int) (coach.getAnualSalary() * 1.05));
+    public void train(Coach coach) {
+        Coach.train(coach);
 
         System.out.printf("🏆 %s %s trained! New salary: $%,d\n",
                 coach.getName(),

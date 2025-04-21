@@ -3,9 +3,7 @@ package football_manager.modulos;
 
 import football_manager.controladores.Person_controller;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Scanner;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -59,6 +57,7 @@ public class Person {
     public void train() {
     }
 
+    // No se que hace aqui
     public void printPersonData() {
     }
 
@@ -113,15 +112,80 @@ public class Person {
                 '}';
     }
 
-    public static void createNewPersonMenu(HashMap<String, Person> hashPersons, ArrayList<Person> peopleList, Scanner sc) {
-        Person_controller.createNewPersonMenu(hashPersons, peopleList, sc);
+    public static void loadHashmaps(HashMap<String, Person> peopleHash, ArrayList<Person> peopleList) {
+        peopleList.forEach(person -> peopleHash.put(person.getName(), person));
     }
 
-    public static void loadHashmaps(HashMap<String, Person> peopleHash, ArrayList<Person> peopleList){
-        Person_controller.loadHashmaps(peopleHash, peopleList);
+    // Estos metodos son para el metodo modifypresident
+    // Método para buscar un equipo por nombre
+    public static Team findTeamByName(ArrayList<Team> teams, String teamName) {
+        for (Team team : teams) {
+            if (team.getName().equalsIgnoreCase(teamName)) {
+                return team;
+            }
+        }
+        return null; // Retorna null si no encuentra el equipo
     }
 
-    public static void modifyPresident(ArrayList<Team> teams, Scanner scanner){
-        Person_controller.modifyPresident(teams, scanner);
+    // Método para buscar un presidente por nombre en una lista de equipos
+    public static Person findPersonByName(ArrayList<Team> teams, String newPresidentName) {
+        for (Team team : teams) {
+            Person owner = team.getOwner();
+            if (owner.getName().equalsIgnoreCase(newPresidentName)) {
+                return owner;
+            }
+        }
+        return null; // Retorna null si no encuentra el presidente
+    }
+
+    // Método para actualizar el presidente de un equipo
+    public static boolean updatePresident(Team team, Person newPresident) {
+        if (team != null && newPresident != null) {
+            team.setOwner(newPresident); // Actualiza el presidente del equipo
+            return true; // Retorna true si la actualización fue exitosa
+        }
+        return false; // Retorna false si hubo un error
+    }
+
+
+
+
+
+
+
+
+
+    public static Person createPlayer(String name, String surname, String birthday, int motivation, int salary, int backNumber, String position) {
+        Random random = new Random();
+        int quality = random.nextInt(71) + 30;
+        return new Player(name, surname, birthday, motivation, salary, backNumber, position, quality);
+    }
+
+    public static Person createCoach(String name, String surname, String birthday, int motivation, int salary, int victories, boolean selectedForNational) {
+        return new Coach(name, surname, birthday, motivation, salary, victories, selectedForNational);
+    }
+
+    public static Person createOwner(String name, String surname, String birthday, int motivation, int salary) {
+        return new Person(name, surname, birthday, motivation, salary);
+    }
+
+    public static boolean isNameDuplicate(String name, HashMap<String, Person> hashPersons) {
+        return hashPersons.containsKey(name);
+    }
+
+    public static String capitalizeFirstLetterNames(String name) {
+        if (name.isEmpty()) return name;
+        return name.substring(0, 1).toUpperCase() + name.substring(1).toLowerCase();
+    }
+
+    public static int validateIntegerInput(Scanner scanner) {
+        while (true) {
+            try {
+                return scanner.nextInt();
+            } catch (InputMismatchException e) {
+                System.out.println("\u001B[31m\uD83D\uDEA8 Invalid input! Please enter a valid number.\u001B[0m");
+                scanner.next();
+            }
+        }
     }
 }

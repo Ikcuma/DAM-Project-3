@@ -132,11 +132,52 @@ public class Team {
         return sb.toString();
     }
 
-    public static void registerTeam(HashMap<String, Person> hashMapPeople, ArrayList<Team> teams, Scanner sc){
-        Team_controller.registerTeam(hashMapPeople, teams, sc);
+    public static boolean isCoach(Person person) {
+        return person instanceof Coach;
     }
 
-    public static void deregisterTeam(ArrayList<Team> teams, Scanner scanner){
-        Team_controller.deregisterTeam(teams, scanner);
+    public static Coach getCoachByName(HashMap<String, Person> people, String name) {
+        Person p = people.get(name);
+        if (p instanceof Coach) {
+            return (Coach) p;
+        }
+        return null;
+    }
+
+    public static Person getOwnerByName(HashMap<String, Person> people, String name) {
+        return people.get(name); // Puede ser cualquier tipo de Person
+    }
+
+    public static Person getPlayerByName(HashMap<String, Person> people, String name) {
+        return people.get(name); // También podría validar que sea instanceof Player si se desea
+    }
+
+    public static String capitalizeFirstLetterNames(String name) {
+        if (name == null || name.isEmpty()) return name;
+        String[] words = name.trim().split("\\s+");
+        StringBuilder result = new StringBuilder();
+        for (String word : words) {
+            result.append(Character.toUpperCase(word.charAt(0)))
+                    .append(word.substring(1).toLowerCase())
+                    .append(" ");
+        }
+        return result.toString().trim();
+    }
+
+    public static Team createTeam(String name, String birthDate, String city, Coach coach, Person owner, List<Person> players) {
+        return new Team(name, birthDate, city, coach, owner, players);
+    }
+
+    public static Team findTeamByName(ArrayList<Team> teams, String name) {
+        for (Team team : teams) {
+            if (team.getName().equalsIgnoreCase(name)) {
+                return team;
+            }
+        }
+        return null;
+    }
+
+    public static boolean removeTeam(ArrayList<Team> teams, Team team) {
+        return teams.remove(team);
     }
 }

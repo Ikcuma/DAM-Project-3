@@ -2,6 +2,7 @@ package football_manager.controladores;
 
 import football_manager.modulos.Player;
 
+import java.util.ArrayList;
 import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -23,55 +24,27 @@ public class Player_controller {
     }
 
     public static void train(Player player) {
-        String[] options = {"DEF", "MIG", "DAV", "POR"};
-        Random random = new Random();
+        boolean changed = Player.train(player);
 
-        int randomIndex = random.nextInt(options.length);
-        String newPosition = options[randomIndex];
-
-        boolean realiza = Math.random() < 0.05;
-
-        if (realiza) {
-            player.setPosition(newPosition);
-            System.out.println("El jugador " + player.getName() + " ha cambiado a la posición: " + newPosition);
+        if (changed) {
+            System.out.println("El jugador " + player.getName() + " ha cambiado a la posición: " + player.getPosition());
         } else {
             System.out.println("El jugador " + player.getName() + " ha entrenado pero no cambió de posición.");
         }
     }
 
-    public static Player parse(String data) {
-        if (data.isEmpty()) {
-            return null;
+    public static void parseAndAddPlayer(String data, ArrayList<Player> players) {
+        Player parsedPlayer = Player.parse(data);
+
+        if (parsedPlayer != null) {
+            players.add(parsedPlayer);
+            System.out.println("✅ Jugador añadido correctamente: " + parsedPlayer.getName());
+        } else {
+            System.out.println("❌ Error al analizar los datos del jugador: " + data);
         }
+    }
 
-        Pattern pattern = Pattern.compile(
-                "Player\\{name='(.*?)', surName='(.*?)', birthDay='(.*?)', motivation=(\\d+), anualSalary=(\\d+), back=(\\d+), position='(.*?)', cualityPoints=(\\d+)\\}"
-        );
-        Matcher matcher = pattern.matcher(data);
-
-        if (matcher.find()) {
-            String name = matcher.group(1);
-            String surName = matcher.group(2);
-            String birthDay = matcher.group(3);
-            String position = matcher.group(7);
-
-            if (name == null || name.isEmpty() || surName == null || surName.isEmpty() ||
-                    birthDay == null || birthDay.isEmpty() || position == null || position.isEmpty()) {
-                System.out.println("Error: Datos incompletos para el jugador: " + data);
-                return null;
-            }
-
-            return new Player(
-                    name,
-                    surName,
-                    birthDay,
-                    Integer.parseInt(matcher.group(4)),
-                    Integer.parseInt(matcher.group(5)),
-                    Integer.parseInt(matcher.group(6)),
-                    position,
-                    Integer.parseInt(matcher.group(8))
-            );
-        }
-        return null;
+    public static void printDuplicateError(Player p1) {
+        System.out.println("⚠️ Jugadores DUPLICADOS: " + p1.getName());
     }
 }

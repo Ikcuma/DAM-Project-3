@@ -38,8 +38,9 @@ public class Coach extends Person {
     }
 
     // Methods
-    public void train() {
-        Coach_controller.train(this);
+    public static void train(Coach coach) {
+        int newSalary = (int) (coach.getAnualSalary() * 1.05);
+        coach.setAnualSalary(newSalary);
     }
 
     public String toFileFormat() {
@@ -86,11 +87,48 @@ public class Coach extends Person {
         return null;
     }
 
-    public void printPersonData(Coach coach){
-        Coach_controller.printPersonData(coach);
+    public static Team findTeamByName(ArrayList<Team> teams, String teamName) {
+        for (Team team : teams) {
+            if (team.getName().equalsIgnoreCase(teamName)) {
+                return team;
+            }
+        }
+        return null;
     }
 
-    public static void dismissCoach(ArrayList<Team> teams, Scanner scanner){
-        Coach_controller.dismissCoach(teams, scanner);
+    public static Coach findCoachByNameInTeams(ArrayList<Team> teams, String coachName) {
+        for (Team team : teams) {
+            Coach coach = team.getCoach();
+            if (coach != null && coach.getName().equalsIgnoreCase(coachName)) {
+                return coach;
+            }
+        }
+        return null;
+    }
+
+    public static String dismissOrReplaceCoach(ArrayList<Team> teams, String teamName, int option, String newCoachName) {
+        Team teamToModify = findTeamByName(teams, teamName);
+        if (teamToModify == null) {
+            return "Team '" + teamName + "' not found.";
+        }
+
+        if (teamToModify.getCoach() == null) {
+            return "Team '" + teamName + "' doesn't have a coach to dismiss.";
+        }
+
+        if (option == 1) {
+            teamToModify.setCoach(null);
+            return "Coach has been dismissed from team '" + teamName + "'.";
+        } else if (option == 2) {
+            Coach newCoach = findCoachByNameInTeams(teams, newCoachName);
+            if (newCoach != null) {
+                teamToModify.setCoach(newCoach);
+                return "Coach of team '" + teamName + "' has been replaced with " + newCoach.getName();
+            } else {
+                return "Coach '" + newCoachName + "' not found in any team.";
+            }
+        } else {
+            return "Invalid option. Please choose 1 or 2.";
+        }
     }
 }
