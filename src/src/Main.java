@@ -599,4 +599,16 @@ public class Main {
         }
         return name.substring(0, 1).toUpperCase() + name.substring(1).toLowerCase();
     }
+
+    public static void verificarDuplicados(List<Player> jugadores) {
+        System.out.println("\n🔍 Verificando duplicados en la lista...");
+        jugadores.sort(new Player.PlayerEqualityChecker());
+        Set<Player> jugadoresUnicos = new HashSet<>(jugadores);
+        if (jugadoresUnicos.size() < jugadores.size()) {
+            System.out.println("❌ ¡Se encontraron " + (jugadores.size() - jugadoresUnicos.size())
+                    + " jugadores duplicados!");
+        } else {
+            System.out.println("✅ No hay jugadores duplicados.");
+        }
+    }
 }

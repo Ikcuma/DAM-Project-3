@@ -3,9 +3,13 @@ package football_manager.modulos;
 
 import football_manager.controladores.Player_controller;
 
+import java.util.Comparator;
+import java.util.Objects;
 import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import static football_manager.controladores.Player_controller.printDuplicateError;
 
 
 public class Player extends Person {
@@ -92,5 +96,16 @@ public class Player extends Person {
                 ", motivation=" + motivation +
                 ", anualSalary=" + anualSalary +
                 '}';
+    }
+
+    public static class PlayerEqualityChecker implements Comparator<Player> {
+        @Override
+        public int compare(Player p1, Player p2) {
+            if (p1.equals(p2)) {
+                printDuplicateError(p1);
+                return 0;
+            }
+            return p1.getName().compareTo(p2.getName());
+        }
     }
 }

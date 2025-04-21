@@ -74,4 +74,8 @@ public class Player_controller {
         }
         return null;
     }
+
+    public static void printDuplicateError(Player p1) {
+        System.out.println("⚠️ Jugadores DUPLICADOS: " + p1.getName());
+    }
 }
