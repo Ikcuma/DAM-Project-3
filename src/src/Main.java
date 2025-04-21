@@ -1,7 +1,8 @@
 
 
 // me da pereza trabajar
-import football_manager.*;
+
+import football_manager.modulos.*;
 
 import java.io.*;
 import java.util.*;
@@ -10,6 +11,7 @@ import java.util.regex.Pattern;
 
 public class Main {
     private static League currentLeague = null;
+
     public static void main(String[] args) {
         //Variables
         Scanner sc = new Scanner(System.in);
@@ -30,7 +32,7 @@ public class Main {
         }
         //Menu
 
-        chooseOptionMenu1(teams, hashMapPeople, peopleList,sc);
+        chooseOptionMenu1(teams, hashMapPeople, peopleList, sc);
         //Guardar Info
 
         try {
@@ -65,6 +67,7 @@ public class Main {
             }
         } while (!exit);
     }
+
     private static void manageLeagueMenu(ArrayList<Team> teams, Scanner sc) {
         if (currentLeague == null) {
             System.out.println("No active league. Would you like to create one? (yes/no)");
@@ -109,6 +112,7 @@ public class Main {
             }
         } while (!exit);
     }
+
     private static void viewLeagueStandings() {
         if (currentLeague == null) {
             System.out.println("No active league. Please create a new league first.");
@@ -130,9 +134,10 @@ public class Main {
         System.out.println("======================");
         System.out.print("Choose an option: ");
     }
+
     private static void conductTrainingSession(HashMap<String, Person> hashPersons, ArrayList<Person> listPersons) {
-        for (Person p : listPersons){
-            if(p instanceof Coach){
+        for (Person p : listPersons) {
+            if (p instanceof Coach) {
                 p.train();
                 hashPersons.put(p.getName(), p);
             } else if (p instanceof Player) {
@@ -142,7 +147,7 @@ public class Main {
         }
     }
 
-    private static void manageTeamMenu(ArrayList<Team> teams,ArrayList<Person> people, Scanner sc) {
+    private static void manageTeamMenu(ArrayList<Team> teams, ArrayList<Person> people, Scanner sc) {
         Boolean exit = false;
         do {
             printManageTeam();
@@ -153,15 +158,15 @@ public class Main {
                 case 1 -> Team.deregisterTeam(teams, sc);
                 case 2 -> Person.modifyPresident(teams, sc);
                 case 3 -> Coach.dismissCoach(teams, sc);
-                case 4 -> addPersonToTeam(teams,people, sc);
+                case 4 -> addPersonToTeam(teams, people, sc);
                 default -> System.out.println("❌ Invalid option. Please try again.");
             }
-        }while(!exit);
+        } while (!exit);
         //chooseOptionMenu1(new ArrayList<>(),new HashMap<>(), new ArrayList<>());
     }
 
 
-    private static void viewTeamDataMenu(ArrayList<Team> teams,Scanner sc) {
+    private static void viewTeamDataMenu(ArrayList<Team> teams, Scanner sc) {
         System.out.println("\n📊 View Team Data 📊");
         System.out.println("===================");
         System.out.println("Enter the name of the team you want to check:");
@@ -169,27 +174,30 @@ public class Main {
         input = capitalizeFirstLetterNames(input);
         printTeamData(input, teams);
     }
+
     // Comprobar que se lee bien las classes
     private static void viewPersonDataMenu(HashMap<String, Person> hashPersons, Scanner sc) {
         System.out.println("\n👤 View Person Data 👤");
         System.out.println("=====================");
         System.out.println("Enter 'Player' or 'Coach' to view their data:");
         String option = capitalizeFirstLetterNames(sc.nextLine());
-        System.out.println("What is the name of the"+option+"you want to check?");
+        System.out.println("What is the name of the" + option + "you want to check?");
         String optionName = capitalizeFirstLetterNames(sc.nextLine());
         Person person = hashPersons.get(optionName);
         if (person instanceof Player) {
-            person.printPersonData();
+            Player player = (Player) person;
+            player.printPersonData(player);
         } else if (person instanceof Coach) {
-            person.printPersonData();
-        }else {
+            Coach coach = (Coach) person;
+            coach.printPersonData(coach);
+        } else {
             System.out.println("❌ Invalid option. Please choose between Player or Coach.");
         }
     }
 
-    private static void manageMarketMenu(ArrayList<Team> listTeam, ArrayList<Person> listPersons, HashMap<String, Person> hashPersons,Scanner sc) {
+    private static void manageMarketMenu(ArrayList<Team> listTeam, ArrayList<Person> listPersons, HashMap<String, Person> hashPersons, Scanner sc) {
         Boolean exit = false;
-        do{
+        do {
             printTraining();
             int option = sc.nextInt();
             sc.nextLine();
@@ -199,7 +207,7 @@ public class Main {
                 case 2 -> conductTrainingSession(hashPersons, listPersons);
                 default -> System.out.println("❌ Invalid option. Please try again.");
             }
-        }while(!exit);
+        } while (!exit);
         //chooseOptionMenu1(listTeam, hashPersons, listPersons);
     }
 
@@ -207,20 +215,22 @@ public class Main {
         Scanner sc = new Scanner(System.in);
 
 
+        System.out.println("Enter the name of the team from which you want to transfer:");
+        String fromTeamName = sc.nextLine();
 
-            System.out.println("Enter the name of the team from which you want to transfer:");
-            String fromTeamName = sc.nextLine();
-
-            Team fromTeam = findTeam(teams, fromTeamName);
-            if(isNull(fromTeam)==true){return;}
-
+        Team fromTeam = findTeam(teams, fromTeamName);
+        if (isNull(fromTeam) == true) {
+            return;
+        }
 
 
-            System.out.println("Enter the name of the team to which you want to transfer:");
-            String toTeamName = sc.nextLine();
+        System.out.println("Enter the name of the team to which you want to transfer:");
+        String toTeamName = sc.nextLine();
 
-            Team toTeam = findTeam(teams, toTeamName);
-            if(isNull(toTeam)==true){return;}
+        Team toTeam = findTeam(teams, toTeamName);
+        if (isNull(toTeam) == true) {
+            return;
+        }
 
 
         System.out.println("Are you transferring a player or a coach? (Enter 'player' or 'coach'):");
@@ -255,15 +265,17 @@ public class Main {
             System.out.println("No coach found in team '" + fromTeamName + "'.");
         }
     }
-    private static Boolean isNull(Team team){
+
+    private static Boolean isNull(Team team) {
         if (team == null) {
             System.out.println("Equipo no encontrado vuelve a escribir");
             return true;
         }
         return false;
     }
-    private static Boolean isNull(Person person){
-        if (person == null){
+
+    private static Boolean isNull(Person person) {
+        if (person == null) {
             return true;
         }
         return false;
@@ -277,13 +289,14 @@ public class Main {
         }
         return null;
     }
-    private static Person findPerson(ArrayList<Person> people, String name){
+
+    private static Person findPerson(ArrayList<Person> people, String name) {
         for (Person person : people) {
             if (person.getName().equalsIgnoreCase(name)) {
                 return person;
             }
         }
-        System.out.println(name+" not found.");
+        System.out.println(name + " not found.");
         return null;
     }
 
@@ -301,13 +314,13 @@ public class Main {
                 System.out.println("🎽 Players:");
                 for (Person person : team.getPlayers()) {
                     if (person instanceof Player player) {
-                            System.out.printf("   - %s %s | Position: %s | Quality: %d | Motivation: %d | Salary: %d%n",
-                                    player.getName(),
-                                    player.getSurName(),
-                                    player.getPosition(),
-                                    player.getCualityPoints(),
-                                    player.getMotivation(),
-                                    player.getAnualSalary());
+                        System.out.printf("   - %s %s | Position: %s | Quality: %d | Motivation: %d | Salary: %d%n",
+                                player.getName(),
+                                player.getSurName(),
+                                player.getPosition(),
+                                player.getCualityPoints(),
+                                player.getMotivation(),
+                                player.getAnualSalary());
                     }
                 }
 
@@ -367,7 +380,7 @@ public class Main {
         System.out.print("Choose an option: ");
     }
 
-    private static void loadListToFileTeam(ArrayList<Team> teams,String filePath) throws IOException {
+    private static void loadListToFileTeam(ArrayList<Team> teams, String filePath) throws IOException {
 
         try (BufferedWriter w = new BufferedWriter(new FileWriter(filePath))) {
             for (Team t : teams) {
@@ -441,8 +454,9 @@ public class Main {
             }
         }
     }
+
     public static void loadListToFileMarket(ArrayList<Person> peopleList, String filePath) throws IOException {
-        try(BufferedWriter w = new BufferedWriter(new FileWriter(filePath))){
+        try (BufferedWriter w = new BufferedWriter(new FileWriter(filePath))) {
             for (Person p : peopleList) {
                 w.write(p.toFileFormat());
                 w.newLine();
@@ -450,6 +464,7 @@ public class Main {
             System.out.println("✅ Team data saved successfully!");
         }
     }
+
     public static void loadFileToListTeam(ArrayList<Team> teams, String filePath) throws IOException {
         ArrayList<String> bruteTeamData = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
@@ -472,7 +487,7 @@ public class Main {
             String rest = parts[3];
 
 
-            Person coach = null;
+            Coach coach = null;
             String coachData = Coach.extractCoachData(rest);
             if (!coachData.equals("null") && !coachData.isEmpty()) {
                 coach = Coach.parse(coachData);
@@ -509,14 +524,15 @@ public class Main {
             }
         }
     }
-    private static void addPersonToTeam(ArrayList<Team> teams,ArrayList<Person> people, Scanner sc) {
+
+    private static void addPersonToTeam(ArrayList<Team> teams, ArrayList<Person> people, Scanner sc) {
         Boolean exit = false;
         String classChosed;
         System.out.println("What team would you like to choose?");
         String teamChosed = capitalizeFirstLetterNames(sc.nextLine());
 
-        Team team = findTeam(teams,teamChosed);
-        if (isNull(team) == true){
+        Team team = findTeam(teams, teamChosed);
+        if (isNull(team) == true) {
             System.out.println("team not found try again");
             return;
         }
@@ -525,19 +541,19 @@ public class Main {
             System.out.println("What would you like to choose to add to the team?(Owner | Player | Coach)");
             classChosed = capitalizeFirstLetterNames(sc.nextLine());
             exit = verifyIfClassisNull(team, classChosed);
-        } while(!exit);
+        } while (!exit);
 
 
-        System.out.println("What is the name of your "+classChosed+"?");
+        System.out.println("What is the name of your " + classChosed + "?");
         String name = capitalizeFirstLetterNames(sc.nextLine());
 
-        Person person = findPerson(people,name);
+        Person person = findPerson(people, name);
         if (classChosed.equals("Player") && isNull(team.getSpecificPlayer(name)) == false) {
             System.out.println("Player already exists try another one");
             return;
         }
 
-        if (person instanceof Coach){
+        if (person instanceof Coach) {
             Coach c = (Coach) person;
             team.setCoach(c);
             System.out.println("Coach added succesfully");
@@ -545,23 +561,31 @@ public class Main {
             Player p = (Player) person;
             team.addSpecificPlayer(p);
             System.out.println("Player added succesfully");
-        }else {
+        } else {
             team.setOwner(person);
             System.out.println("Owner added succesfully");
         }
     }
 
     private static Boolean verifyIfClassisNull(Team team, String classChosed) {
-        switch (classChosed){
-            case "Owner" -> {if(isNull(team.getOwner()) == false){
-                System.out.println("The team Already have a owner");
-                return false;
-            }return true;}
-            case "Player" -> {return true;}
-            case "Coach" ->{if(isNull(team.getCoach()) == false){
-                System.out.println("The team Aleready have a Coach");
-                return false;
-            }return true;}
+        switch (classChosed) {
+            case "Owner" -> {
+                if (isNull(team.getOwner()) == false) {
+                    System.out.println("The team Already have a owner");
+                    return false;
+                }
+                return true;
+            }
+            case "Player" -> {
+                return true;
+            }
+            case "Coach" -> {
+                if (isNull(team.getCoach()) == false) {
+                    System.out.println("The team Aleready have a Coach");
+                    return false;
+                }
+                return true;
+            }
             default -> {
                 System.out.println("Wrong input please try again");
                 return false;
@@ -576,4 +600,3 @@ public class Main {
         return name.substring(0, 1).toUpperCase() + name.substring(1).toLowerCase();
     }
 }
-

@@ -1,5 +1,5 @@
 
-package football_manager;
+package football_manager.modulos;
 
 import java.util.Random;
 
@@ -41,8 +41,6 @@ public class Match {
     }
 
     // Methods
-
-
     public void playMatch() {
         Random random = new Random();
 
@@ -75,7 +73,6 @@ public class Match {
         played = true;
     }
 
-
     private double calculateTeamQuality(Team team) {
         double quality = 0;
         int playerCount = 0;
@@ -103,7 +100,6 @@ public class Match {
 
         return quality;
     }
-
 
     public String getResult() {
         return String.format("%-20s %2d - %-2d %s",
