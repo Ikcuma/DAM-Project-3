@@ -1,3 +1,6 @@
+/**
+ * Controlador para gestionar operaciones generales de personas (jugadores, entrenadores, dueños).
+ */
 package football_manager.controladores;
 
 import football_manager.modulos.Coach;
@@ -8,6 +11,13 @@ import football_manager.modulos.Team;
 import java.util.*;
 
 public class Person_controller {
+    /**
+     * Crea una nueva persona según el tipo especificado (Jugador, Entrenador o Dueño).
+     *
+     * @param option Tipo de persona a crear ("Player", "Coach" o "Owner")
+     * @param hashPersons Mapa hash de personas existentes
+     * @param listPersons Lista de personas existentes
+     */
     public static void createNewPerson(String option, HashMap<String, Person> hashPersons, ArrayList<Person> listPersons) {
         Scanner scanner = new Scanner(System.in);
         Random random = new Random();
@@ -71,6 +81,13 @@ public class Person_controller {
             System.out.println("\u001B[31m❌ Error: Invalid option! Please choose 'Player', 'Coach', or 'Owner'.\u001B[0m");
         }
     }
+    /**
+     * Muestra el menú para crear una nueva persona.
+     *
+     * @param hashPersons Mapa hash de personas existentes
+     * @param peopleList Lista de personas existentes
+     * @param sc Scanner para entrada de usuario
+     */
 
     public static void createNewPersonMenu(HashMap<String, Person> hashPersons, ArrayList<Person> peopleList, Scanner sc) {
         System.out.println("\n\uD83D\uDC64 Register a New Person \uD83D\uDC64");
@@ -79,6 +96,12 @@ public class Person_controller {
         String optionPCO = capitalizeFirstLetterNames(sc.nextLine());
         createNewPerson(optionPCO, hashPersons, peopleList);
     }
+    /**
+     * Valida que la entrada del usuario sea un número entero.
+     *
+     * @param scanner Scanner para entrada de usuario
+     * @return El número entero validado
+     */
 
     public static int validateIntegerInput(Scanner scanner) {
         while (true) {
@@ -90,19 +113,43 @@ public class Person_controller {
             }
         }
     }
+    /**
+     * Verifica si un nombre ya existe en el mapa de personas.
+     *
+     * @param name Nombre a verificar
+     * @param persons Mapa hash de personas existentes
+     * @return true si el nombre ya existe, false en caso contrario
+     */
 
     public static boolean isNameDuplicate(String name, HashMap<String, Person> persons) {
         return persons.containsKey(name);
     }
-
+    /**
+     * Capitaliza la primera letra de un nombre y el resto en minúsculas.
+     *
+     * @param name Nombre a formatear
+     * @return Nombre con la primera letra en mayúscula y el resto en minúsculas
+     */
     public static String capitalizeFirstLetterNames(String name) {
         if (name == null || name.isEmpty()) return name;
         return name.substring(0, 1).toUpperCase() + name.substring(1).toLowerCase();
     }
+    /**
+     * Carga personas de una lista a un mapa hash.
+     *
+     * @param peopleHash Mapa hash destino
+     * @param peopleList Lista de personas origen
+     */
 
     public static void loadHashmaps(HashMap<String, Person> peopleHash, ArrayList<Person> peopleList) {
         peopleList.forEach(person -> peopleHash.put(person.getName(), person));
     }
+    /**
+     * Modifica el presidente/dueño de un equipo.
+     *
+     * @param teams Lista de equipos
+     * @param scanner Scanner para entrada de usuario
+     */
 
     public static void modifyPresident(ArrayList<Team> teams, Scanner scanner) {
         System.out.println("Enter the name of the team whose president you want to modify:");

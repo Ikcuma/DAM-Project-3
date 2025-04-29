@@ -1,3 +1,6 @@
+/**
+ * Controlador para gestionar las operaciones relacionadas con los entrenadores (Coaches).
+ */
 package football_manager.controladores;
 
 import football_manager.modulos.Coach;
@@ -8,6 +11,13 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Coach_controller {
+
+    /**
+     * Despide o reemplaza al entrenador de un equipo.
+     *
+     * @param teams Lista de equipos disponibles
+     * @param scanner Scanner para entrada de usuario
+     */
     public static void dismissCoach(ArrayList<Team> teams, Scanner scanner) {
         System.out.println("Enter the name of the team whose coach you want to dismiss:");
         String teamName = scanner.nextLine();
@@ -70,6 +80,11 @@ public class Coach_controller {
         }
     }
 
+    /**
+     * Imprime los datos de un entrenador en formato legible.
+     *
+     * @param coach Entrenador cuyos datos se mostrarán
+     */
     public static void printPersonData(Coach coach) {
         System.out.println("════════════════════════════════════════════");
         System.out.println("  Coach Information: " + coach.getName());
@@ -84,6 +99,11 @@ public class Coach_controller {
         System.out.println("════════════════════════════════════════════");
     }
 
+    /**
+     * Entrena a un entrenador, aumentando su salario anual en un 5%.
+     *
+     * @param coach Entrenador que será entrenado
+     */
     public static void train(Coach coach) {
         coach.setAnualSalary((int) (coach.getAnualSalary() * 1.05));
 
