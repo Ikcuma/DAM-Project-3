@@ -33,17 +33,6 @@ public class Player_controller {
         }
     }
 
-    public static void parseAndAddPlayer(String data, ArrayList<Player> players) {
-        Player parsedPlayer = Player.parse(data);
-
-        if (parsedPlayer != null) {
-            players.add(parsedPlayer);
-            System.out.println("✅ Jugador añadido correctamente: " + parsedPlayer.getName());
-        } else {
-            System.out.println("❌ Error al analizar los datos del jugador: " + data);
-        }
-    }
-
     public static void printDuplicateError(Player p1) {
         System.out.println("⚠️ Jugadores DUPLICADOS: " + p1.getName());
     }

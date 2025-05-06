@@ -153,47 +153,42 @@ public class League {
         return count;
     }
 
-    //createNewLeague
+
     public static int getTeamCount(ArrayList<Team> teams, Scanner scanner) {
         int teamCount;
         do {
-            // No hay prints aquí, solo la lógica
             teamCount = scanner.nextInt();
-            scanner.nextLine(); // consume newline
+            scanner.nextLine();
             if (teamCount % 2 != 0 || teamCount < 2 || teamCount > teams.size()) {
-                // Aquí solo se valida, sin interacción con el usuario
             }
         } while (teamCount % 2 != 0 || teamCount < 2 || teamCount > teams.size());
-
         return teamCount;
     }
 
-    // Lógica para asignar equipos a la liga
     public static void assignTeamsToLeague(League league, ArrayList<Team> teams, int teamCount, Scanner scanner) {
         for (int i = 0; i < teamCount; i++) {
-            // Aquí se encarga solo de la lógica, sin prints
             int teamNum = getTeamSelection(scanner, teams, league);
-            league.addTeam(teams.get(teamNum - 1));  // Añadir el equipo seleccionado a la liga
+            league.addTeam(teams.get(teamNum - 1));
         }
     }
 
-    // Lógica para obtener la selección de un equipo
+
     private static int getTeamSelection(Scanner scanner, ArrayList<Team> teams, League league) {
         int teamNum;
         do {
-            // Aquí solo se valida la selección, sin prints
             teamNum = scanner.nextInt();
-            scanner.nextLine(); // consume newline
+            scanner.nextLine();
 
             if (teamNum < 1 || teamNum > teams.size() || league.getTeams().contains(teams.get(teamNum - 1))) {
-                // Aquí solo se valida, sin interacción con el usuario
+
             }
         } while (teamNum < 1 || teamNum > teams.size() || league.getTeams().contains(teams.get(teamNum - 1)));
 
         return teamNum;
     }
 
-    // Lógica para ordenar los equipos según su clasificación
+
+
     public static void sortTeamsByStandings(League league) {
         league.getTeams().sort((t1, t2) -> {
             int pointsCompare = Integer.compare(league.getPoints(t2), league.getPoints(t1));
@@ -206,18 +201,13 @@ public class League {
         });
     }
 
-    // Lógica para mostrar las estadísticas de los equipos (sin imprimir, solo la lógica)
+
     public static void displayTeamStats(League league) {
         for (Team team : league.getTeams()) {
-            // Aquí no hay prints, solo la lógica de obtener la información
-            // El controlador se encarga de mostrarla
             int points = league.getPoints(team);
             int matchesPlayed = league.getMatchesPlayed(team);
             int goalsFor = league.getGoalsFor(team);
             int goalsAgainst = league.getGoalsAgainst(team);
-
-            // Aquí solo estamos preparando los datos para ser mostrados por el controlador
-            // Pero no estamos imprimiendo nada
         }
     }
 

@@ -87,6 +87,8 @@ public class Coach extends Person {
         return null;
     }
 
+
+
     public static Team findTeamByName(ArrayList<Team> teams, String teamName) {
         for (Team team : teams) {
             if (team.getName().equalsIgnoreCase(teamName)) {

@@ -141,7 +141,6 @@ public class Player extends Person {
                 '}';
     }
 
-    // equals() para comparar solo nombre y dorsal
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -150,7 +149,6 @@ public class Player extends Person {
         return back == player.back && Objects.equals(name, player.name);
     }
 
-    // hashCode() para generar un hashcode basado solo en nombre y dorsal
     @Override
     public int hashCode() {
         return Objects.hash(name, back);

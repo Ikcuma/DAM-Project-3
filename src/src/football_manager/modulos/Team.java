@@ -132,6 +132,7 @@ public class Team {
         return sb.toString();
     }
 
+
     public static boolean isCoach(Person person) {
         return person instanceof Coach;
     }
@@ -167,6 +168,7 @@ public class Team {
     public static Team createTeam(String name, String birthDate, String city, Coach coach, Person owner, List<Person> players) {
         return new Team(name, birthDate, city, coach, owner, players);
     }
+
 
     public static Team findTeamByName(ArrayList<Team> teams, String name) {
         for (Team team : teams) {

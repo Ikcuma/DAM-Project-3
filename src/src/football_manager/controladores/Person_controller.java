@@ -19,9 +19,9 @@ public class Person_controller {
         do {
             System.out.print("📛 Enter Name: ");
             personName = scanner.nextLine().trim();
-            personName = Person.capitalizeFirstLetterNames(personName);
+            personName = Person.capitalizeFirstLetterNames(personName); // Pone la primera letra en mayúscula y el resto en minúscula
 
-            if (Person.isNameDuplicate(personName, hashPersons)) {
+            if (Person.isNameDuplicate(personName, hashPersons)) { // Comprueba si ya existe alguien con ese nombre
                 System.out.println("🚨 Name already exists! Please enter a different one.");
             }
 
@@ -34,19 +34,19 @@ public class Person_controller {
         String birthday = scanner.nextLine();
 
         System.out.println("💰 Salary:");
-        int salary = Person.validateIntegerInput(scanner);
+        int salary = Person.validateIntegerInput(scanner); // Valida que se introduce un número entero
 
         Person newPerson = null;
 
         if (option.equalsIgnoreCase("Player")) {
             System.out.println("🎯 Back number:");
-            int back = Person.validateIntegerInput(scanner);
+            int back = Person.validateIntegerInput(scanner); // Valida que el dorsal sea un número entero
             scanner.nextLine(); // limpiar buffer
 
             System.out.println("⚽ Position (DAV, POR, DEF, MIG):");
             String position = scanner.nextLine().toUpperCase();
 
-            newPerson = Person.createPlayer(personName, personSurName, birthday, motivation, salary, back, position);
+            newPerson = Person.createPlayer(personName, personSurName, birthday, motivation, salary, back, position); // Crea un nuevo objeto Player
 
         } else if (option.equalsIgnoreCase("Coach")) {
             System.out.println("🏆 Victories:");
@@ -55,11 +55,11 @@ public class Person_controller {
 
             System.out.println("🌍 Selected for national team? (yes/no):");
             boolean nacional = scanner.nextLine().trim().equalsIgnoreCase("yes");
-
+            // Crea un nuevo objeto Coach
             newPerson = Person.createCoach(personName, personSurName, birthday, motivation, salary, victories, nacional);
 
         } else if (option.equalsIgnoreCase("Owner")) {
-            newPerson = Person.createOwner(personName, personSurName, birthday, motivation, salary);
+            newPerson = Person.createOwner(personName, personSurName, birthday, motivation, salary); // Crea un nuevo objeto Person
 
         } else {
             System.out.println("❌ Invalid option. Use 'Player', 'Coach' or 'Owner'.");
@@ -84,17 +84,17 @@ public class Person_controller {
         System.out.println("Enter the name of the team whose president you want to modify:");
         String teamName = scanner.nextLine(); // Entrada del usuario
 
-        // Llamada al módulo para buscar el equipo
+        // buscar el equipo
         Team teamToModify = Person.findTeamByName(teams, teamName);
 
         if (teamToModify != null) {
             System.out.println("Enter the name of the new president:");
             String newPresidentName = scanner.nextLine(); // Entrada del usuario
 
-            // Llamada al módulo para buscar el presidente
+            // buscar el presidente
             Person newPresident = Person.findPersonByName(teams, newPresidentName);
 
-            // Llamada al módulo para actualizar el presidente del equipo
+            // Actualizar el presidente del equipo
             if (newPresident != null && Person.updatePresident(teamToModify, newPresident)) {
                 System.out.println("President of team '" + teamName + "' has been updated to " + newPresident.getName());
             } else {

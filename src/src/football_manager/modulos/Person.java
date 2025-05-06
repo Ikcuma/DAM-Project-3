@@ -57,10 +57,6 @@ public class Person {
     public void train() {
     }
 
-    // No se que hace aqui
-    public void printPersonData() {
-    }
-
     public String toFileFormat() {
         return String.format("O;%s;%s;%s;%d;%d", name, surName, birthDay, motivation, anualSalary);
     }
@@ -116,18 +112,17 @@ public class Person {
         peopleList.forEach(person -> peopleHash.put(person.getName(), person));
     }
 
-    // Estos metodos son para el metodo modifypresident
-    // Método para buscar un equipo por nombre
+
     public static Team findTeamByName(ArrayList<Team> teams, String teamName) {
         for (Team team : teams) {
             if (team.getName().equalsIgnoreCase(teamName)) {
                 return team;
             }
         }
-        return null; // Retorna null si no encuentra el equipo
+        return null;
     }
 
-    // Método para buscar un presidente por nombre en una lista de equipos
+
     public static Person findPersonByName(ArrayList<Team> teams, String newPresidentName) {
         for (Team team : teams) {
             Person owner = team.getOwner();
@@ -135,25 +130,17 @@ public class Person {
                 return owner;
             }
         }
-        return null; // Retorna null si no encuentra el presidente
+        return null;
     }
 
-    // Método para actualizar el presidente de un equipo
+
     public static boolean updatePresident(Team team, Person newPresident) {
         if (team != null && newPresident != null) {
             team.setOwner(newPresident); // Actualiza el presidente del equipo
-            return true; // Retorna true si la actualización fue exitosa
+            return true;
         }
-        return false; // Retorna false si hubo un error
+        return false;
     }
-
-
-
-
-
-
-
-
 
     public static Person createPlayer(String name, String surname, String birthday, int motivation, int salary, int backNumber, String position) {
         Random random = new Random();
