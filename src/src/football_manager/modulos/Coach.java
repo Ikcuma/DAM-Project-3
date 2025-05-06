@@ -1,4 +1,7 @@
-
+/**
+ * Representa un entrenador de fútbol en el sistema.
+ * Extiende de la clase Person y añade características específicas de entrenadores.
+ */
 package football_manager.modulos;
 
 import football_manager.controladores.Coach_controller;
@@ -11,6 +14,19 @@ import java.util.regex.Pattern;
 public class Coach extends Person {
     private int victories;
     private boolean nacional;
+
+    /**
+     * Constructor para crear un nuevo entrenador.
+     *
+     * @param name Nombre del entrenador
+     * @param surName Apellido del entrenador
+     * @param birthDay Fecha de nacimiento (DD-MM-YYYY)
+     * @param motivation Nivel de motivación (1-10)
+     * @param anualSalary Salario anual
+     * @param victories Número de victorias
+     * @param nacional Si ha sido seleccionado para un equipo nacional
+     */
+
 
     // Constructors
     public Coach(String name, String surName, String birthDay, int motivation, int anualSalary, int victories, boolean nacional) {

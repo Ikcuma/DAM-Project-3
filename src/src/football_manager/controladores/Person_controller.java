@@ -1,3 +1,6 @@
+/**
+ * Controlador para gestionar operaciones generales de personas (jugadores, entrenadores, dueños).
+ */
 package football_manager.controladores;
 
 import football_manager.modulos.Coach;
@@ -7,70 +10,84 @@ import football_manager.modulos.Team;
 
 import java.util.*;
 
-import static football_manager.modulos.Person.capitalizeFirstLetterNames;
-import static football_manager.modulos.Person.isNameDuplicate;
-
 public class Person_controller {
+    /**
+     * Crea una nueva persona según el tipo especificado (Jugador, Entrenador o Dueño).
+     *
+     * @param option Tipo de persona a crear ("Player", "Coach" o "Owner")
+     * @param hashPersons Mapa hash de personas existentes
+     * @param listPersons Lista de personas existentes
+     */
     public static void createNewPerson(String option, HashMap<String, Person> hashPersons, ArrayList<Person> listPersons) {
         Scanner scanner = new Scanner(System.in);
+        Random random = new Random();
         int motivation = 5;
 
         String personName;
         do {
-            System.out.print("📛 Enter Name: ");
+            System.out.print("\u001B[34m\uD83D\uDCDB Enter Name: \u001B[0m");
             personName = scanner.nextLine().trim();
-            personName = Person.capitalizeFirstLetterNames(personName); // Pone la primera letra en mayúscula y el resto en minúscula
-
-            if (Person.isNameDuplicate(personName, hashPersons)) { // Comprueba si ya existe alguien con ese nombre
-                System.out.println("🚨 Name already exists! Please enter a different one.");
+            personName = capitalizeFirstLetterNames(personName);
+            if (isNameDuplicate(personName, hashPersons)) {
+                System.out.println("\u001B[31m\uD83D\uDEA8 Name already exists! Please enter a different one.\u001B[0m");
             }
+        } while (isNameDuplicate(personName, hashPersons));
 
-        } while (Person.isNameDuplicate(personName, hashPersons));
-
-        System.out.println("👨‍👩‍👧 Surname:");
+        System.out.println("\u001B[34m\uD83D\uDC68\u200D\uD83D\uDC69\u200D\uD83D\uDC67 Surname:\u001B[0m");
         String personSurName = scanner.nextLine();
 
-        System.out.println("🎂 Birthday (DD-MM-YYYY):");
+        System.out.println("\u001B[34m\uD83C\uDF82 Birthday (DD-MM-YYYY):\u001B[0m");
         String birthday = scanner.nextLine();
 
-        System.out.println("💰 Salary:");
-        int salary = Person.validateIntegerInput(scanner); // Valida que se introduce un número entero
-
-        Person newPerson = null;
+        System.out.println("\u001B[34m\uD83D\uDCB0 Salary:\u001B[0m");
+        int salary = validateIntegerInput(scanner);
 
         if (option.equalsIgnoreCase("Player")) {
-            System.out.println("🎯 Back number:");
-            int back = Person.validateIntegerInput(scanner); // Valida que el dorsal sea un número entero
-            scanner.nextLine(); // limpiar buffer
-
-            System.out.println("⚽ Position (DAV, POR, DEF, MIG):");
+            System.out.println("\u001B[34m\uD83C\uDFAF Back number:\u001B[0m");
+            int back = validateIntegerInput(scanner);
+            scanner.nextLine();
+            System.out.println("\u001B[34m⚽ Position (DAV, POR, DEF, MIG):\u001B[0m");
             String position = scanner.nextLine().toUpperCase();
 
-            newPerson = Person.createPlayer(personName, personSurName, birthday, motivation, salary, back, position); // Crea un nuevo objeto Player
+            int quality = random.nextInt(71) + 30;
+            Person newPlayer = new Player(personName, personSurName, birthday, motivation, salary, back, position, quality);
+
+            listPersons.add(newPlayer);
+            hashPersons.put(personName, newPlayer);
+
+            System.out.println("\u001B[32m✅ Player successfully added! ⚽\u001B[0m");
 
         } else if (option.equalsIgnoreCase("Coach")) {
-            System.out.println("🏆 Victories:");
-            int victories = Person.validateIntegerInput(scanner);
+            System.out.println("\u001B[34m\uD83C\uDFC6 Victories:\u001B[0m");
+            int victories = validateIntegerInput(scanner);
             scanner.nextLine();
-
-            System.out.println("🌍 Selected for national team? (yes/no):");
+            System.out.println("\u001B[34m\uD83C\uDF0D Have you been selected for a national team? (yes/no):\u001B[0m");
             boolean nacional = scanner.nextLine().trim().equalsIgnoreCase("yes");
-            // Crea un nuevo objeto Coach
-            newPerson = Person.createCoach(personName, personSurName, birthday, motivation, salary, victories, nacional);
+
+            Person newCoach = new Coach(personName, personSurName, birthday, motivation, salary, victories, nacional);
+
+            listPersons.add(newCoach);
+            hashPersons.put(personName, newCoach);
+
+            System.out.println("\u001B[32m✅ Coach successfully added! 🎓\u001B[0m");
 
         } else if (option.equalsIgnoreCase("Owner")) {
-            newPerson = Person.createOwner(personName, personSurName, birthday, motivation, salary); // Crea un nuevo objeto Person
+            Person newOwner = new Person(personName, personSurName, birthday, motivation, salary);
+            listPersons.add(newOwner);
+            hashPersons.put(personName, newOwner);
+            System.out.println("\u001B[32m✅ Owner successfully added! 🏢\u001B[0m");
 
         } else {
-            System.out.println("❌ Invalid option. Use 'Player', 'Coach' or 'Owner'.");
-            return;
+            System.out.println("\u001B[31m❌ Error: Invalid option! Please choose 'Player', 'Coach', or 'Owner'.\u001B[0m");
         }
-
-        listPersons.add(newPerson);
-        hashPersons.put(personName, newPerson);
-
-        System.out.println("✅ " + option + " successfully added!");
     }
+    /**
+     * Muestra el menú para crear una nueva persona.
+     *
+     * @param hashPersons Mapa hash de personas existentes
+     * @param peopleList Lista de personas existentes
+     * @param sc Scanner para entrada de usuario
+     */
 
     public static void createNewPersonMenu(HashMap<String, Person> hashPersons, ArrayList<Person> peopleList, Scanner sc) {
         System.out.println("\n\uD83D\uDC64 Register a New Person \uD83D\uDC64");
@@ -79,26 +96,90 @@ public class Person_controller {
         String optionPCO = capitalizeFirstLetterNames(sc.nextLine());
         createNewPerson(optionPCO, hashPersons, peopleList);
     }
+    /**
+     * Valida que la entrada del usuario sea un número entero.
+     *
+     * @param scanner Scanner para entrada de usuario
+     * @return El número entero validado
+     */
+
+    public static int validateIntegerInput(Scanner scanner) {
+        while (true) {
+            try {
+                return scanner.nextInt();
+            } catch (InputMismatchException e) {
+                System.out.println("\u001B[31m\uD83D\uDEA8 Invalid input! Please enter a valid number.\u001B[0m");
+                scanner.next();
+            }
+        }
+    }
+    /**
+     * Verifica si un nombre ya existe en el mapa de personas.
+     *
+     * @param name Nombre a verificar
+     * @param persons Mapa hash de personas existentes
+     * @return true si el nombre ya existe, false en caso contrario
+     */
+
+    public static boolean isNameDuplicate(String name, HashMap<String, Person> persons) {
+        return persons.containsKey(name);
+    }
+    /**
+     * Capitaliza la primera letra de un nombre y el resto en minúsculas.
+     *
+     * @param name Nombre a formatear
+     * @return Nombre con la primera letra en mayúscula y el resto en minúsculas
+     */
+    public static String capitalizeFirstLetterNames(String name) {
+        if (name == null || name.isEmpty()) return name;
+        return name.substring(0, 1).toUpperCase() + name.substring(1).toLowerCase();
+    }
+    /**
+     * Carga personas de una lista a un mapa hash.
+     *
+     * @param peopleHash Mapa hash destino
+     * @param peopleList Lista de personas origen
+     */
+
+    public static void loadHashmaps(HashMap<String, Person> peopleHash, ArrayList<Person> peopleList) {
+        peopleList.forEach(person -> peopleHash.put(person.getName(), person));
+    }
+    /**
+     * Modifica el presidente/dueño de un equipo.
+     *
+     * @param teams Lista de equipos
+     * @param scanner Scanner para entrada de usuario
+     */
 
     public static void modifyPresident(ArrayList<Team> teams, Scanner scanner) {
         System.out.println("Enter the name of the team whose president you want to modify:");
-        String teamName = scanner.nextLine(); // Entrada del usuario
+        String teamName = scanner.nextLine();
 
-        // buscar el equipo
-        Team teamToModify = Person.findTeamByName(teams, teamName);
+        Team teamToModify = null;
+        for (Team team : teams) {
+            if (team.getName().equalsIgnoreCase(teamName)) {
+                teamToModify = team;
+                break;
+            }
+        }
 
         if (teamToModify != null) {
             System.out.println("Enter the name of the new president:");
-            String newPresidentName = scanner.nextLine(); // Entrada del usuario
+            String newPresidentName = scanner.nextLine();
 
-            // buscar el presidente
-            Person newPresident = Person.findPersonByName(teams, newPresidentName);
+            Person newPresident = teamToModify.getOwner();
+            for (Person owner : teams.stream().map(Team::getOwner).toList()) {
+                if (owner.getName().equalsIgnoreCase(newPresidentName)) {
+                    newPresident = owner;
+                    break;
+                }
+            }
 
-            // Actualizar el presidente del equipo
-            if (newPresident != null && Person.updatePresident(teamToModify, newPresident)) {
+            if (newPresident != null) {
+                teamToModify.setOwner(newPresident);
                 System.out.println("President of team '" + teamName + "' has been updated to " + newPresident.getName());
             } else {
-                System.out.println("President '" + newPresidentName + "' not found or update failed.");
+                System.out.println("President '" + newPresidentName + "' not found.");
             }
         } else {
             System.out.println("Team '" + teamName + "' not found.");

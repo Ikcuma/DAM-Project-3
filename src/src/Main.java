@@ -2,7 +2,6 @@
 
 // me da pereza trabajar
 
-import football_manager.controladores.*;
 import football_manager.modulos.*;
 
 import java.io.*;
@@ -57,8 +56,8 @@ public class Main {
                 case 0 -> exit = true;
                 case 1 -> viewLeagueStandings();
                 case 2 -> manageTeamMenu(teams, peopleList, sc);
-                case 3 -> Team_controller.registerTeam(hashMapPeople, teams, sc);
-                case 4 -> Person_controller.createNewPersonMenu(hashMapPeople, peopleList, sc);
+                case 3 -> Team.registerTeam(hashMapPeople, teams, sc);
+                case 4 -> Person.createNewPersonMenu(hashMapPeople, peopleList, sc);
                 case 5 -> viewTeamDataMenu(teams, sc);
                 case 6 -> viewPersonDataMenu(hashMapPeople, sc);
                 case 7 -> manageLeagueMenu(teams, sc);
@@ -74,7 +73,7 @@ public class Main {
             System.out.println("No active league. Would you like to create one? (yes/no)");
             String response = sc.nextLine().trim().toLowerCase();
             if (response.equals("yes")) {
-                currentLeague = League_controller.createNewLeague(teams, sc);
+                currentLeague = League.createNewLeague(teams, sc);
             } else {
                 return;
             }
@@ -88,13 +87,13 @@ public class Main {
 
             switch (option) {
                 case 0 -> exit = true;
-                case 1 -> League_controller.showStandings(currentLeague);
+                case 1 -> currentLeague.showStandings();
                 case 2 -> {
                     currentLeague.playAllMatches();
                     System.out.println("All matches have been played!");
                 }
-                case 3 -> League_controller.showAllMatches(currentLeague);
-                case 4 -> League_controller.showMatchResults(currentLeague);
+                case 3 -> currentLeague.showAllMatches();
+                case 4 -> currentLeague.showMatchResults();
                 case 5 -> {
                     Team topScorer = currentLeague.getTeamWithMostGoalsFor();
                     System.out.println("Top scoring team: " + topScorer.getName() +
@@ -106,7 +105,7 @@ public class Main {
                             " with " + currentLeague.getGoalsAgainst(worstDefense) + " goals");
                 }
                 case 7 -> {
-                    currentLeague = League_controller.createNewLeague(teams, sc);
+                    currentLeague = League.createNewLeague(teams, sc);
                     System.out.println("New league created!");
                 }
                 default -> System.out.println("❌ Invalid option. Please try again.");
@@ -119,7 +118,7 @@ public class Main {
             System.out.println("No active league. Please create a new league first.");
             return;
         }
-        League_controller.showStandings(currentLeague);
+        currentLeague.showStandings();
     }
 
     private static void printLeagueMenu() {
@@ -156,9 +155,9 @@ public class Main {
             sc.nextLine();
             switch (option) {
                 case 0 -> exit = true;
-                case 1 -> Team_controller.deregisterTeam(teams, sc);
-                case 2 -> Person_controller.modifyPresident(teams, sc);
-                case 3 -> Coach_controller.dismissCoach(teams, sc);
+                case 1 -> Team.deregisterTeam(teams, sc);
+                case 2 -> Person.modifyPresident(teams, sc);
+                case 3 -> Coach.dismissCoach(teams, sc);
                 case 4 -> addPersonToTeam(teams, people, sc);
                 default -> System.out.println("❌ Invalid option. Please try again.");
             }
@@ -187,10 +186,10 @@ public class Main {
         Person person = hashPersons.get(optionName);
         if (person instanceof Player) {
             Player player = (Player) person;
-            Player_controller.printPersonData(player);
+            player.printPersonData(player);
         } else if (person instanceof Coach) {
             Coach coach = (Coach) person;
-            Coach_controller.printPersonData(coach);
+            coach.printPersonData(coach);
         } else {
             System.out.println("❌ Invalid option. Please choose between Player or Coach.");
         }
@@ -601,4 +600,15 @@ public class Main {
         return name.substring(0, 1).toUpperCase() + name.substring(1).toLowerCase();
     }
 
+    public static void verificarDuplicados(List<Player> jugadores) {
+        System.out.println("\n🔍 Verificando duplicados en la lista...");
+        jugadores.sort(new Player.PlayerEqualityChecker());
+        Set<Player> jugadoresUnicos = new HashSet<>(jugadores);
+        if (jugadoresUnicos.size() < jugadores.size()) {
+            System.out.println("❌ ¡Se encontraron " + (jugadores.size() - jugadoresUnicos.size())
+                    + " jugadores duplicados!");
+        } else {
+            System.out.println("✅ No hay jugadores duplicados.");
+        }
+    }
 }

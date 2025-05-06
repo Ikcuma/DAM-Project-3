@@ -1,3 +1,7 @@
+/**
+ * Controlador para gestionar operaciones relacionadas con equipos.
+ */
+
 package football_manager.controladores;
 
 import football_manager.modulos.Coach;
@@ -12,6 +16,13 @@ import java.util.Scanner;
 import static football_manager.modulos.Person.capitalizeFirstLetterNames;
 
 public class Team_controller {
+    /**
+     * Registra un nuevo equipo con datos ingresados por el usuario.
+     *
+     * @param hashMapPeople Mapa hash de personas disponibles
+     * @param teams Lista de equipos existentes
+     * @param sc Scanner para entrada de usuario
+     */
     public static void registerTeam(HashMap<String, Person> hashMapPeople, ArrayList<Team> teams, Scanner sc) {
         System.out.println("What would be the name of the team?");
         String teamName = Team.capitalizeFirstLetterNames(sc.nextLine()); // Pone en mayúsula la primera letra
@@ -61,7 +72,12 @@ public class Team_controller {
         teams.add(newTeam);
         System.out.println("✅ Team registered and saved to file successfully!");
     }
-
+    /**
+     * Elimina un equipo de la lista de equipos registrados.
+     *
+     * @param teams Lista de equipos existentes
+     * @param scanner Scanner para entrada de usuario
+     */
     public static void deregisterTeam(ArrayList<Team> teams, Scanner scanner) {
         System.out.println("Enter the name of the team you want to deregister:");
         String teamName = scanner.nextLine();
